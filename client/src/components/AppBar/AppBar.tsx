@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 const pages = [
   { name: "Accueil", url: "/" },
-  { name: "Magasin", url: "/shops" },
+  { name: "Magasins", url: "/shops" },
   { name: "Statistiques", url: "/statistics" },
 ];
 const settings = ["Profile", "Logout"];
