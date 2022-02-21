@@ -1,21 +1,27 @@
+import { CssBaseline } from "@mui/material";
+import AppBar from "components/AppBar/AppBar";
+import Home from "pages/Home/Home";
+import Shops from "pages/Shops/Shops";
+import Signin from "pages/Signin/Signin";
+import Signup from "pages/Signup/Signup";
+import Statistics from "pages/Statistics/Statistics";
 import React from "react";
-import logo from "./logo.svg";
-import "./App.scss";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <CssBaseline />
+      <BrowserRouter>
+        <AppBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/shops" element={<Shops />} />
+          <Route path="/statistics" element={<Statistics />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
-
-export default App;
