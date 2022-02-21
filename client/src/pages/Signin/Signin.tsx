@@ -1,5 +1,10 @@
+import { Container, Typography } from "@mui/material";
 import React from "react";
 
 export default function Signin() {
-  return <div>Signin</div>;
+  return (
+    <Container component="main">
+      <Typography>Signin</Typography>
+    </Container>
+  );
 }
