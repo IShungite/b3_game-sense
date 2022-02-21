@@ -15,7 +15,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "plugins": [{ "transform": "typescript-is/lib/transform-inline/transformer" }]
   },
   "include": ["src"]
 }
