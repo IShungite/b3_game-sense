@@ -1,15 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
+import { Shop } from './schemas/shop.schema';
 
 @Injectable()
 export class ShopsService {
-  create(createShopDto: CreateShopDto) {
-    return 'This action adds a new shop';
-  }
+  constructor(@InjectModel(Shop.name) private readonly shopModel: Model<Shop>) {}
+  
+  async create(createShopDto: CreateShopDto): Promise<Shop> {
+    const shopExist = await this.shopModel.findOne({
+      name: createShopDto.name,
+    });
 
-  findAll() {
-    return `This action returns all shops`;
+  if(shopExist) throw new ConflictException("Shop already exist.");
+
+  const createdShop = new this.shopModel({
+    ...CreateShopDto,
+  });
+
+  return createdShop.save();
   }
 
   findOne(id: number) {

@@ -1,1 +1,3 @@
-export class CreateShopDto {}
+export class CreateShopDto {
+    name: string;
+}

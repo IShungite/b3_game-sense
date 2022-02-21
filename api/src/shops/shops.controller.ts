@@ -12,11 +12,6 @@ export class ShopsController {
     return this.shopsService.create(createShopDto);
   }
 
-  @Get()
-  findAll() {
-    return this.shopsService.findAll();
-  }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.shopsService.findOne(+id);
