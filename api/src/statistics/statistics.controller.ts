@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { StatisticsService } from './statistics.service';
 import { CreateStatisticDto } from './dto/create-statistic.dto';
 import { UpdateStatisticDto } from './dto/update-statistic.dto';
+import { get } from 'http';
 
 @Controller('statistics')
 export class StatisticsController {
@@ -31,4 +32,5 @@ export class StatisticsController {
   remove(@Param('id') id: string) {
     return this.statisticsService.remove(+id);
   }
+
 }
