@@ -1,10 +1,10 @@
 import { Container, Typography } from "@mui/material";
 import React from "react";
 
-export default function Home() {
+export default function Statistics() {
   return (
     <Container component="main">
-      <Typography>Home</Typography>
+      <Typography>Statistics</Typography>
     </Container>
   );
 }
