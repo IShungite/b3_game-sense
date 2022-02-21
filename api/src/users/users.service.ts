@@ -14,7 +14,7 @@ export class UsersService {
       email: createUserDto.email,
     });
 
-    if (userExist) throw new ConflictException("User already exist");
+    if (userExist) throw new ConflictException("User already exists");
 
     const createdUser = new this.userModel({
       ...createUserDto,
