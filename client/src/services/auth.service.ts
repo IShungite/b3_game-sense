@@ -13,6 +13,7 @@ const login = async (formData: LoginData) => {
 
 const logout = () => {
   localStorage.removeItem("user");
+  return undefined;
 };
 
 export default {

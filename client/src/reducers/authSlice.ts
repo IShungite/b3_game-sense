@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { LoginData, User } from "models/auth";
 import authService from "services/auth.service";
@@ -40,8 +40,8 @@ const authSlice = createSlice({
   name: "auth",
   initialState: initialAuthState,
   reducers: {
-    logout: (state) => {
-      state.user = undefined;
+    logout: (state, { payload }: PayloadAction<undefined>) => {
+      state.user = payload;
     },
   },
   extraReducers: (builder) => {

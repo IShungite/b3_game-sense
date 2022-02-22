@@ -13,16 +13,17 @@ import {
   Typography,
 } from "@mui/material";
 import { RouteUrls } from "config";
-import { useAppSelector } from "hooks";
+import { useAppDispatch, useAppSelector } from "hooks";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { logout } from "reducers/authSlice";
+import authService from "services/auth.service";
 
 const pages = [
   { name: "Accueil", url: RouteUrls.Home },
   { name: "Magasins", url: RouteUrls.Shops },
   { name: "Statistiques", url: RouteUrls.Statistics },
 ];
-const settings = ["Profile", "Logout"];
 
 export default function AppBar() {
   const navigate = useNavigate();
@@ -30,6 +31,23 @@ export default function AppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const { user } = useAppSelector((state) => state.auth);
+
+  const dispatch = useAppDispatch();
+
+  const settings = [
+    {
+      name: "Profile",
+      callback: () => {
+        console.log("Profile");
+      },
+    },
+    {
+      name: "Logout",
+      callback: () => {
+        dispatch(logout(authService.logout()));
+      },
+    },
+  ];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -46,8 +64,10 @@ export default function AppBar() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (callback?: () => void) => {
     setAnchorElUser(null);
+
+    if (callback) callback();
   };
 
   return (
@@ -130,11 +150,11 @@ export default function AppBar() {
                   horizontal: "right",
                 }}
                 open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+                onClose={() => handleCloseUserMenu()}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                  <MenuItem key={setting.name} onClick={() => handleCloseUserMenu(setting.callback)}>
+                    <Typography textAlign="center">{setting.name}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
