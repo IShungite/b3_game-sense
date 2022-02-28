@@ -3,7 +3,7 @@ import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthStatus, login } from "reducers/authSlice";
+import { AuthStatus, clearState, login } from "reducers/authSlice";
 
 export default function Login() {
   const dispatch = useAppDispatch();
@@ -11,13 +11,21 @@ export default function Login() {
 
   const { user, status, errorMessage } = useAppSelector((state) => state.auth);
 
+  // Clear Auth state when component is unmounted
   useEffect(() => {
-    if (user) navigate(RouteUrls.Home);
-  }, [user, navigate]);
+    dispatch(clearState());
+  }, [dispatch]);
+
+  // Redirect the user if he is already logged in
+  useEffect(() => {
+    if (user) {
+      navigate(RouteUrls.Home);
+    }
+  }, [user, navigate, dispatch]);
 
   const onSubmit = () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    dispatch(login({ email: "test@gmail.com", password: "insanePassword" }));
+    dispatch(login({ email: "test@gmaial.com", password: "insanePassword" }));
   };
 
   return (

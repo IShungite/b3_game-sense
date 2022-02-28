@@ -1,7 +1,9 @@
 import { LoginData, RegisterData } from "models/auth";
 import api from "../api";
 
-const register = async (formData: RegisterData) => api.register(formData);
+const register = async (formData: RegisterData) => {
+  await api.register(formData);
+};
 
 const login = async (formData: LoginData) => {
   const user = (await api.login(formData)).data;

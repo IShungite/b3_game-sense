@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
-import { LoginData, User } from "models/auth";
+import { LoginData, RegisterData, User } from "models/auth";
 import authService from "services/auth.service";
 import { getErrorMessage } from "utils";
 
@@ -30,8 +30,23 @@ export const login = createAsyncThunk<User, LoginData, { rejectValue: string }>(
       const user = await authService.login(formData);
       return user;
     } catch (err) {
-      const errors = err as Error | AxiosError;
-      return thunkAPI.rejectWithValue(getErrorMessage(errors));
+      const error = err as Error | AxiosError;
+      return thunkAPI.rejectWithValue(getErrorMessage(error));
+    }
+  },
+);
+
+export const register = createAsyncThunk<undefined, RegisterData, { rejectValue: string }>(
+  "auth/register",
+  async (formData: RegisterData, thunkAPI) => {
+    try {
+      await authService.register(formData);
+
+      return undefined;
+    } catch (err) {
+      const error = err as Error | AxiosError;
+
+      return thunkAPI.rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -42,6 +57,10 @@ const authSlice = createSlice({
   reducers: {
     logout: (state, { payload }: PayloadAction<undefined>) => {
       state.user = payload;
+    },
+    clearState: (state) => {
+      state.errorMessage = "";
+      state.status = AuthStatus.None;
     },
   },
   extraReducers: (builder) => {
@@ -57,9 +76,20 @@ const authSlice = createSlice({
         state.status = AuthStatus.Error;
 
         state.errorMessage = payload || "";
+      })
+      .addCase(register.pending, (state) => {
+        state.status = AuthStatus.Loading;
+      })
+      .addCase(register.fulfilled, (state) => {
+        state.status = AuthStatus.Finished;
+      })
+      .addCase(register.rejected, (state, { payload }) => {
+        state.status = AuthStatus.Error;
+
+        state.errorMessage = payload || "";
       });
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, clearState } = authSlice.actions;
 export default authSlice.reducer;
