@@ -5,6 +5,8 @@ export interface LoginData {
 
 export interface RegisterData {
   email: string;
+  first_name: string;
+  last_name: string;
   password: string;
 }
 

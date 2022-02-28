@@ -21,6 +21,12 @@
         "props": true,
         "ignorePropertyModificationsFor": ["state", "req"]
       }
+    ],
+    "react/jsx-props-no-spreading": [
+      "error",
+      {
+        "exceptions": ["TextField"]
+      }
     ]
   },
 

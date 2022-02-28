@@ -19,10 +19,14 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "reducers/authSlice";
 import authService from "services/auth.service";
 
-const pages = [
+const pagesLeft = [
   { name: "Accueil", url: RouteUrls.Home },
   { name: "Magasins", url: RouteUrls.Shops },
   { name: "Statistiques", url: RouteUrls.Statistics },
+];
+const pagesRight = [
+  { name: "Connexion", url: RouteUrls.Login },
+  { name: "Inscription", url: RouteUrls.Register },
 ];
 
 export default function AppBar() {
@@ -74,6 +78,7 @@ export default function AppBar() {
     <MuiAppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* Normal screen */}
           <Typography variant="h6" noWrap component="div" sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
             Game-Sense
           </Typography>
@@ -107,18 +112,19 @@ export default function AppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
+              {pagesLeft.map((page) => (
                 <MenuItem key={page.name} onClick={() => handleClickNavItem(page.url)}>
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
+          {/* Small Screen screen */}
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             Game-Sense
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {pagesLeft.map((page) => (
               <Button
                 key={page.name}
                 onClick={() => handleClickNavItem(page.url)}
@@ -128,6 +134,7 @@ export default function AppBar() {
               </Button>
             ))}
           </Box>
+          {/* Small Screen screen End */}
 
           {user ? (
             <Box sx={{ flexGrow: 0 }}>
@@ -160,13 +167,19 @@ export default function AppBar() {
               </Menu>
             </Box>
           ) : (
-            <Button
-              key="login_btn"
-              onClick={() => handleClickNavItem(RouteUrls.Login)}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              Login
-            </Button>
+            <>
+              {pagesRight.map((page) => (
+                <Button
+                  key={page.name}
+                  onClick={() => handleClickNavItem(page.url)}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  <Typography textAlign="center" fontSize="default">
+                    {page.name}
+                  </Typography>
+                </Button>
+              ))}
+            </>
           )}
         </Toolbar>
       </Container>

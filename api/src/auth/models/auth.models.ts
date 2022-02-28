@@ -6,3 +6,8 @@ export interface IAuthPayload {
   email: string;
   sub: string;
 }
+
+export interface IAuthLoginResponse {
+  id: string;
+  access_token: string;
+}
