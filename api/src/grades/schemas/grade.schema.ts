@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, ObjectId, SchemaTypes } from "mongoose";
+import { Subject } from "rxjs";
 import { Character } from "src/characters/schemas/character.schema";
 
 export type GradeDocument = Grade & Document;
@@ -16,7 +17,10 @@ export class Grade {
   @Prop({type: Number, required: true})
   grade : Number;
 
-  
+  @Prop({type: SchemaTypes.ObjectId, ref: 'Subject'})
+  subject_id : Subject;
+
+  // TODO CreatedAt : date
   
 }
 
