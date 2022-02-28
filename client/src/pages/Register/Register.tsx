@@ -36,12 +36,19 @@ export default function Login() {
     };
   }, [dispatch]);
 
-  // Redirect the user if he is already logged in
+  // Redirect the user after registration
   useEffect(() => {
     if (status === AuthStatus.Finished) {
       navigate(RouteUrls.Login);
     }
   }, [status, navigate]);
+
+  // Redirect the user if he is already logged in
+  useEffect(() => {
+    if (user) {
+      navigate(RouteUrls.Home);
+    }
+  }, [user, navigate]);
 
   const onSubmit = (data: RegisterData) => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
