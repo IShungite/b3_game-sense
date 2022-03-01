@@ -41,7 +41,6 @@ export const register = createAsyncThunk<undefined, RegisterData, { rejectValue:
   async (formData: RegisterData, thunkAPI) => {
     try {
       await authService.register(formData);
-
       return undefined;
     } catch (err) {
       const error = err as Error | AxiosError;

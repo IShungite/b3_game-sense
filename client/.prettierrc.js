@@ -13,6 +13,24 @@ module.exports = {
   // https://github.com/prettier/prettier/issues/9369
   trailingComma: "all",
 
-  //Maximum number of columns before the automatic line break
+  // The line length where Prettier will try wrap.
   printWidth: 120,
+
+  // Number of spaces per indentation level.
+  tabWith: 2,
+
+  // Indent with tabs instead of spaces.
+  useTabs: false,
+
+  // Line Feed only (\n), common on Linux and macOS as well as inside git repos
+  endOfLine: "lf",
+
+  // Format embedded code if Prettier can automatically identify it.
+  embeddedLanguageFormatting: "auto",
+
+  // Only add quotes around object properties where required.
+  quoteProps: "as-needed",
+
+  // Use single quotes instead of double quotes.
+  singleQuote: false,
 };
