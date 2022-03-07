@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { GradesService } from './grades.service';
 import { CreateGradeDto } from './dto/create-grade.dto';
 import { UpdateGradeDto } from './dto/update-grade.dto';
+import { Grade } from './schemas/grade.schema';
 
 @Controller('grades')
 export class GradesController {
@@ -11,10 +12,20 @@ export class GradesController {
   create(@Body() createGradeDto: CreateGradeDto) {
     return this.gradesService.create(createGradeDto);
   }
+  @Get('getAll')
+  findAll(
+    @Query('promotion_id') promotion_id: string,
+    @Query('character_id') character_id: string,
+    @Query('subject_id') subject_id: string,
+    @Query('grade') grade: number
+    
+    
 
- 
+  ): Promise<Grade[]> {
+    return this.gradesService.findAll({promotion_id,character_id,subject_id,grade})
+  }
 
-  @Get(':id')
+  @Get('student_id/:id')
   findOne(@Param('id') id: string) {
     return this.gradesService.findAllbyStudentID(id);
   }

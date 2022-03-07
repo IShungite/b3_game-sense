@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { CreateGradeDto } from './dto/create-grade.dto';
 import { UpdateGradeDto } from './dto/update-grade.dto';
 import { Grade } from './schemas/grade.schema';
@@ -20,7 +20,16 @@ export class GradesService {
       
     }).exec();
   }
+  findAll(
+    findOptions?: FilterQuery<Grade>,
+    
 
+  ): Promise<Grade[]>{
+    Object.keys(findOptions).forEach(key => findOptions[key] === undefined && delete findOptions[key])
+    console.log({...findOptions})
+    return this.gradeModel.find({...findOptions}).exec();
+    
+  }
   findOne(id: number) {
     return `This action returns a #${id} grade`;
   }
