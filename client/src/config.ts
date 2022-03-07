@@ -8,4 +8,5 @@ export enum RouteUrls {
   Register = "/register",
   Shops = "/shops",
   Statistics = "/statistics",
+  CreateCharacter = "/create-character",
 }
