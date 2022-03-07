@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, ObjectId, SchemaTypes } from "mongoose";
-import { Subject } from "rxjs";
+
 import { Character } from "src/characters/schemas/character.schema";
+import { Subject } from "src/subjects/entities/subject.schema";
 
 export type GradeDocument = Grade & Document;
 
