@@ -17,12 +17,10 @@ export class Character {
   @Prop({ type: Number, required: true, unique: true })
   experience: number;
 
-  @Prop({ type: Number , required: true })
+  @Prop({ type: Number, required: true })
   gold: number;
 
   // TODO : add status
-
-
 }
 
 export const CharacterSchema = SchemaFactory.createForClass(Character);
