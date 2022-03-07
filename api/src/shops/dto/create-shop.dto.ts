@@ -1,3 +1,7 @@
+import { MaxLength, MinLength } from "class-validator";
+
 export class CreateShopDto {
-    name: string;
+    @MinLength(3)
+    @MaxLength(15)    
+    readonly name: string;
 }

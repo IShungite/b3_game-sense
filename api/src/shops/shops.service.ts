@@ -17,21 +17,26 @@ export class ShopsService {
   if(shopExist) throw new ConflictException("Shop already exist.");
 
   const createdShop = new this.shopModel({
-    ...CreateShopDto,
+    ...createShopDto,
   });
 
   return createdShop.save();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} shop`;
+  async findOne(id: string): Promise<Shop> {
+    return this.shopModel.findById(id).exec();
   }
 
-  update(id: number, updateShopDto: UpdateShopDto) {
-    return `This action updates a #${id} shop`;
+  async findAll(): Promise<Shop[]> {
+    return this.shopModel.find();
+  }
+  async update(id: string, updateShopDto: UpdateShopDto): Promise<Shop> {
+    return this.shopModel.findByIdAndUpdate(id, updateShopDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} shop`;
+  async remove(id: string): Promise<void> {
+    await this.shopModel.findByIdAndRemove(id);
   }
 }
