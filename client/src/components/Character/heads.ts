@@ -1,5 +1,5 @@
-import head1 from "../../assets/heads/head1.png";
-import head2 from "../../assets/heads/head2.png";
-import head3 from "../../assets/heads/head3.png";
+import head_fallen_angel from "../../assets/characters/heads/head_fallen_angel.png";
+import head_fallen_angel_2 from "../../assets/characters/heads/head_fallen_angel_2.png";
+import head_fallen_angel_3 from "../../assets/characters/heads/head_fallen_angel_3.png";
 
-export default [head1, head2, head3];
+export default [head_fallen_angel, head_fallen_angel_2, head_fallen_angel_3];
