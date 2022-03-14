@@ -9,24 +9,21 @@ export type GradeDocument = Grade & Document;
 
 @Schema()
 export class Grade {
-
   @Prop({ type: SchemaTypes.ObjectId, auto: true })
   _id: ObjectId;
 
-  @Prop({type: SchemaTypes.ObjectId , ref: 'Character'})
-  character_id : Character;
+  @Prop({ type: SchemaTypes.ObjectId, ref: "Character" })
+  character_id: Character;
 
-  @Prop({type: SchemaTypes.ObjectId, ref: 'Promotion'})
-  promotion_id : Promotion;
-  
-  @Prop({type: Number, required: true})
-  grade : Number;
+  @Prop({ type: SchemaTypes.ObjectId, ref: "Promotion" })
+  promotion_id: Promotion;
 
-  @Prop({type: SchemaTypes.ObjectId, ref: 'Subject'})
-  subject_id : Subject;
+  @Prop({ type: Number, required: true })
+  grade: number;
 
+  @Prop({ type: SchemaTypes.ObjectId, ref: "Subject" })
+  subject_id: Subject;
   // TODO CreatedAt : date
-  
 }
 
 export const GradeSchema = SchemaFactory.createForClass(Grade);
