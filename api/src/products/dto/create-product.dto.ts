@@ -1,13 +1,13 @@
 import { IsCurrency, MaxLength, MinLength } from "class-validator";
+import { ObjectId } from "mongoose";
 
 export class CreateProductDto {
-  readonly shop_id: number;
+  readonly shop_id: ObjectId;
 
   @MinLength(3)
   @MaxLength(30)
   readonly name: string;
 
-  @IsCurrency()
   readonly price: number;
 
   @MinLength(3)
