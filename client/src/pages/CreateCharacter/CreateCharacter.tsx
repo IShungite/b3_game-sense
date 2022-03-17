@@ -1,4 +1,4 @@
-import { Box, Container, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import Character, { CharacterConfig } from "components/Character/Character";
 import { IItem } from "models/items/item";
 import React, { useState } from "react";
@@ -23,55 +23,55 @@ export default function CreateCharacter() {
 
   const options = [
     {
-      name: "Head",
+      name: "Tête",
       items: freeItems.heads,
       onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, head: item }),
       state: useState(0),
     },
     {
-      name: "Face",
+      name: "Visage",
       items: freeItems.faces,
       onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, face: item }),
       state: useState(0),
     },
     {
-      name: "Body",
+      name: "Corps",
       items: freeItems.bodies,
       onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, body: item }),
       state: useState(0),
     },
     {
-      name: "Left Arm",
+      name: "Bras gauche",
       items: freeItems.leftArms,
       onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, leftArm: item }),
       state: useState(0),
     },
     {
-      name: "Left Hand",
+      name: "Main gauche",
       items: freeItems.leftHands,
       onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, leftHand: item }),
       state: useState(0),
     },
     {
-      name: "Right Arm",
+      name: "Bras droit",
       items: freeItems.rightArms,
       onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, rightArm: item }),
       state: useState(0),
     },
     {
-      name: "Right Hand",
+      name: "Main droite",
       items: freeItems.rightHands,
       onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, rightHand: item }),
       state: useState(0),
     },
     {
-      name: "Left Leg",
+      name: "Jambe gauche",
       items: freeItems.leftLegs,
       onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, leftLeg: item }),
       state: useState(0),
     },
     {
-      name: "Right Leg",
+      name: "Jambe droite",
       items: freeItems.rightLegs,
       onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, rightLeg: item }),
       state: useState(0),
@@ -80,11 +80,17 @@ export default function CreateCharacter() {
 
   return (
     <Container component="main">
-      <Typography>Create character</Typography>
+      <Box textAlign="center">
+        <Typography variant="h2" gutterBottom>
+          Nouveau personnage
+        </Typography>
+      </Box>
 
-      <Box display="flex" justifyContent="space-around">
-        <Character config={characterConfig} />
-        <Box>
+      <Grid container justifyContent="space-around">
+        <Grid item>
+          <Character config={characterConfig} />
+        </Grid>
+        <Grid item>
           {options.map((option) => (
             <Box key={option.name}>
               <Typography>{option.name}</Typography>
@@ -107,8 +113,18 @@ export default function CreateCharacter() {
               </ToggleButtonGroup>
             </Box>
           ))}
-        </Box>
-      </Box>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} alignItems="center" justifyContent="center" sx={{ mt: 1 }}>
+        <Grid item>
+          <TextField id="demo-helper-text-aligned-no-helper" label="Nom" />
+        </Grid>
+        <Grid item>
+          <Button variant="contained">
+            <Typography>Créer</Typography>
+          </Button>
+        </Grid>
+      </Grid>
     </Container>
   );
 }
