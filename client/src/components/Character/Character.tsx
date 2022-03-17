@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
+import { IItem } from "models/items/item";
 import React from "react";
 import { Layer, Shape, Stage } from "react-konva";
 
-type ImageInfo = {
-  index: string;
+type ItemImage = {
   img?: HTMLImageElement;
   imageName: string;
   x: number;
@@ -11,52 +11,51 @@ type ImageInfo = {
 };
 
 export type CharacterConfig = {
-  bodyImg: string;
-  headImg: string;
-  faceImg: string;
-  leftArmImg: string;
-  leftHandImg: string;
-  rightArmImg: string;
-  rightHandImg: string;
-  leftLegImg: string;
-  rightLegImg: string;
+  body: IItem;
+  head: IItem;
+  face: IItem;
+  leftArm: IItem;
+  leftHand: IItem;
+  rightArm: IItem;
+  rightHand: IItem;
+  leftLeg: IItem;
+  rightLeg: IItem;
 };
 
 export default function Character({ config }: { config: CharacterConfig }) {
   const x = 50;
   const y = 150;
 
-  const images: ImageInfo[] = [
-    { index: "left_hand", imageName: config.leftHandImg, x: x + 195, y: y + 265 },
-    { index: "left_arm", imageName: config.leftArmImg, x: x + 189, y: y + 220 },
-    { index: "left_leg", imageName: config.leftLegImg, x: x + 164, y: y + 317 },
-    { index: "right_leg", imageName: config.rightLegImg, x: x + 80, y: y + 317 },
-    { index: "body", imageName: config.bodyImg, x: x + 14, y: y + 132 },
-    { index: "head", imageName: config.headImg, x: x - 75, y: y - 170 },
-    { index: "face", imageName: config.faceImg, x: x + 58, y: y + 35 },
-    { index: "right_hand", imageName: config.rightHandImg, x: x + 33, y: y + 275 },
-    { index: "right_arm", imageName: config.rightArmImg, x: x + 40, y: y + 220 },
+  const itemsImage: ItemImage[] = [
+    { imageName: config.leftHand.image, x: x + 195, y: y + 265 }, // leftHand
+    { imageName: config.leftArm.image, x: x + 189, y: y + 220 }, // leftArm
+    { imageName: config.leftLeg.image, x: x + 164, y: y + 317 }, // leftLeg
+    { imageName: config.rightLeg.image, x: x + 80, y: y + 317 }, // rightLeg
+    { imageName: config.body.image, x: x + 14, y: y + 132 }, // body
+    { imageName: config.head.image, x: x - 75, y: y - 170 }, // head
+    { imageName: config.face.image, x: x + 58, y: y + 35 }, // face
+    { imageName: config.rightHand.image, x: x + 33, y: y + 275 }, // rightHand
+    { imageName: config.rightArm.image, x: x + 40, y: y + 220 }, // rightArm
   ];
+
+  itemsImage.forEach((itemImage) => {
+    itemImage.img = new Image();
+    itemImage.img.src = itemImage.imageName;
+  });
 
   return (
     <Stage width={440} height={590}>
       <Layer>
         <Shape
           sceneFunc={(context) => {
-            // TODO: Find a better way to display the character
-            const loadImage = (imageInfo: ImageInfo) => {
-              imageInfo.img = new Image();
-              imageInfo.img.src = imageInfo.imageName;
-
-              imageInfo.img.onload = () => {
-                if (imageInfo.img) {
-                  context.drawImage(imageInfo.img, imageInfo.x, imageInfo.y);
-                }
-              };
+            const drawImage = (itemImage: ItemImage) => {
+              if (itemImage.img) {
+                context.drawImage(itemImage.img, itemImage.x, itemImage.y);
+              }
             };
 
-            images.forEach((imageInfo) => {
-              loadImage(imageInfo);
+            itemsImage.forEach((itemImage) => {
+              drawImage(itemImage);
             });
           }}
         />

@@ -1,27 +1,22 @@
 import { Box, Container, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
-import bodies from "components/Character/bodies";
 import Character, { CharacterConfig } from "components/Character/Character";
-import faces from "components/Character/faces";
-import heads from "components/Character/heads";
-import leftArms from "components/Character/leftArms";
-import leftHands from "components/Character/leftHands";
-import leftLegs from "components/Character/leftLegs";
-import rightArms from "components/Character/rightArms";
-import rightHands from "components/Character/rightHands";
-import rightLegs from "components/Character/rightLegs";
+import { IItem } from "models/items/item";
 import React, { useState } from "react";
+import { getFreeCharacterItems } from "utils/items";
+
+const freeItems = getFreeCharacterItems();
 
 export default function CreateCharacter() {
   const initialCharacterConfig: CharacterConfig = {
-    bodyImg: bodies[0],
-    headImg: heads[0],
-    faceImg: faces[0],
-    leftArmImg: leftArms[0],
-    leftHandImg: leftHands[0],
-    rightArmImg: rightArms[0],
-    rightHandImg: rightHands[0],
-    leftLegImg: leftLegs[0],
-    rightLegImg: rightLegs[0],
+    body: freeItems.bodies[0],
+    head: freeItems.heads[0],
+    face: freeItems.faces[0],
+    leftArm: freeItems.leftArms[0],
+    leftHand: freeItems.leftHands[0],
+    leftLeg: freeItems.leftLegs[0],
+    rightArm: freeItems.rightArms[0],
+    rightHand: freeItems.rightHands[0],
+    rightLeg: freeItems.rightLegs[0],
   };
 
   const [characterConfig, setCharacterConfig] = useState(initialCharacterConfig);
@@ -29,56 +24,56 @@ export default function CreateCharacter() {
   const options = [
     {
       name: "Head",
-      images: heads,
-      onClick: (img: string) => setCharacterConfig({ ...characterConfig, headImg: img }),
+      items: freeItems.heads,
+      onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, head: item }),
       state: useState(0),
     },
     {
       name: "Face",
-      images: faces,
-      onClick: (img: string) => setCharacterConfig({ ...characterConfig, faceImg: img }),
+      items: freeItems.faces,
+      onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, face: item }),
       state: useState(0),
     },
     {
       name: "Body",
-      images: bodies,
-      onClick: (img: string) => setCharacterConfig({ ...characterConfig, bodyImg: img }),
+      items: freeItems.bodies,
+      onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, body: item }),
       state: useState(0),
     },
     {
       name: "Left Arm",
-      images: leftArms,
-      onClick: (img: string) => setCharacterConfig({ ...characterConfig, leftArmImg: img }),
+      items: freeItems.leftArms,
+      onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, leftArm: item }),
       state: useState(0),
     },
     {
       name: "Left Hand",
-      images: leftHands,
-      onClick: (img: string) => setCharacterConfig({ ...characterConfig, leftHandImg: img }),
+      items: freeItems.leftHands,
+      onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, leftHand: item }),
       state: useState(0),
     },
     {
       name: "Right Arm",
-      images: rightArms,
-      onClick: (img: string) => setCharacterConfig({ ...characterConfig, rightArmImg: img }),
+      items: freeItems.rightArms,
+      onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, rightArm: item }),
       state: useState(0),
     },
     {
       name: "Right Hand",
-      images: rightHands,
-      onClick: (img: string) => setCharacterConfig({ ...characterConfig, rightHandImg: img }),
+      items: freeItems.rightHands,
+      onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, rightHand: item }),
       state: useState(0),
     },
     {
       name: "Left Leg",
-      images: leftLegs,
-      onClick: (img: string) => setCharacterConfig({ ...characterConfig, leftLegImg: img }),
+      items: freeItems.leftLegs,
+      onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, leftLeg: item }),
       state: useState(0),
     },
     {
       name: "Right Leg",
-      images: rightLegs,
-      onClick: (img: string) => setCharacterConfig({ ...characterConfig, rightLegImg: img }),
+      items: freeItems.rightLegs,
+      onClick: (item: IItem) => setCharacterConfig({ ...characterConfig, rightLeg: item }),
       state: useState(0),
     },
   ];
@@ -93,19 +88,20 @@ export default function CreateCharacter() {
           {options.map((option) => (
             <Box key={option.name}>
               <Typography>{option.name}</Typography>
+
               <ToggleButtonGroup
                 value={option.state[0]}
                 exclusive
-                onChange={(event: React.MouseEvent<HTMLElement>, newImg: number | null) => {
-                  if (newImg !== null) {
-                    option.state[1](newImg);
-                    option.onClick(option.images[newImg]);
+                onChange={(_: React.MouseEvent<HTMLElement>, newItemId: number | null) => {
+                  if (newItemId !== null) {
+                    option.state[1](newItemId);
+                    option.onClick(option.items[newItemId]);
                   }
                 }}
               >
-                {option.images.map((image, i) => (
-                  <ToggleButton size="small" value={i} key={image}>
-                    <img width={30} height={30} src={image} alt="Button start icon" />
+                {option.items.map((item, i) => (
+                  <ToggleButton size="small" value={i} key={item.id}>
+                    <img width={30} height={30} src={item.image} alt="Button start icon" />
                   </ToggleButton>
                 ))}
               </ToggleButtonGroup>

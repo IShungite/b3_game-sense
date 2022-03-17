@@ -1,4 +1,4 @@
-export interface Character {
+export interface ICharacter {
   nickname: string;
   gender: Gender;
   color: Color;
