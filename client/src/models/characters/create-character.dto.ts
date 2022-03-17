@@ -1,7 +1,6 @@
-import { Color, Gender } from "./character";
+import { CharacterEquipments } from "./character";
 
-export interface CreateCharacterDto {
+export default interface CreateCharacterDto {
   nickname: string;
-  gender: Gender;
-  color: Color;
+  equipments: CharacterEquipments;
 }

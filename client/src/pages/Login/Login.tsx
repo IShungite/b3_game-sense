@@ -2,8 +2,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { LoginData } from "models/auth";
-import { loginValidationSchema } from "models/validation/auth";
+import { LoginCredentialsDto } from "models/auth/auth";
+import { loginValidationSchema } from "models/auth/auth.validation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ export default function Login() {
 
   const { user, status, errorMessage } = useAppSelector((state) => state.auth);
 
-  const initialValues: LoginData = {
+  const initialValues: LoginCredentialsDto = {
     email: "",
     password: "",
   };
@@ -41,7 +41,7 @@ export default function Login() {
     }
   }, [user, navigate]);
 
-  const onSubmit = (data: LoginData) => {
+  const onSubmit = (data: LoginCredentialsDto) => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     dispatch(login(data));
   };

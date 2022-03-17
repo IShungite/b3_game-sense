@@ -1,15 +1,16 @@
 export interface ICharacter {
   nickname: string;
-  gender: Gender;
-  color: Color;
+  equipments: CharacterEquipments;
 }
 
-export enum Gender {
-  Male,
-  Female,
-}
-
-export enum Color {
-  White,
-  Black,
+export interface CharacterEquipments {
+  bodyId: number;
+  headId: number;
+  faceId: number;
+  leftArmId: number;
+  leftHandId: number;
+  leftLegId: number;
+  rightArmId: number;
+  rightHandId: number;
+  rightLegId: number;
 }

@@ -1,12 +1,12 @@
-import { LoginData, RegisterData } from "models/auth";
+import { LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
 import { hash } from "utils";
 import api from "../api";
 
-const register = async (formData: RegisterData) => {
+const register = async (formData: RegisterCredentialsDto) => {
   await api.register({ ...formData, password: hash(formData.password) });
 };
 
-const login = async (formData: LoginData) => {
+const login = async (formData: LoginCredentialsDto) => {
   const user = (await api.login({ ...formData, password: hash(formData.password) })).data;
 
   localStorage.setItem("user", JSON.stringify(user));
