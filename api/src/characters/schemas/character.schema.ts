@@ -20,7 +20,20 @@ export class Character {
   @Prop({ type: Number, required: true })
   gold: number;
 
-  // TODO : add status
+  @Prop({ type: Object, required: true })
+  equipments: CharacterEquipments;
 }
 
 export const CharacterSchema = SchemaFactory.createForClass(Character);
+
+export interface CharacterEquipments {
+  bodyId: number;
+  headId: number;
+  faceId: number;
+  leftArmId: number;
+  leftHandId: number;
+  leftLegId: number;
+  rightArmId: number;
+  rightHandId: number;
+  rightLegId: number;
+}

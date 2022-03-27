@@ -1,11 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Container, Grid, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import Character, { CharacterConfig } from "components/Character/Character";
+import { useAppDispatch } from "hooks";
 import CreateCharacterDto from "models/characters/create-character.dto";
 import createCharacterValidationSchema from "models/characters/create-character.validation";
 import { IItem } from "models/items/item";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { createCharacter } from "reducers/characterSlice";
 import { getFreeCharacterItems } from "utils/items";
 
 const freeItems = getFreeCharacterItems();
@@ -23,6 +25,8 @@ const initialCharacterConfig: CharacterConfig = {
 };
 
 export default function CreateCharacter() {
+  const dispatch = useAppDispatch();
+
   const [characterConfig, setCharacterConfig] = useState(initialCharacterConfig);
 
   const categories = [
@@ -109,7 +113,8 @@ export default function CreateCharacter() {
   });
 
   const onSubmit = (data: CreateCharacterDto) => {
-    console.log(data);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    dispatch(createCharacter(data));
   };
 
   return (

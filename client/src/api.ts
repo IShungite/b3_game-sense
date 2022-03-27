@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { API_PORT, API_URL } from "config";
 import { IUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
+import { ICharacter } from "models/characters/character";
+import CreateCharacterDto from "models/characters/create-character.dto";
 
 const API = axios.create({ baseURL: `${API_URL}:${API_PORT}` });
 
@@ -21,4 +23,7 @@ const login = (formData: LoginCredentialsDto): Promise<AxiosResponse<IUser>> => 
 const register = (formData: RegisterCredentialsDto): Promise<AxiosResponse<IUser>> =>
   API.post("/auth/register", formData);
 
-export default { login, register };
+const createCharacter = (formData: CreateCharacterDto): Promise<AxiosResponse<ICharacter>> =>
+  API.post("/characters", formData);
+
+export default { login, register, createCharacter };
