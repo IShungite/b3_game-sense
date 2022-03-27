@@ -26,4 +26,6 @@ const register = (formData: RegisterCredentialsDto): Promise<AxiosResponse<IUser
 const createCharacter = (formData: CreateCharacterDto): Promise<AxiosResponse<ICharacter>> =>
   API.post("/characters", formData);
 
-export default { login, register, createCharacter };
+const getCharacters = (): Promise<AxiosResponse<ICharacter[]>> => API.get("/characters");
+
+export default { login, register, createCharacter, getCharacters };

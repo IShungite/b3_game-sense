@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, ObjectId, SchemaTypes } from "mongoose";
+import { User } from "src/users/schemas/user.schema";
 
 export type CharacterDocument = Character & Document;
 
@@ -7,6 +8,9 @@ export type CharacterDocument = Character & Document;
 export class Character {
   @Prop({ type: SchemaTypes.ObjectId, auto: true })
   _id: ObjectId;
+
+  @Prop({ type: SchemaTypes.ObjectId, ref: "User" })
+  userId: User;
 
   @Prop({ type: String, required: true })
   nickname: string;
@@ -27,13 +31,13 @@ export class Character {
 export const CharacterSchema = SchemaFactory.createForClass(Character);
 
 export interface CharacterEquipments {
-  bodyId: number;
-  headId: number;
-  faceId: number;
-  leftArmId: number;
-  leftHandId: number;
-  leftLegId: number;
-  rightArmId: number;
-  rightHandId: number;
-  rightLegId: number;
+  bodyId: string;
+  headId: string;
+  faceId: string;
+  leftArmId: string;
+  leftHandId: string;
+  leftLegId: string;
+  rightArmId: string;
+  rightHandId: string;
+  rightLegId: string;
 }

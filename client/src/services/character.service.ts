@@ -3,4 +3,6 @@ import api from "../api";
 
 const createCharacter = async (formData: CreateCharacterDto) => (await api.createCharacter(formData)).data;
 
-export default { createCharacter };
+const getCharacters = async () => (await api.getCharacters()).data;
+
+export default { createCharacter, getCharacters };

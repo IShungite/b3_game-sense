@@ -1,13 +1,15 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Container, Grid, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import Character, { CharacterConfig } from "components/Character/Character";
-import { useAppDispatch } from "hooks";
+import { RouteUrls } from "config";
+import { useAppDispatch, useAppSelector } from "hooks";
 import CreateCharacterDto from "models/characters/create-character.dto";
 import createCharacterValidationSchema from "models/characters/create-character.validation";
 import { IItem } from "models/items/item";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { createCharacter } from "reducers/characterSlice";
+import { useNavigate } from "react-router-dom";
+import { CharacterStatus, clearState, createCharacter } from "reducers/characterSlice";
 import { getFreeCharacterItems } from "utils/items";
 
 const freeItems = getFreeCharacterItems();
@@ -26,6 +28,9 @@ const initialCharacterConfig: CharacterConfig = {
 
 export default function CreateCharacter() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { createStatus, createErrorMessage } = useAppSelector((state) => state.character);
 
   const [characterConfig, setCharacterConfig] = useState(initialCharacterConfig);
 
@@ -117,6 +122,19 @@ export default function CreateCharacter() {
     dispatch(createCharacter(data));
   };
 
+  // Clear Character state when component is unmounted
+  // eslint-disable-next-line arrow-body-style
+  useEffect(() => {
+    return () => {
+      dispatch(clearState());
+    };
+  }, [dispatch]);
+
+  // If the character is successfully created, redirect to the home
+  useEffect(() => {
+    if (createStatus === CharacterStatus.Finished) navigate(RouteUrls.Home);
+  }, [createStatus, navigate]);
+
   return (
     <Container component="main">
       <Box textAlign="center">
@@ -158,7 +176,7 @@ export default function CreateCharacter() {
             ))}
           </Grid>
         </Grid>
-
+        <Typography>{createErrorMessage}</Typography>
         <Grid container spacing={2} alignItems="center" justifyContent="center">
           <Grid item>
             <TextField

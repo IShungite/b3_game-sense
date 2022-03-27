@@ -14,14 +14,18 @@ export enum CharacterStatus {
 
 interface CharacterState {
   characters: ICharacter[];
-  status: CharacterStatus;
-  errorMessage: string;
+  createStatus: CharacterStatus;
+  getAllStatus: CharacterStatus;
+  createErrorMessage: string;
+  getAllErrorMessage: string;
 }
 
 const initialCharacter: CharacterState = {
   characters: [],
-  status: CharacterStatus.None,
-  errorMessage: "",
+  createStatus: CharacterStatus.None,
+  getAllStatus: CharacterStatus.None,
+  createErrorMessage: "",
+  getAllErrorMessage: "",
 };
 
 export const createCharacter = createAsyncThunk<ICharacter, CreateCharacterDto, { rejectValue: string }>(
@@ -37,28 +41,55 @@ export const createCharacter = createAsyncThunk<ICharacter, CreateCharacterDto, 
   },
 );
 
+export const getCharacters = createAsyncThunk<ICharacter[], void, { rejectValue: string }>(
+  "character/getAll",
+  async (_, thunkAPI) => {
+    try {
+      const characters = await characterService.getCharacters();
+      return characters;
+    } catch (err) {
+      const error = err as Error | AxiosError;
+      return thunkAPI.rejectWithValue(getErrorMessage(error));
+    }
+  },
+);
+
 const characterSlice = createSlice({
   name: "character",
   initialState: initialCharacter,
   reducers: {
     clearState: (state) => {
-      state.errorMessage = "";
-      state.status = CharacterStatus.None;
+      state.createErrorMessage = "";
+      state.getAllErrorMessage = "";
+      state.createStatus = CharacterStatus.None;
+      state.getAllStatus = CharacterStatus.None;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(createCharacter.pending, (state) => {
-        state.status = CharacterStatus.Loading;
+        state.createStatus = CharacterStatus.Loading;
       })
       .addCase(createCharacter.fulfilled, (state, { payload }) => {
-        state.status = CharacterStatus.Finished;
+        state.createStatus = CharacterStatus.Finished;
         state.characters = [...state.characters, payload];
       })
       .addCase(createCharacter.rejected, (state, { payload }) => {
-        state.status = CharacterStatus.Error;
+        state.createStatus = CharacterStatus.Error;
 
-        state.errorMessage = payload || "";
+        state.createErrorMessage = payload ?? "";
+      })
+      .addCase(getCharacters.pending, (state) => {
+        state.getAllStatus = CharacterStatus.Loading;
+      })
+      .addCase(getCharacters.fulfilled, (state, { payload }) => {
+        state.getAllStatus = CharacterStatus.Finished;
+        state.characters = [...payload];
+      })
+      .addCase(getCharacters.rejected, (state, { payload }) => {
+        state.getAllStatus = CharacterStatus.Error;
+
+        state.getAllErrorMessage = payload ?? "";
       });
   },
 });
