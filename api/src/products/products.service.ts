@@ -19,26 +19,28 @@ export class ProductsService {
 
     if (productExist) throw new ConflictException("Product already exist.");
 
-    const createdShop = new this.productModel({
+    const createdProduct = new this.productModel({
       ...createProductDto,
     });
 
-    return createdShop.save();
+    return createdProduct.save();
   }
 
-  findAll() {
-    return `This action returns all products`;
+  async findAll(): Promise<Product[]> {
+    return this.productModel.find();
   }
 
-  findOne(id: string) {
+  async findOne(id: string): Promise<Product> {
     return this.productModel.findById(id).exec();
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async update(id: string, updateProductDto: UpdateProductDto): Promise<Product> {
+    return this.productModel.findByIdAndUpdate(id, updateProductDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: string): Promise<void> {
+    await this.productModel.findByIdAndRemove(id);
   }
 }
