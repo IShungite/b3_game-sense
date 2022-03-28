@@ -1,5 +1,6 @@
 import { CssBaseline } from "@mui/material";
 import AppBar from "components/AppBar/AppBar";
+import ShopDetails from "components/Shop/ShopDetails";
 import { RouteUrls } from "config";
 import Home from "pages/Home/Home";
 import Login from "pages/Login/Login";
@@ -22,6 +23,7 @@ export default function App() {
           <Route path={RouteUrls.Login} element={<Login />} />
           <Route path={RouteUrls.Register} element={<Register />} />
           <Route path={RouteUrls.Shops} element={<Shops />} />
+          <Route path={`${RouteUrls.Shops}/:id`} element={<ShopDetails />}/>
           <Route path={RouteUrls.Statistics} element={<Statistics />} />
         </Routes>
       </BrowserRouter>
