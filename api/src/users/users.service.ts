@@ -14,7 +14,7 @@ export class UsersService {
       email: createUserDto.email,
     });
 
-    if (userExist) throw new ConflictException("User already exist");
+    if (userExist) throw new ConflictException("User already exists");
 
     const createdUser = new this.userModel({
       ...createUserDto,
@@ -26,7 +26,11 @@ export class UsersService {
     return this.userModel.find();
   }
 
-  async findOne(id: string): Promise<User> {
+  async findByEmail(email: string): Promise<User> {
+    return this.userModel.findOne({ email }).exec();
+  }
+
+  async findById(id: string): Promise<User> {
     return this.userModel.findById(id).exec();
   }
 

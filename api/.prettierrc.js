@@ -15,4 +15,5 @@ module.exports = {
 
   //Maximum number of columns before the automatic line break
   printWidth: 120,
+  endOfLine: "auto",
 };
