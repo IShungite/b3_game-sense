@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { RegisterCredentialsDto } from "models/auth/auth";
@@ -56,7 +56,7 @@ export default function Login() {
   };
 
   return (
-    <Container component="main">
+    <>
       <Typography>Register</Typography>
 
       <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 2 }}>
@@ -110,6 +110,6 @@ export default function Login() {
         </Button>
       </Box>
       {status === AuthStatus.Loading && <Box>Loading...</Box>}
-    </Container>
+    </>
   );
 }

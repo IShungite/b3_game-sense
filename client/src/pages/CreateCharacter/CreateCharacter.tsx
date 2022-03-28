@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Button, Container, Grid, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import Character, { CharacterConfig } from "components/Character/Character";
 import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
@@ -136,7 +136,7 @@ export default function CreateCharacter() {
   }, [createStatus, navigate]);
 
   return (
-    <Container component="main">
+    <>
       <Box textAlign="center">
         <Typography variant="h2" gutterBottom>
           Nouveau personnage
@@ -196,6 +196,6 @@ export default function CreateCharacter() {
           </Grid>
         </Grid>
       </Box>
-    </Container>
+    </>
   );
 }

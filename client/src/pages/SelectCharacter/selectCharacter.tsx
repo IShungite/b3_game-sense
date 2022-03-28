@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { ICharacter } from "models/characters/character";
@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getCharacters, setCurrentCharacter } from "reducers/characterSlice";
 
-export default function Home() {
+export default function SelectCharacter() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -22,13 +22,13 @@ export default function Home() {
 
   const handleSelectCharacter = (character: ICharacter) => {
     dispatch(setCurrentCharacter(character));
-    // navigate()
+    navigate(RouteUrls.Home);
   };
 
   return (
-    <>
+    <Container component="main">
       <Box textAlign="center">
-        <Typography variant="h2">Home</Typography>
+        <Typography variant="h2">Selection du personnage</Typography>
       </Box>
 
       <Typography>Mes personnages</Typography>
@@ -42,7 +42,7 @@ export default function Home() {
         ))}
       </Grid>
 
-      <Link to={RouteUrls.CreateCharacter}>Create new character</Link>
-    </>
+      <Link to={RouteUrls.CreateCharacter}>Nouveau personnage</Link>
+    </Container>
   );
 }

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
@@ -14,6 +14,7 @@ export enum CharacterStatus {
 
 interface CharacterState {
   characters: ICharacter[];
+  currentCharacter: ICharacter | undefined;
   createStatus: CharacterStatus;
   getAllStatus: CharacterStatus;
   createErrorMessage: string;
@@ -22,6 +23,7 @@ interface CharacterState {
 
 const initialCharacter: CharacterState = {
   characters: [],
+  currentCharacter: undefined,
   createStatus: CharacterStatus.None,
   getAllStatus: CharacterStatus.None,
   createErrorMessage: "",
@@ -64,6 +66,9 @@ const characterSlice = createSlice({
       state.createStatus = CharacterStatus.None;
       state.getAllStatus = CharacterStatus.None;
     },
+    setCurrentCharacter: (state, { payload }: PayloadAction<ICharacter>) => {
+      state.currentCharacter = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -94,5 +99,5 @@ const characterSlice = createSlice({
   },
 });
 
-export const { clearState } = characterSlice.actions;
+export const { clearState, setCurrentCharacter } = characterSlice.actions;
 export default characterSlice.reducer;
