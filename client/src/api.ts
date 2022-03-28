@@ -3,19 +3,17 @@ import { API_PORT, API_URL } from "config";
 import { IUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
 import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
+import { getUserFromLocalStorage } from "services/auth.service";
 
 const API = axios.create({ baseURL: `${API_URL}:${API_PORT}` });
 
 API.interceptors.request.use((req: AxiosRequestConfig) => {
-  const storageUser = localStorage.getItem("user");
+  const user = getUserFromLocalStorage();
 
-  if (storageUser) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const user: IUser = JSON.parse(storageUser);
-    if (user && user.access_token && req.headers) {
-      req.headers.Authorization = `Bearer ${user.access_token}`;
-    }
+  if (user && req.headers) {
+    req.headers.Authorization = `Bearer ${user.access_token}`;
   }
+
   return req;
 });
 

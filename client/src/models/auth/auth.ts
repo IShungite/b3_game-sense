@@ -14,3 +14,9 @@ export interface IUser {
   id: string;
   access_token: string;
 }
+
+export interface JwtToken {
+  email: string;
+  iat: number;
+  exp: number;
+}

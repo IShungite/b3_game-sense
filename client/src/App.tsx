@@ -1,5 +1,6 @@
 import { CssBaseline } from "@mui/material";
 import AppBar from "components/AppBar/AppBar";
+import RequireAuth from "components/RequireAuth/RequireAuth";
 import { RouteUrls } from "config";
 import CreateCharacter from "pages/CreateCharacter/CreateCharacter";
 import Home from "pages/Home/Home";
@@ -21,12 +22,26 @@ export default function App() {
         <AppBar />
         <Routes>
           <Route path={RouteUrls.Index} element={<Index />} />
-          <Route path={RouteUrls.Home} element={<Home />} />
+          <Route
+            path={RouteUrls.Home}
+            element={
+              <RequireAuth>
+                <Home />
+              </RequireAuth>
+            }
+          />
           <Route path={RouteUrls.Login} element={<Login />} />
           <Route path={RouteUrls.Register} element={<Register />} />
           <Route path={RouteUrls.Shops} element={<Shops />} />
           <Route path={RouteUrls.Statistics} element={<Statistics />} />
-          <Route path={RouteUrls.CreateCharacter} element={<CreateCharacter />} />
+          <Route
+            path={RouteUrls.CreateCharacter}
+            element={
+              <RequireAuth>
+                <CreateCharacter />
+              </RequireAuth>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </Provider>
