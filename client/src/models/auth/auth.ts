@@ -13,6 +13,15 @@ export interface RegisterCredentialsDto {
 export interface IUser {
   id: string;
   access_token: string;
+  roles: Role[];
+}
+
+export enum Role {
+  Student = "student",
+  Professor = "professor",
+  School_Admin = "school_admin",
+  Director = "director",
+  Super_Admin = "super_admin",
 }
 
 export interface JwtToken {

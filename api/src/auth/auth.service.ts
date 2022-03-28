@@ -20,10 +20,11 @@ export class AuthService {
     return null;
   }
 
-  async login(user: JwtPayload): Promise<IAuthLoginResponse> {
-    const payload: IAuthPayload = { email: user.email, sub: user._id };
+  async login(userPayload: JwtPayload): Promise<IAuthLoginResponse> {
+    const user = await this.usersService.findById(userPayload._id);
+    const payload: IAuthPayload = { email: userPayload.email, roles: user.roles, sub: userPayload._id };
     return {
-      id: user._id,
+      id: userPayload._id,
       access_token: this.jwtService.sign(payload),
     };
   }
