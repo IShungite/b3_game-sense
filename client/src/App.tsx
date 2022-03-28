@@ -27,10 +27,11 @@ export default function App() {
             <Route path={RouteUrls.Index} element={<Index />} />
             <Route path={RouteUrls.Login} element={<Login />} />
             <Route path={RouteUrls.Register} element={<Register />} />
-            <Route path={RouteUrls.Shops} element={<Shops />} />
-            <Route path={RouteUrls.Statistics} element={<Statistics />} />
+
             <Route element={<HomeLayout />}>
               <Route path={RouteUrls.Home} element={<Home />} />
+              <Route path={RouteUrls.Shops} element={<Shops />} />
+              <Route path={RouteUrls.Statistics} element={<Statistics />} />
               <Route path={RouteUrls.SelectCharacter} element={<SelectCharacter />} />
               <Route path={RouteUrls.CreateCharacter} element={<CreateCharacter />} />
             </Route>
