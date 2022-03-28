@@ -1,12 +1,32 @@
-import { Container } from "@mui/material";
-import Product from "components/Shop/Product";
-import React from "react";
+import { Container, Grid } from "@mui/material";
+import Shop from "components/Shop/Shop";
+import { IShop } from "models/shops/shop";
+import React, { useEffect, useState } from "react";
+import shopService from "services/shop.service";
 
 export default function Shops() {
 
+  const [shops, setShops] = useState<IShop[]>([]);
+
+  const getShops = async() => {
+    const shopsFetched = await shopService.getShops();
+    setShops(shopsFetched);
+  }
+
+  useEffect( () => {
+    async function fetchData() {
+      await getShops();
+    }
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    fetchData();
+  }, []);
+
   return (
     <Container component="main">
-      <Product />
+      <Grid container spacing={3}>
+      {shops.map((shop) => <Grid item><Shop name={shop.name} /></Grid>)}        
+      </Grid>
+
     </Container>
   );
 }
