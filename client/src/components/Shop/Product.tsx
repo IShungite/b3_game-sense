@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 export default function Product() {
 
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card variant="outlined" sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Bonjour

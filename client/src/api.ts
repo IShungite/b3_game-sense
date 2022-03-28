@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { API_PORT, API_URL } from "config";
 import { LoginData, RegisterData, User } from "models/auth";
+import { IShop } from "models/shops/shop";
 
 const API = axios.create({ baseURL: `${API_URL}:${API_PORT}` });
 
@@ -20,4 +21,6 @@ API.interceptors.request.use((req: AxiosRequestConfig) => {
 const login = (formData: LoginData): Promise<AxiosResponse<User>> => API.post("/auth/login", formData);
 const register = (formData: RegisterData): Promise<AxiosResponse<User>> => API.post("/auth/register", formData);
 
-export default { login, register };
+const getShops = (): Promise<AxiosResponse<IShop[]>> => API.get("/shops");
+
+export default { login, register, getShops };
