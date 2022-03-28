@@ -2,13 +2,13 @@ import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { CreateUserDto } from "src/users/dto/create-user.dto";
 import { UsersService } from "src/users/users.service";
-import { IAuthLoginResponse, IAuthPayload, IAuthUser } from "./models/auth.models";
+import { IAuthLoginResponse, IAuthPayload, JwtPayload } from "./models/auth.models";
 
 @Injectable()
 export class AuthService {
   constructor(private readonly usersService: UsersService, private readonly jwtService: JwtService) {}
 
-  async validateUser(email: string, password: string): Promise<IAuthUser> {
+  async validateUser(email: string, password: string): Promise<JwtPayload> {
     const user = await this.usersService.findByEmail(email);
 
     if (user && user.password === password) {
@@ -20,7 +20,7 @@ export class AuthService {
     return null;
   }
 
-  async login(user: IAuthUser): Promise<IAuthLoginResponse> {
+  async login(user: JwtPayload): Promise<IAuthLoginResponse> {
     const payload: IAuthPayload = { email: user.email, sub: user._id };
     return {
       id: user._id,
