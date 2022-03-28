@@ -37,7 +37,7 @@ export default function Login() {
   // Redirect the user if he is already logged in
   useEffect(() => {
     if (user) {
-      navigate(RouteUrls.Home);
+      navigate(RouteUrls.SelectCharacter);
     }
   }, [user, navigate]);
 

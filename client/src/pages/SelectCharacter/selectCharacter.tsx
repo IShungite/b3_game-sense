@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { ICharacter } from "models/characters/character";
@@ -26,7 +26,7 @@ export default function SelectCharacter() {
   };
 
   return (
-    <Container component="main">
+    <>
       <Box textAlign="center">
         <Typography variant="h2">Selection du personnage</Typography>
       </Box>
@@ -43,6 +43,6 @@ export default function SelectCharacter() {
       </Grid>
 
       <Link to={RouteUrls.CreateCharacter}>Nouveau personnage</Link>
-    </Container>
+    </>
   );
 }

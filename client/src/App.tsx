@@ -8,6 +8,7 @@ import Home from "pages/Home/Home";
 import Index from "pages/Index/Index";
 import Login from "pages/Login/Login";
 import Register from "pages/Register/Register";
+import SelectCharacter from "pages/SelectCharacter/selectCharacter";
 import Shops from "pages/Shops/Shops";
 import Statistics from "pages/Statistics/Statistics";
 import React from "react";
@@ -30,6 +31,7 @@ export default function App() {
             <Route path={RouteUrls.Statistics} element={<Statistics />} />
             <Route element={<HomeLayout />}>
               <Route path={RouteUrls.Home} element={<Home />} />
+              <Route path={RouteUrls.SelectCharacter} element={<SelectCharacter />} />
               <Route path={RouteUrls.CreateCharacter} element={<CreateCharacter />} />
             </Route>
           </Route>

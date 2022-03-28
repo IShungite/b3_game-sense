@@ -16,3 +16,5 @@ export const getFreeCharacterItems = () => ({
   rightHands: [items[10], items[21], items[32]],
   rightLegs: [items[11], items[22], items[33]],
 });
+
+export const getItem = (id: number) => items[id];

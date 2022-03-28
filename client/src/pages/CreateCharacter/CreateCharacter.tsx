@@ -110,6 +110,7 @@ export default function CreateCharacter() {
     register: registerFormField,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -146,7 +147,7 @@ export default function CreateCharacter() {
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <Grid container justifyContent="space-around" sx={{ mb: 2 }}>
           <Grid item>
-            <Character config={characterConfig} />
+            <Character character={getValues()} />
           </Grid>
           <Grid item>
             {categories.map((option) => (

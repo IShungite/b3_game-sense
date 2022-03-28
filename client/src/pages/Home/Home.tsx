@@ -1,29 +1,16 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import Character from "components/Character/Character";
 import { RouteUrls } from "config";
-import { useAppDispatch, useAppSelector } from "hooks";
-import { ICharacter } from "models/characters/character";
-import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { getCharacters, setCurrentCharacter } from "reducers/characterSlice";
+import { useAppSelector } from "hooks";
+import React from "react";
+import { Navigate } from "react-router-dom";
 
 export default function Home() {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  const { currentCharacter } = useAppSelector((state) => state.character);
 
-  const { characters, getAllErrorMessage } = useAppSelector((state) => state.character);
-
-  useEffect(() => {
-    if (characters.length === 0) {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      dispatch(getCharacters());
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
-
-  const handleSelectCharacter = (character: ICharacter) => {
-    dispatch(setCurrentCharacter(character));
-    // navigate()
-  };
+  if (!currentCharacter) {
+    return <Navigate to={RouteUrls.SelectCharacter} />;
+  }
 
   return (
     <>
@@ -31,18 +18,9 @@ export default function Home() {
         <Typography variant="h2">Home</Typography>
       </Box>
 
-      <Typography>Mes personnages</Typography>
-      <Typography>{getAllErrorMessage}</Typography>
+      <Typography variant="h4">{currentCharacter.nickname}</Typography>
 
-      <Grid container direction="column">
-        {characters.map((character) => (
-          <Grid item key={character.nickname} onClick={() => handleSelectCharacter(character)}>
-            <Button>{character.nickname}</Button>
-          </Grid>
-        ))}
-      </Grid>
-
-      <Link to={RouteUrls.CreateCharacter}>Create new character</Link>
+      <Character character={currentCharacter} />
     </>
   );
 }
