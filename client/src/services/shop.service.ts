@@ -1,7 +1,8 @@
 import api from "api"
 
 const getShops = async() => {
-    await api.getShops();
+    const shops = (await api.getShops()).data;
+    return shops;
 }
 
 export default {
