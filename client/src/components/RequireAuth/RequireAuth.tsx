@@ -3,11 +3,11 @@ import { useAppDispatch, useAppSelector } from "hooks";
 import jwtDecode from "jwt-decode";
 import { JwtToken } from "models/auth/auth";
 import React, { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { logout } from "reducers/authSlice";
 import authService from "services/auth.service";
 
-export default function RequireAuth({ children }: { children: React.ReactNode }) {
+export default function RequireAuth() {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
 
@@ -26,6 +26,5 @@ export default function RequireAuth({ children }: { children: React.ReactNode })
     return <Navigate to={RouteUrls.Login} />;
   }
 
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <>{children}</>;
+  return <Outlet />;
 }

@@ -25,16 +25,18 @@ export default function AppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const { user } = useAppSelector((state) => state.auth);
+  const { currentCharacter } = useAppSelector((state) => state.character);
 
   const dispatch = useAppDispatch();
 
-  const pagesLeft = user
-    ? [
-        { name: "Accueil", url: RouteUrls.Home },
-        { name: "Magasins", url: RouteUrls.Shops },
-        { name: "Statistiques", url: RouteUrls.Statistics },
-      ]
-    : [{ name: "Accueil", url: RouteUrls.Index }];
+  const pagesLeft = user ? [] : [{ name: "Accueil", url: RouteUrls.Index }];
+
+  if (currentCharacter) {
+    pagesLeft.push({ name: "Accueil", url: RouteUrls.Home });
+    pagesLeft.push({ name: "Statistiques", url: RouteUrls.Statistics });
+    pagesLeft.push({ name: "Magasins", url: RouteUrls.Shops });
+  }
+
   const pagesRight = [
     { name: "Connexion", url: RouteUrls.Login },
     { name: "Inscription", url: RouteUrls.Register },
