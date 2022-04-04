@@ -24,7 +24,7 @@ export default function Shops() {
   return (
     <Container component="main">
       <Grid container spacing={3}>
-      {shops.map((shop) => <Grid item key={shop._id}><Shop name={shop.name} id={shop._id} /></Grid>)}        
+      {shops.map((shop) => <Grid item key={shop._id}><Shop shop={shop} /></Grid>)}        
       </Grid>
 
     </Container>

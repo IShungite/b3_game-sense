@@ -10,7 +10,7 @@ export class Shop {
   _id: ObjectId;
 
   @Prop({ type: SchemaTypes.ObjectId, ref: "School", required: true })
-  school_id: School;
+  schoolId: School;
 
   @Prop({ type: String, required: true })
   name: string;

@@ -24,5 +24,6 @@ const register = (formData: RegisterData): Promise<AxiosResponse<User>> => API.p
 
 const getShops = (): Promise<AxiosResponse<IShop[]>> => API.get("/shops");
 const getProducts = (): Promise<AxiosResponse<IProduct[]>> => API.get("/products");
+const getProductsByShop = (shopId: string): Promise<AxiosResponse<IProduct[]>> => API.get(`/products/shop/${shopId}`);
 
-export default { login, register, getShops, getProducts };
+export default { login, register, getShops, getProducts, getProductsByShop };

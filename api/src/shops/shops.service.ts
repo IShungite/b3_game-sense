@@ -12,7 +12,7 @@ export class ShopsService {
   async create(createShopDto: CreateShopDto): Promise<Shop> {
     const shopExist = await this.shopModel.findOne({
       name: createShopDto.name,
-      school_id: createShopDto.school_id,
+      schoolId: createShopDto.schoolId,
     });
 
     if (shopExist) throw new ConflictException("Shop already exist.");

@@ -4,21 +4,21 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import { RouteUrls } from 'config';
+import { IShop } from 'models/shops/shop';
 
-type Props = {name:string, id:string}
+type Props = {shop:IShop}
 
-export default function Shop({name, id}:Props) {
+export default function Shop({shop}:Props) {
 
   return (
     <Card variant="outlined" sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {name}
+          {shop.name}
         </Typography>
       </CardContent>
       <CardActions>
-        <Link to={`${id}`}>Entrer</Link>
+        <Link to={`${shop._id}`}>Entrer</Link>
       </CardActions>
     </Card>
   );

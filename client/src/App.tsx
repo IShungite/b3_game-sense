@@ -23,7 +23,7 @@ export default function App() {
           <Route path={RouteUrls.Login} element={<Login />} />
           <Route path={RouteUrls.Register} element={<Register />} />
           <Route path={RouteUrls.Shops} element={<Shops />} />
-          <Route path={`${RouteUrls.Shops}/:id`} element={<ShopDetails />}/>
+          <Route path={`${RouteUrls.Shops}/:shopId`} element={<ShopDetails />}/>
           <Route path={RouteUrls.Statistics} element={<Statistics />} />
         </Routes>
       </BrowserRouter>

@@ -2,23 +2,27 @@ import { Container, Grid } from "@mui/material";
 import Product from "components/Product/Product";
 import { IProduct } from "models/products/products";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import productService from "services/product.service";
 
 export default function ShopDetails() {
 
   const [products, setProducts] = useState<IProduct[]>([]);
+  const {shopId} = useParams();
 
-  const getProducts = async() => {
-    const productsFetched = await productService.getProducts();
+  const getProductsByShop = async() => {
+    if(!shopId) return;
+    const productsFetched = await productService.getProductsByShop(shopId);
     setProducts(productsFetched);
   }
 
   useEffect( () => {
     async function fetchData() {
-      await getProducts();
+      await getProductsByShop();
     }
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

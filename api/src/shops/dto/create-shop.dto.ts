@@ -6,5 +6,5 @@ export class CreateShopDto {
   @MaxLength(15)
   readonly name: string;
 
-  readonly school_id: ObjectId;
+  readonly schoolId: ObjectId;
 }
