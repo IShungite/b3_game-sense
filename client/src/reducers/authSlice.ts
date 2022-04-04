@@ -5,7 +5,7 @@ import authService from "services/auth.service";
 import { getErrorMessage } from "utils";
 
 interface AuthState {
-  user: IAuthUser | undefined;
+  user?: IAuthUser;
   status: AuthStatus;
   errorMessage: string;
 }
