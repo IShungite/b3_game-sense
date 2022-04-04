@@ -3,4 +3,6 @@ import api from "../api";
 
 const createSchool = async (formData: CreateSchoolDto) => (await api.createSchool(formData)).data;
 
-export default { createSchool };
+const getSchools = async () => (await api.getSchools()).data;
+
+export default { createSchool, getSchools };

@@ -32,5 +32,6 @@ const createCharacter = (formData: CreateCharacterDto): Promise<AxiosResponse<IC
 const getCharacters = (): Promise<AxiosResponse<ICharacter[]>> => API.get("/characters");
 
 const createSchool = (formData: CreateSchoolDto): Promise<AxiosResponse<ISchool>> => API.post("/schools", formData);
+const getSchools = (): Promise<AxiosResponse<ISchool[]>> => API.get("/schools");
 
-export default { login, register, getDirectors, createCharacter, getCharacters, createSchool };
+export default { login, register, getDirectors, createCharacter, getCharacters, getSchools, createSchool };

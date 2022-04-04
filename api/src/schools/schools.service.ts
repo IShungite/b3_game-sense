@@ -34,8 +34,8 @@ export class SchoolsService {
     return createdSchool.save();
   }
 
-  findAll() {
-    return `This action returns all schools`;
+  findAll(userId: string): Promise<School[]> {
+    return this.schoolModel.find({ directorId: userId }).exec();
   }
 
   findOne(id: string): Promise<School> {

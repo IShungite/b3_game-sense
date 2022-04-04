@@ -3,6 +3,8 @@ import { SchoolsService } from "./schools.service";
 import { CreateSchoolDto } from "./dto/create-school.dto";
 import { UpdateSchoolDto } from "./dto/update-school.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { GetUser } from "src/decorator/get-user.decorator";
+import { IUserRequest } from "src/auth/models/auth.models";
 
 @UseGuards(JwtAuthGuard)
 @Controller("schools")
@@ -15,8 +17,8 @@ export class SchoolsController {
   }
 
   @Get()
-  findAll() {
-    return this.schoolsService.findAll();
+  findAll(@GetUser() user: IUserRequest) {
+    return this.schoolsService.findAll(user.id);
   }
 
   @Get(":id")
