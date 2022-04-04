@@ -28,6 +28,10 @@ export class CategoriesService {
     return this.categoryModel.find();
   }
 
+  async findAllByShop(id: string): Promise<Category[]> {
+    return this.categoryModel.find({ shopId: id });
+  }
+
   async findOne(id: string): Promise<Category> {
     return this.categoryModel.findById(id).exec();
   }

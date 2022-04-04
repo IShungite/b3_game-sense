@@ -17,6 +17,11 @@ export class CategoriesController {
     return this.categoriesService.findAll();
   }
 
+  @Get("/shop/:shopId")
+  findAllByShop(@Param("shopId") shopId: string) {
+    return this.categoriesService.findAllByShop(shopId);
+  }
+
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.categoriesService.findOne(id);
