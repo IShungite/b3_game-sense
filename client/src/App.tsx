@@ -1,6 +1,6 @@
 import { CssBaseline } from "@mui/material";
 import AppBar from "components/AppBar/AppBar";
-import ShopDetails from "components/Shop/ShopDetails";
+import ShopDetails from "pages/Shops/ShopDetails";
 import { RouteUrls } from "config";
 import Home from "pages/Home/Home";
 import Login from "pages/Login/Login";
