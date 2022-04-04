@@ -7,6 +7,7 @@ import { ShopsModule } from "./shops/shops.module";
 import { ProductsModule } from "./products/products.module";
 import { AuthModule } from "./auth/auth.module";
 import { SchoolsModule } from './schools/schools.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { SchoolsModule } from './schools/schools.module';
     ProductsModule,
     AuthModule,
     SchoolsModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
