@@ -34,6 +34,10 @@ export class UsersService {
     return this.userModel.findOne({ email }).exec();
   }
 
+  async findDirectors(): Promise<User[]> {
+    return this.userModel.find({ roles: Role.Director });
+  }
+
   async findById(id: string): Promise<User> {
     return this.userModel.findById(id).exec();
   }

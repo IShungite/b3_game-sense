@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
-import { IUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
+import { IAuthUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
 import authService from "services/auth.service";
 import { getErrorMessage } from "utils";
 
 interface AuthState {
-  user: IUser | undefined;
+  user: IAuthUser | undefined;
   status: AuthStatus;
   errorMessage: string;
 }
@@ -18,12 +18,12 @@ export enum AuthStatus {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const initalUser: IUser | undefined = localStorage.getItem("user")
+const initalUser: IAuthUser | undefined = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user") || "")
   : undefined;
 const initialAuthState: AuthState = { user: initalUser, status: AuthStatus.None, errorMessage: "" };
 
-export const login = createAsyncThunk<IUser, LoginCredentialsDto, { rejectValue: string }>(
+export const login = createAsyncThunk<IAuthUser, LoginCredentialsDto, { rejectValue: string }>(
   "auth/login",
   async (formData: LoginCredentialsDto, thunkAPI) => {
     try {

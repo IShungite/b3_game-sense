@@ -12,13 +12,13 @@ export class Character {
   @Prop({ type: SchemaTypes.ObjectId, ref: "User" })
   userId: User;
 
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, unique: true })
   nickname: string;
 
   @Prop({ type: Number, required: true })
   level: number;
 
-  @Prop({ type: Number, required: true, unique: true })
+  @Prop({ type: Number, required: true })
   experience: number;
 
   @Prop({ type: Number, required: true })

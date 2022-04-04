@@ -10,10 +10,9 @@ export interface RegisterCredentialsDto {
   password: string;
 }
 
-export interface IUser {
+export interface IAuthUser {
   id: string;
   access_token: string;
-  roles: Role[];
 }
 
 export enum Role {
@@ -28,4 +27,5 @@ export interface JwtToken {
   email: string;
   iat: number;
   exp: number;
+  roles: Role[];
 }

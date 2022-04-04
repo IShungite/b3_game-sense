@@ -17,6 +17,11 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @Get("directors")
+  findDirectors() {
+    return this.usersService.findDirectors();
+  }
+
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.usersService.findById(id);

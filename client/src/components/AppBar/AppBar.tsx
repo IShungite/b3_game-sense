@@ -14,9 +14,12 @@ import {
 } from "@mui/material";
 import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
+import jwtDecode from "jwt-decode";
+import { JwtToken, Role } from "models/auth/auth";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "reducers/authSlice";
+import { clearCharacters } from "reducers/characterSlice";
 import authService from "services/auth.service";
 
 export default function AppBar() {
@@ -29,12 +32,22 @@ export default function AppBar() {
 
   const dispatch = useAppDispatch();
 
-  const pagesLeft = user ? [] : [{ name: "Accueil", url: RouteUrls.Index }];
+  const pagesLeft = [];
 
-  if (currentCharacter) {
-    pagesLeft.push({ name: "Accueil", url: RouteUrls.Home });
-    pagesLeft.push({ name: "Statistiques", url: RouteUrls.Statistics });
-    pagesLeft.push({ name: "Magasins", url: RouteUrls.Shops });
+  if (user) {
+    const decodedToken: JwtToken = jwtDecode(user.access_token);
+
+    if (decodedToken.roles.includes(Role.Super_Admin)) {
+      pagesLeft.push({ name: "Créer une école", url: RouteUrls.CreateSchool });
+    }
+
+    if (currentCharacter) {
+      pagesLeft.push({ name: "Accueil", url: RouteUrls.Home });
+      pagesLeft.push({ name: "Statistiques", url: RouteUrls.Statistics });
+      pagesLeft.push({ name: "Magasins", url: RouteUrls.Shops });
+    }
+  } else {
+    pagesLeft.push({ name: "Accueil", url: RouteUrls.Index });
   }
 
   const pagesRight = [
@@ -58,6 +71,7 @@ export default function AppBar() {
     {
       name: "Déconnexion",
       callback: () => {
+        dispatch(clearCharacters());
         dispatch(logout(authService.logout()));
       },
     },

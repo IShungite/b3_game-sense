@@ -5,6 +5,7 @@ import { JwtToken } from "models/auth/auth";
 import React, { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { logout } from "reducers/authSlice";
+import { clearCharacters } from "reducers/characterSlice";
 import authService from "services/auth.service";
 
 export default function RequireAuth() {
@@ -16,6 +17,7 @@ export default function RequireAuth() {
     if (user) {
       const decodedToken: JwtToken = jwtDecode(user.access_token);
       if (decodedToken.exp * 1000 < new Date().getTime()) {
+        dispatch(clearCharacters());
         dispatch(logout(authService.logout()));
       }
     }
