@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { API_PORT, API_URL } from "config";
 import { LoginData, RegisterData, User } from "models/auth";
+import { ICategory } from "models/category/category";
 import { IProduct } from "models/products/products";
 import { IShop } from "models/shops/shop";
 
@@ -24,6 +25,7 @@ const register = (formData: RegisterData): Promise<AxiosResponse<User>> => API.p
 
 const getShops = (): Promise<AxiosResponse<IShop[]>> => API.get("/shops");
 const getProducts = (): Promise<AxiosResponse<IProduct[]>> => API.get("/products");
-const getProductsByShop = (shopId: string): Promise<AxiosResponse<IProduct[]>> => API.get(`/products/shop/${shopId}`);
+const getCategoriesByShop = (shopId: string): Promise<AxiosResponse<ICategory[]>> => API.get(`/categories/shop/${shopId}`);
+const getProductsByCategory = (shopId: string, categoryId: string): Promise<AxiosResponse<IProduct[]>> => API.get(`/products/shop/${shopId}/${categoryId}`);
 
-export default { login, register, getShops, getProducts, getProductsByShop };
+export default { login, register, getShops, getProducts, getProductsByCategory, getCategoriesByShop };

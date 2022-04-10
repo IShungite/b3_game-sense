@@ -1,6 +1,5 @@
 import { CssBaseline } from "@mui/material";
 import AppBar from "components/AppBar/AppBar";
-import ShopDetails from "pages/Shops/ShopDetails";
 import { RouteUrls } from "config";
 import Home from "pages/Home/Home";
 import Login from "pages/Login/Login";
@@ -10,6 +9,8 @@ import Statistics from "pages/Statistics/Statistics";
 import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ShopCategories from "pages/Shops/ShopCategories";
+import ShopContent from "pages/Shops/ShopContent";
 import store from "./store";
 
 export default function App() {
@@ -23,7 +24,8 @@ export default function App() {
           <Route path={RouteUrls.Login} element={<Login />} />
           <Route path={RouteUrls.Register} element={<Register />} />
           <Route path={RouteUrls.Shops} element={<Shops />} />
-          <Route path={`${RouteUrls.Shops}/:shopId`} element={<ShopDetails />}/>
+          <Route path={`${RouteUrls.Shops}/:shopId`} element={<ShopCategories />}/>
+          <Route path={`${RouteUrls.Shops}/:shopId/:categoryId`} element={<ShopContent />}/>
           <Route path={RouteUrls.Statistics} element={<Statistics />} />
         </Routes>
       </BrowserRouter>

@@ -4,6 +4,8 @@ import { ObjectId } from "mongoose";
 export class CreateProductDto {
   readonly shopId: ObjectId;
 
+  readonly categoryId: ObjectId;
+
   @MinLength(3)
   @MaxLength(30)
   readonly name: string;

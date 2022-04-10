@@ -5,12 +5,12 @@ const getProducts = async() => {
     return products;
 }
 
-const getProductsByShop = async(shopId: string) => {
-    const products = (await api.getProductsByShop(shopId)).data
+const getProductsByCategory = async(categoryId: string) => {
+    const products = (await api.getProductsByCategory(categoryId)).data
     return products;
 }
 
 export default {
     getProducts,
-    getProductsByShop,
+    getProductsByCategory,
 }

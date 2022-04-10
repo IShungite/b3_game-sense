@@ -17,9 +17,9 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
-  @Get("shop/:shopId")
-  findAllByShop(@Param("shopId") shopId: string) {
-    return this.productsService.findAllByShop(shopId);
+  @Get("shop/:shopId/:categoryId")
+  findAllByCategory(@Param("shopId") @Param("categoryId") categoryId: string) {
+    return this.productsService.findAllByCategory(categoryId);
   }
 
   @Get(":id")

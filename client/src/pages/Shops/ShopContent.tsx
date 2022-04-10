@@ -5,14 +5,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import productService from "services/product.service";
 
-export default function ShopDetails() {
+export default function ShopContent() {
 
   const [products, setProducts] = useState<IProduct[]>([]);
-  const {shopId} = useParams();
+  const {shopId, categoryId} = useParams();
 
   const getProductsByShop = async() => {
-    if(!shopId) return;
-    const productsFetched = await productService.getProductsByShop(shopId);
+    if(!shopId || !categoryId) return;
+    const productsFetched = await productService.getProductsByCategory(categoryId);
     setProducts(productsFetched);
   }
 

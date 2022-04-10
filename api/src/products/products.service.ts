@@ -11,7 +11,8 @@ export class ProductsService {
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
     const productExist = await this.productModel.findOne({
-      shop_id: createProductDto.shopId,
+      shopId: createProductDto.shopId,
+      categoryId: createProductDto.categoryId,
       name: createProductDto.name,
       price: createProductDto.price,
       description: createProductDto.description,
@@ -30,8 +31,8 @@ export class ProductsService {
     return this.productModel.find();
   }
 
-  async findAllByShop(id: string): Promise<Product[]> {
-    return this.productModel.find({ shopId: id });
+  async findAllByCategory(categoryId: string): Promise<Product[]> {
+    return this.productModel.find({ categoryId });
   }
 
   async findOne(id: string): Promise<Product> {
