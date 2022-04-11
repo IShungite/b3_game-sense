@@ -8,10 +8,10 @@ import { AuthModule } from "./auth/auth.module";
 import { StatisticsModule } from "./statistics/statistics.module";
 import { GradesModule } from "./grades/grades.module";
 import { CharactersModule } from "./characters/characters.module";
-import { ClassesModule } from "./classes/classes.module";
 import { SchoolsModule } from "./schools/schools.module";
 import { SubjectsModule } from "./subjects/subjects.module";
 import { CaslModule } from "./casl/casl.module";
+import { ItemsModule } from "./items/items.module";
 
 @Module({
   imports: [
@@ -21,10 +21,10 @@ import { CaslModule } from "./casl/casl.module";
     StatisticsModule,
     GradesModule,
     CharactersModule,
-    ClassesModule,
     SchoolsModule,
     SubjectsModule,
     CaslModule,
+    ItemsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
