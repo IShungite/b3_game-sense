@@ -40,10 +40,10 @@ export default function Login() {
     if (user) {
       const decodedToken: JwtToken = jwtDecode(user.access_token);
 
-      if (decodedToken.roles.includes(Role.Director)) {
-        navigate(RouteUrls.SelectSchool);
-      } else if (decodedToken.roles.includes(Role.Student)) {
+      if (decodedToken.roles.includes(Role.Super_Admin)) {
         navigate(RouteUrls.CreateSchool);
+      } else if (decodedToken.roles.includes(Role.Director)) {
+        navigate(RouteUrls.SelectSchool);
       } else {
         navigate(RouteUrls.SelectCharacter);
       }
