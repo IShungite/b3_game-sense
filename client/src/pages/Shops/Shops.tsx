@@ -3,10 +3,18 @@ import Shop from "components/Shop/Shop";
 import { IShop } from "models/shops/shop";
 import React, { useEffect, useState } from "react";
 import shopService from "services/shop.service";
+import { Navigate } from "react-router-dom";
+import { useAppSelector } from "hooks";
+import { RouteUrls } from "config";
 
 export default function Shops() {
 
   const [shops, setShops] = useState<IShop[]>([]);
+  const { currentCharacter } = useAppSelector((state) => state.character);
+
+  if (!currentCharacter) {
+    return <Navigate to={RouteUrls.SelectCharacter} />;
+  }
 
   const getShops = async() => {
     const shopsFetched = await shopService.getShops();

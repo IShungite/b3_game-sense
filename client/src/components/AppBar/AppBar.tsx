@@ -19,24 +19,28 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "reducers/authSlice";
 import authService from "services/auth.service";
 
-const pagesLeft = [
-  { name: "Accueil", url: RouteUrls.Home },
-  { name: "Magasins", url: RouteUrls.Shops },
-  { name: "Statistiques", url: RouteUrls.Statistics },
-];
-const pagesRight = [
-  { name: "Connexion", url: RouteUrls.Login },
-  { name: "Inscription", url: RouteUrls.Register },
-];
-
 export default function AppBar() {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const { user } = useAppSelector((state) => state.auth);
+  const { currentCharacter } = useAppSelector((state) => state.character);
 
   const dispatch = useAppDispatch();
+
+  const pagesLeft = user ? [] : [{ name: "Accueil", url: RouteUrls.Index }];
+
+  if (currentCharacter) {
+    pagesLeft.push({ name: "Accueil", url: RouteUrls.Home });
+    pagesLeft.push({ name: "Statistiques", url: RouteUrls.Statistics });
+    pagesLeft.push({ name: "Magasins", url: RouteUrls.Shops });
+  }
+
+  const pagesRight = [
+    { name: "Connexion", url: RouteUrls.Login },
+    { name: "Inscription", url: RouteUrls.Register },
+  ];
 
   const settings = [
     {
@@ -46,7 +50,13 @@ export default function AppBar() {
       },
     },
     {
-      name: "Logout",
+      name: "Changer de personnage",
+      callback: () => {
+        navigate(RouteUrls.SelectCharacter);
+      },
+    },
+    {
+      name: "Déconnexion",
       callback: () => {
         dispatch(logout(authService.logout()));
       },

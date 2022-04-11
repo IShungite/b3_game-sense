@@ -1,0 +1,235 @@
+{
+  "1": {
+    "id": 1,
+    "name": "Body Fallen angel",
+    "description": "Fallen angel body",
+    "image": "./images/characters/bodies/body_fallen_angel.png",
+    "type": "body"
+  },
+  "2": {
+    "id": 2,
+    "name": "Face Fallen angel",
+    "description": "Fallen angel face",
+    "image": "./images/characters/faces/face_1_fallen_angel.png",
+    "type": "face"
+  },
+  "3": {
+    "id": 3,
+    "name": "Face 2 Fallen angel",
+    "description": "Fallen angel face 2",
+    "image": "./images/characters/faces/face_2_fallen_angel.png",
+    "type": "face"
+  },
+  "4": {
+    "id": 4,
+    "name": "Face 3 Fallen angel",
+    "description": "Fallen angel face 3",
+    "image": "./images/characters/faces/face_3_fallen_angel.png",
+    "type": "face"
+  },
+  "5": {
+    "id": 5,
+    "name": "Head Fallen angel",
+    "description": "Fallen angel Head",
+    "image": "./images/characters/heads/head_fallen_angel.png",
+    "type": "head"
+  },
+  "6": {
+    "id": 6,
+    "name": "Left Arm Fallen angel",
+    "description": "Fallen angel left arm",
+    "image": "./images/characters/left_arms/left_arm_fallen_angel.png",
+    "type": "leftArm"
+  },
+  "7": {
+    "id": 7,
+    "name": "Left hand Fallen angel",
+    "description": "Fallen angel left hand",
+    "image": "./images/characters/left_hands/left_hand_fallen_angel.png",
+    "type": "leftHand"
+  },
+  "8": {
+    "id": 8,
+    "name": "Left legs Fallen angel",
+    "description": "Fallen angel left leg",
+    "image": "./images/characters/left_legs/left_leg_fallen_angel.png",
+    "type": "leftLeg"
+  },
+  "9": {
+    "id": 9,
+    "name": "Right Arm Fallen angel",
+    "description": "Fallen angel right arm",
+    "image": "./images/characters/right_arms/right_arm_fallen_angel.png",
+    "type": "rightArm"
+  },
+  "10": {
+    "id": 10,
+    "name": "Right hand Fallen angel",
+    "description": "Fallen angel right hand",
+    "image": "./images/characters/right_hands/right_hand_fallen_angel.png",
+    "type": "rightHand"
+  },
+  "11": {
+    "id": 11,
+    "name": "Right legs Fallen angel",
+    "description": "Fallen angel right leg",
+    "image": "./images/characters/right_legs/right_leg_fallen_angel.png",
+    "type": "rightLeg"
+  },
+
+  "12": {
+    "id": 12,
+    "name": "Body Fallen angel 2",
+    "description": "Fallen angel 2 body",
+    "image": "./images/characters/bodies/body_fallen_angel_2.png",
+    "type": "body"
+  },
+  "13": {
+    "id": 13,
+    "name": "Face Fallen angel 2",
+    "description": "Fallen angel 2 face",
+    "image": "./images/characters/faces/face_1_fallen_angel_2.png",
+    "type": "face"
+  },
+  "14": {
+    "id": 14,
+    "name": "Face 2 Fallen angel 2",
+    "description": "Fallen angel 2 face 2",
+    "image": "./images/characters/faces/face_2_fallen_angel_2.png",
+    "type": "face"
+  },
+  "15": {
+    "id": 15,
+    "name": "Face 3 Fallen angel 2",
+    "description": "Fallen angel 2 face 3",
+    "image": "./images/characters/faces/face_3_fallen_angel_2.png",
+    "type": "face"
+  },
+  "16": {
+    "id": 16,
+    "name": "Head Fallen angel 2",
+    "description": "Fallen angel 2 Head",
+    "image": "./images/characters/heads/head_fallen_angel_2.png",
+    "type": "head"
+  },
+  "17": {
+    "id": 17,
+    "name": "Left Arm Fallen angel 2",
+    "description": "Fallen angel 2 left arm",
+    "image": "./images/characters/left_arms/left_arm_fallen_angel_2.png",
+    "type": "leftArm"
+  },
+  "18": {
+    "id": 18,
+    "name": "Left hand Fallen angel 2",
+    "description": "Fallen angel 2 left hand",
+    "image": "./images/characters/left_hands/left_hand_fallen_angel_2.png",
+    "type": "leftHand"
+  },
+  "19": {
+    "id": 19,
+    "name": "Left legs Fallen angel 2",
+    "description": "Fallen angel 2 left leg",
+    "image": "./images/characters/left_legs/left_leg_fallen_angel_2.png",
+    "type": "leftLeg"
+  },
+  "20": {
+    "id": 20,
+    "name": "Right Arm Fallen angel 2",
+    "description": "Fallen angel 2 right arm",
+    "image": "./images/characters/right_arms/right_arm_fallen_angel_2.png",
+    "type": "rightArm"
+  },
+  "21": {
+    "id": 21,
+    "name": "Right hand Fallen angel 2",
+    "description": "Fallen angel 2 right hand",
+    "image": "./images/characters/right_hands/right_hand_fallen_angel_2.png",
+    "type": "rightHand"
+  },
+  "22": {
+    "id": 22,
+    "name": "Right legs Fallen angel 2",
+    "description": "Fallen angel 2 right leg",
+    "image": "./images/characters/right_legs/right_leg_fallen_angel_2.png",
+    "type": "rightLeg"
+  },
+
+  "23": {
+    "id": 23,
+    "name": "Body Fallen angel 3",
+    "description": "Fallen angel 3 body",
+    "image": "./images/characters/bodies/body_fallen_angel_3.png",
+    "type": "body"
+  },
+  "24": {
+    "id": 24,
+    "name": "Face Fallen angel 3",
+    "description": "Fallen angel 3 face",
+    "image": "./images/characters/faces/face_1_fallen_angel_3.png",
+    "type": "face"
+  },
+  "25": {
+    "id": 25,
+    "name": "Face 2 Fallen angel 3",
+    "description": "Fallen angel 3 face 2",
+    "image": "./images/characters/faces/face_2_fallen_angel_3.png",
+    "type": "face"
+  },
+  "26": {
+    "id": 26,
+    "name": "Face 3 Fallen angel 3",
+    "description": "Fallen angel 3 face 3",
+    "image": "./images/characters/faces/face_3_fallen_angel_3.png",
+    "type": "face"
+  },
+  "27": {
+    "id": 27,
+    "name": "Head Fallen angel 3",
+    "description": "Fallen angel 3 Head",
+    "image": "./images/characters/heads/head_fallen_angel_3.png",
+    "type": "head"
+  },
+  "28": {
+    "id": 28,
+    "name": "Left Arm Fallen angel 3",
+    "description": "Fallen angel 3 left arm",
+    "image": "./images/characters/left_arms/left_arm_fallen_angel_3.png",
+    "type": "leftArm"
+  },
+  "29": {
+    "id": 29,
+    "name": "Left hand Fallen angel 3",
+    "description": "Fallen angel 3 left hand",
+    "image": "./images/characters/left_hands/left_hand_fallen_angel_3.png",
+    "type": "leftHand"
+  },
+  "30": {
+    "id": 30,
+    "name": "Left legs Fallen angel 3",
+    "description": "Fallen angel 3 left leg",
+    "image": "./images/characters/left_legs/left_leg_fallen_angel_3.png",
+    "type": "leftLeg"
+  },
+  "31": {
+    "id": 31,
+    "name": "Right Arm Fallen angel 3",
+    "description": "Fallen angel 3 right arm",
+    "image": "./images/characters/right_arms/right_arm_fallen_angel_3.png",
+    "type": "rightArm"
+  },
+  "32": {
+    "id": 32,
+    "name": "Right hand Fallen angel 3",
+    "description": "Fallen angel 3 right hand",
+    "image": "./images/characters/right_hands/right_hand_fallen_angel_3.png",
+    "type": "rightHand"
+  },
+  "33": {
+    "id": 33,
+    "name": "Right legs Fallen angel 3",
+    "description": "Fallen angel 3 right leg",
+    "image": "./images/characters/right_legs/right_leg_fallen_angel_3.png",
+    "type": "rightLeg"
+  }
+}

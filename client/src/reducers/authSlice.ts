@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
-import { LoginData, RegisterData, User } from "models/auth";
+import { IUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
 import authService from "services/auth.service";
 import { getErrorMessage } from "utils";
 
 interface AuthState {
-  user: User | undefined;
+  user: IUser | undefined;
   status: AuthStatus;
   errorMessage: string;
 }
@@ -18,14 +18,14 @@ export enum AuthStatus {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const initalUser: User | undefined = localStorage.getItem("user")
+const initalUser: IUser | undefined = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user") || "")
   : undefined;
 const initialAuthState: AuthState = { user: initalUser, status: AuthStatus.None, errorMessage: "" };
 
-export const login = createAsyncThunk<User, LoginData, { rejectValue: string }>(
+export const login = createAsyncThunk<IUser, LoginCredentialsDto, { rejectValue: string }>(
   "auth/login",
-  async (formData: LoginData, thunkAPI) => {
+  async (formData: LoginCredentialsDto, thunkAPI) => {
     try {
       const user = await authService.login(formData);
       return user;
@@ -36,9 +36,9 @@ export const login = createAsyncThunk<User, LoginData, { rejectValue: string }>(
   },
 );
 
-export const register = createAsyncThunk<undefined, RegisterData, { rejectValue: string }>(
+export const register = createAsyncThunk<undefined, RegisterCredentialsDto, { rejectValue: string }>(
   "auth/register",
-  async (formData: RegisterData, thunkAPI) => {
+  async (formData: RegisterCredentialsDto, thunkAPI) => {
     try {
       await authService.register(formData);
       return undefined;

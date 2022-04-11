@@ -1,10 +1,19 @@
-import { Container, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
+import { RouteUrls } from "config";
+import { useAppSelector } from "hooks";
 import React from "react";
+import { Navigate } from "react-router-dom";
 
 export default function Statistics() {
+  const { currentCharacter } = useAppSelector((state) => state.character);
+
+  if (!currentCharacter) {
+    return <Navigate to={RouteUrls.SelectCharacter} />;
+  }
+
   return (
-    <Container component="main">
+    <>
       <Typography>Statistics</Typography>
-    </Container>
+    </>
   );
 }
