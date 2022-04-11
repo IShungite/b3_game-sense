@@ -1,4 +1,4 @@
-import { CreateCourseDto } from "models/course/create-course.dto";
+import { CreateCourseDto } from "models/courses/create-course.dto";
 import api from "../api";
 
 const createCourse = async (formData: CreateCourseDto) => (await api.createCourse(formData)).data;

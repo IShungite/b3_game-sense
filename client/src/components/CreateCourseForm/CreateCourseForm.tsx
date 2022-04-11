@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { CreateCourseDto } from "models/course/create-course.dto";
-import createCourseValidation from "models/course/create-course.validation";
+import { CreateCourseDto } from "models/courses/create-course.dto";
+import createCourseValidation from "models/courses/create-course.validation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { clearState } from "reducers/authSlice";
