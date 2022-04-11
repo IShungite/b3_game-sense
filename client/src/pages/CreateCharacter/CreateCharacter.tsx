@@ -167,12 +167,13 @@ export default function CreateCharacter() {
       const fetchPromotions = async () => {
         const promotionsFetched = (await api.getPromotions(schoolIdWatched)).data;
         setPromotions(promotionsFetched);
+        setValue("promotionId", "");
       };
 
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       fetchPromotions();
     }
-  }, [schoolIdWatched]);
+  }, [schoolIdWatched, setValue]);
 
   return (
     <>
