@@ -1,4 +1,6 @@
 import { Box, Typography } from "@mui/material";
+import CoursesGrid from "components/CoursesGrid/CoursesGrid";
+import CreateCourseForm from "components/CreateCourseForm/CreateCourseForm";
 import { RouteUrls } from "config";
 import { useAppSelector } from "hooks";
 import React from "react";
@@ -16,6 +18,9 @@ export default function School() {
       <Box textAlign="center">
         <Typography variant="h2">{currentSchool.name}</Typography>
       </Box>
+
+      <CoursesGrid />
+      <CreateCourseForm />
     </>
   );
 }

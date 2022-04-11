@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, ObjectId, SchemaTypes } from "mongoose";
-import { Class } from "src/classes/entities/class.schema";
+import { Course } from "src/courses/entities/course.schema";
 
 export type SubjectDocument = Subject & Document;
 
@@ -12,15 +12,8 @@ export class Subject {
   @Prop({ type: String, required: true })
   name: string;
 
-  @Prop({type: SchemaTypes.ObjectId, ref: 'Class'})
-  class_id: Class
-
-
-
-
-  
-
-
+  @Prop({ type: SchemaTypes.ObjectId, ref: "Course" })
+  courseId: Course;
 }
 
 export const SubjectSchema = SchemaFactory.createForClass(Subject);

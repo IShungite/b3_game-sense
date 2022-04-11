@@ -3,6 +3,8 @@ import { API_PORT, API_URL } from "config";
 import { IAuthUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
 import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
+import { ICourse } from "models/course/course";
+import { CreateCourseDto } from "models/course/create-course.dto";
 import { CreateSchoolDto } from "models/schools/create-school.dto";
 import { ISchool } from "models/schools/school";
 import { IUser } from "models/users/user";
@@ -34,4 +36,17 @@ const getCharacters = (): Promise<AxiosResponse<ICharacter[]>> => API.get("/char
 const createSchool = (formData: CreateSchoolDto): Promise<AxiosResponse<ISchool>> => API.post("/schools", formData);
 const getSchools = (): Promise<AxiosResponse<ISchool[]>> => API.get("/schools");
 
-export default { login, register, getDirectors, createCharacter, getCharacters, getSchools, createSchool };
+const createCourse = (formData: CreateCourseDto): Promise<AxiosResponse<ICourse>> => API.post("/courses", formData);
+const getCourses = (schoolId: string): Promise<AxiosResponse<ICourse[]>> => API.post("/courses/getAll", { schoolId });
+
+export default {
+  login,
+  register,
+  getDirectors,
+  createCharacter,
+  getCharacters,
+  getSchools,
+  createSchool,
+  getCourses,
+  createCourse,
+};

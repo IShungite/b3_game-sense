@@ -39,6 +39,8 @@ export default function AppBar() {
 
     if (decodedToken.roles.includes(Role.Super_Admin)) {
       pagesLeft.push({ name: "Créer une école", url: RouteUrls.CreateSchool });
+    } else if (decodedToken.roles.includes(Role.Director)) {
+      pagesLeft.push({ name: "Mes écoles", url: RouteUrls.SelectSchool });
     }
 
     if (currentCharacter) {
