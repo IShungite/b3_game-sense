@@ -1,15 +1,21 @@
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
+import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { ICourse } from "models/course/course";
+import { ICourse } from "models/courses/course";
 import React, { useEffect } from "react";
-import { getCourses } from "reducers/courseSlice";
+import { useNavigate } from "react-router-dom";
+import { getCourses, setCurrentCourse } from "reducers/courseSlice";
 
 export default function CoursesGrid() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { courses, errorMessage } = useAppSelector((state) => state.course);
   const { currentSchool } = useAppSelector((state) => state.school);
 
-  const handleCreateCourse = (course: ICourse) => {};
+  const handleClickCourse = (course: ICourse) => {
+    dispatch(setCurrentCourse(course));
+    navigate(RouteUrls.Course);
+  };
 
   useEffect(() => {
     if (courses.length === 0 && currentSchool) {
@@ -25,8 +31,14 @@ export default function CoursesGrid() {
 
       <Grid container direction="column">
         {courses.map((course) => (
-          <Grid item key={course.name} onClick={() => handleCreateCourse(course)}>
-            <Typography>{course.name}</Typography>
+          <Grid item key={course.name}>
+            <Button
+              onClick={() => {
+                handleClickCourse(course);
+              }}
+            >
+              {course.name}
+            </Button>
           </Grid>
         ))}
       </Grid>

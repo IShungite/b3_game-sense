@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
-import { ICourse } from "models/course/course";
-import { CreateCourseDto } from "models/course/create-course.dto";
+import { ICourse } from "models/courses/course";
+import { CreateCourseDto } from "models/courses/create-course.dto";
 import courseService from "services/course.service";
 import { getErrorMessage } from "utils";
 
@@ -16,6 +16,7 @@ interface CourseState {
   courses: ICourse[];
   errorMessage?: string;
   status: CourseStatus;
+  currentCourse?: ICourse;
 }
 
 const initialSchool: CourseState = {
@@ -56,6 +57,9 @@ const courseSlice = createSlice({
     clearState: (state) => {
       state.errorMessage = undefined;
     },
+    setCurrentCourse: (state, { payload }: PayloadAction<ICourse>) => {
+      state.currentCourse = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -87,5 +91,5 @@ const courseSlice = createSlice({
   },
 });
 
-export const { clearState } = courseSlice.actions;
+export const { clearState, setCurrentCourse } = courseSlice.actions;
 export default courseSlice.reducer;

@@ -5,6 +5,7 @@ import RequireAuth from "components/RequireAuth/RequireAuth";
 import RequireRole from "components/RequireRole/RequireRole";
 import { RouteUrls } from "config";
 import { Role } from "models/auth/auth";
+import Course from "pages/Course/Course";
 import CreateCharacter from "pages/CreateCharacter/CreateCharacter";
 import CreateSchool from "pages/CreateSchool/CreateSchool";
 import Home from "pages/Home/Home";
@@ -49,6 +50,7 @@ export default function App() {
               <Route path={RouteUrls.SelectSchool} element={<SelectSchool />} />
 
               <Route path={RouteUrls.School} element={<School />} />
+              <Route path={RouteUrls.Course} element={<Course />} />
             </Route>
           </Route>
         </Routes>
