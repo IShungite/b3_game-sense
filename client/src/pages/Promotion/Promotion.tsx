@@ -6,17 +6,17 @@ import { useAppSelector } from "hooks";
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-export default function Course() {
-  const { currentCourse } = useAppSelector((state) => state.course);
+export default function Promotion() {
+  const { currentPromotion } = useAppSelector((state) => state.promotion);
 
-  if (!currentCourse) {
+  if (!currentPromotion) {
     return <Navigate to={RouteUrls.School} />;
   }
 
   return (
     <>
       <Box textAlign="center">
-        <Typography variant="h2">{currentCourse.name}</Typography>
+        <Typography variant="h2">{currentPromotion.name}</Typography>
       </Box>
 
       <SubjectsGrid />

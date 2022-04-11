@@ -3,8 +3,8 @@ import { API_PORT, API_URL } from "config";
 import { IAuthUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
 import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
-import { ICourse } from "models/courses/course";
-import { CreateCourseDto } from "models/courses/create-course.dto";
+import { CreatePromotionDto } from "models/promotions/create-promotion.dto";
+import { IPromotion } from "models/promotions/promotion";
 import { CreateSchoolDto } from "models/schools/create-school.dto";
 import { ISchool } from "models/schools/school";
 import { CreateSubjectDto } from "models/subjects/create-subject.dto";
@@ -38,12 +38,14 @@ const getCharacters = (): Promise<AxiosResponse<ICharacter[]>> => API.get("/char
 const createSchool = (formData: CreateSchoolDto): Promise<AxiosResponse<ISchool>> => API.post("/schools", formData);
 const getSchools = (): Promise<AxiosResponse<ISchool[]>> => API.get("/schools");
 
-const createCourse = (formData: CreateCourseDto): Promise<AxiosResponse<ICourse>> => API.post("/courses", formData);
-const getCourses = (schoolId: string): Promise<AxiosResponse<ICourse[]>> => API.post("/courses/getAll", { schoolId });
+const createPromotion = (formData: CreatePromotionDto): Promise<AxiosResponse<IPromotion>> =>
+  API.post("/promotions", formData);
+const getPromotions = (schoolId: string): Promise<AxiosResponse<IPromotion[]>> =>
+  API.post("/promotions/getAll", { schoolId });
 
 const createSubject = (formData: CreateSubjectDto): Promise<AxiosResponse<ISubject>> => API.post("/subjects", formData);
-const getSubjects = (courseId: string): Promise<AxiosResponse<ISubject[]>> =>
-  API.post("/subjects/getAll", { courseId });
+const getSubjects = (promotionId: string): Promise<AxiosResponse<ISubject[]>> =>
+  API.post("/subjects/getAll", { promotionId });
 
 export default {
   login,
@@ -53,8 +55,8 @@ export default {
   getCharacters,
   getSchools,
   createSchool,
-  getCourses,
-  createCourse,
+  getPromotions,
+  createPromotion,
   getSubjects,
   createSubject,
 };

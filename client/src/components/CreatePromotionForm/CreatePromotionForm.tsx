@@ -1,19 +1,19 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { CreateCourseDto } from "models/courses/create-course.dto";
-import createCourseValidation from "models/courses/create-course.validation";
+import { CreatePromotionDto } from "models/promotions/create-promotion.dto";
+import createPromotionValidation from "models/promotions/create-promotion.validation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { createCourse } from "reducers/courseSlice";
+import { createPromotion } from "reducers/promotionSlice";
 
-export default function CreateCourseForm() {
+export default function CreatePromotionForm() {
   const dispatch = useAppDispatch();
 
   const { currentSchool } = useAppSelector((state) => state.school);
-  const { errorMessage } = useAppSelector((state) => state.course);
+  const { errorMessage } = useAppSelector((state) => state.promotion);
 
-  const initialFormValues: CreateCourseDto = {
+  const initialFormValues: CreatePromotionDto = {
     name: "",
     schoolId: "",
   };
@@ -22,12 +22,12 @@ export default function CreateCourseForm() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({ mode: "onChange", defaultValues: initialFormValues, resolver: yupResolver(createCourseValidation) });
+  } = useForm({ mode: "onChange", defaultValues: initialFormValues, resolver: yupResolver(createPromotionValidation) });
 
-  const onSubmit = (data: CreateCourseDto) => {
+  const onSubmit = (data: CreatePromotionDto) => {
     if (currentSchool) {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      dispatch(createCourse({ ...data, schoolId: currentSchool._id }));
+      dispatch(createPromotion({ ...data, schoolId: currentSchool._id }));
     }
   };
 

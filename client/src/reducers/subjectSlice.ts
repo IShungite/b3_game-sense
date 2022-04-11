@@ -25,9 +25,9 @@ const initialSchool: SubjectState = {
 
 export const getSubjects = createAsyncThunk<ISubject[], string, { rejectValue: string }>(
   "subject/getAll",
-  async (courseId, thunkAPI) => {
+  async (promotionId, thunkAPI) => {
     try {
-      const subjects = await subjectService.getSubjects(courseId);
+      const subjects = await subjectService.getSubjects(promotionId);
       return subjects;
     } catch (err) {
       const error = err as Error | AxiosError;
@@ -49,7 +49,7 @@ export const createSubject = createAsyncThunk<ISubject, CreateSubjectDto, { reje
   },
 );
 
-const courseSlice = createSlice({
+const promotionSlice = createSlice({
   name: "subject",
   initialState: initialSchool,
   reducers: {
@@ -87,5 +87,5 @@ const courseSlice = createSlice({
   },
 });
 
-export const { clearState } = courseSlice.actions;
-export default courseSlice.reducer;
+export const { clearState } = promotionSlice.actions;
+export default promotionSlice.reducer;

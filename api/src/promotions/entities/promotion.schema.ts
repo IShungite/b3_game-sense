@@ -2,10 +2,10 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ObjectId, SchemaTypes } from "mongoose";
 import { School } from "src/schools/entities/school.schema";
 
-export type CourseDocument = Course & Document;
+export type PromotionDocument = Promotion & Document;
 
 @Schema()
-export class Course {
+export class Promotion {
   @Prop({ type: SchemaTypes.ObjectId, auto: true })
   _id: ObjectId;
 
@@ -16,4 +16,4 @@ export class Course {
   schoolId: School;
 }
 
-export const CourseSchema = SchemaFactory.createForClass(Course);
+export const PromotionSchema = SchemaFactory.createForClass(Promotion);

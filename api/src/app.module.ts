@@ -11,7 +11,7 @@ import { CharactersModule } from "./characters/characters.module";
 import { SchoolsModule } from "./schools/schools.module";
 import { SubjectsModule } from "./subjects/subjects.module";
 import { CaslModule } from "./casl/casl.module";
-import { CoursesModule } from "./courses/courses.module";
+import { PromotionsModule } from "./promotions/promotions.module";
 
 @Module({
   imports: [
@@ -24,7 +24,7 @@ import { CoursesModule } from "./courses/courses.module";
     SchoolsModule,
     SubjectsModule,
     CaslModule,
-    CoursesModule,
+    PromotionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

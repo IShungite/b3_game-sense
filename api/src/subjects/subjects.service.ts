@@ -11,7 +11,7 @@ export class SubjectsService {
 
   async create(createSubjectDto: CreateSubjectDto) {
     const subjectExists = await this.subjectModel
-      .findOne({ name: createSubjectDto.name, courseId: createSubjectDto.courseId })
+      .findOne({ name: createSubjectDto.name, promotionId: createSubjectDto.promotionId })
       .exec();
 
     if (subjectExists) throw new ConflictException("Subject already exists");
@@ -23,8 +23,8 @@ export class SubjectsService {
     return createdSubject.save();
   }
 
-  findAll(courseId: string) {
-    return this.subjectModel.find({ courseId });
+  findAll(promotionId: string) {
+    return this.subjectModel.find({ promotionId });
   }
 
   findOne(id: number) {

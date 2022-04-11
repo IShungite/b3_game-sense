@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks";
-import createSubjectValidation from "models/subjects/create-course.validation";
 import { CreateSubjectDto } from "models/subjects/create-subject.dto";
+import createSubjectValidation from "models/subjects/create-subject.validation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { createSubject } from "reducers/subjectSlice";
@@ -10,12 +10,12 @@ import { createSubject } from "reducers/subjectSlice";
 export default function CreateSubjectForm() {
   const dispatch = useAppDispatch();
 
-  const { currentCourse } = useAppSelector((state) => state.course);
+  const { currentPromotion } = useAppSelector((state) => state.promotion);
   const { errorMessage } = useAppSelector((state) => state.subject);
 
   const initialFormValues: CreateSubjectDto = {
     name: "",
-    courseId: "",
+    promotionId: "",
   };
   const {
     register: registerFormField,
@@ -25,15 +25,15 @@ export default function CreateSubjectForm() {
   } = useForm({ mode: "onChange", defaultValues: initialFormValues, resolver: yupResolver(createSubjectValidation) });
 
   const onSubmit = (data: CreateSubjectDto) => {
-    if (currentCourse) {
+    if (currentPromotion) {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      dispatch(createSubject({ ...data, courseId: currentCourse._id }));
+      dispatch(createSubject({ ...data, promotionId: currentPromotion._id }));
     }
   };
 
   useEffect(() => {
-    if (currentCourse) {
-      setValue("courseId", currentCourse._id);
+    if (currentPromotion) {
+      setValue("promotionId", currentPromotion._id);
     }
   });
 

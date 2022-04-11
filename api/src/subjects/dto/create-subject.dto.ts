@@ -1,4 +1,4 @@
 export class CreateSubjectDto {
   readonly name: string;
-  readonly courseId: string;
+  readonly promotionId: string;
 }

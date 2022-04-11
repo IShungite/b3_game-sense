@@ -5,12 +5,12 @@ import RequireAuth from "components/RequireAuth/RequireAuth";
 import RequireRole from "components/RequireRole/RequireRole";
 import { RouteUrls } from "config";
 import { Role } from "models/auth/auth";
-import Course from "pages/Course/Course";
 import CreateCharacter from "pages/CreateCharacter/CreateCharacter";
 import CreateSchool from "pages/CreateSchool/CreateSchool";
 import Home from "pages/Home/Home";
 import Index from "pages/Index/Index";
 import Login from "pages/Login/Login";
+import Promotion from "pages/Promotion/Promotion";
 import Register from "pages/Register/Register";
 import School from "pages/School/School";
 import SelectCharacter from "pages/SelectCharacter/selectCharacter";
@@ -50,7 +50,7 @@ export default function App() {
               <Route path={RouteUrls.SelectSchool} element={<SelectSchool />} />
 
               <Route path={RouteUrls.School} element={<School />} />
-              <Route path={RouteUrls.Course} element={<Course />} />
+              <Route path={RouteUrls.Promotion} element={<Promotion />} />
             </Route>
           </Route>
         </Routes>

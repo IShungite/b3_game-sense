@@ -13,7 +13,7 @@ export enum RouteUrls {
   SelectSchool = "/select-school",
   School = "/school",
 
-  Course = "/course",
+  Promotion = "/promotion",
 
   Home = "/home",
   Shops = "/shops",

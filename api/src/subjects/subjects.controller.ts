@@ -13,8 +13,8 @@ export class SubjectsController {
   }
 
   @Post("/getAll")
-  findAll(@Body() params: { courseId: string }) {
-    return this.subjectsService.findAll(params.courseId);
+  findAll(@Body() params: { promotionId: string }) {
+    return this.subjectsService.findAll(params.promotionId);
   }
 
   @Get(":id")

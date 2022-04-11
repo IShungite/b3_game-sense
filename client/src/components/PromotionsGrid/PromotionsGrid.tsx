@@ -1,28 +1,28 @@
 import { Button, Grid, Typography } from "@mui/material";
 import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { ICourse } from "models/courses/course";
+import { IPromotion } from "models/promotions/promotion";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCourses, setCurrentCourse } from "reducers/courseSlice";
+import { getPromotions, setCurrentPromotion } from "reducers/promotionSlice";
 
-export default function CoursesGrid() {
+export default function PromotionsGrid() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { courses, errorMessage } = useAppSelector((state) => state.course);
+  const { promotions, errorMessage } = useAppSelector((state) => state.promotion);
   const { currentSchool } = useAppSelector((state) => state.school);
 
-  const handleClickCourse = (course: ICourse) => {
-    dispatch(setCurrentCourse(course));
-    navigate(RouteUrls.Course);
+  const handleClickPromotion = (promotion: IPromotion) => {
+    dispatch(setCurrentPromotion(promotion));
+    navigate(RouteUrls.Promotion);
   };
 
   useEffect(() => {
-    if (courses.length === 0 && currentSchool) {
+    if (promotions.length === 0 && currentSchool) {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      dispatch(getCourses(currentSchool._id));
+      dispatch(getPromotions(currentSchool._id));
     }
-  }, [dispatch, courses.length, currentSchool]);
+  }, [dispatch, promotions.length, currentSchool]);
 
   return (
     <>
@@ -30,14 +30,14 @@ export default function CoursesGrid() {
       <Typography>{errorMessage}</Typography>
 
       <Grid container direction="column">
-        {courses.map((course) => (
-          <Grid item key={course.name}>
+        {promotions.map((promotion) => (
+          <Grid item key={promotion.name}>
             <Button
               onClick={() => {
-                handleClickCourse(course);
+                handleClickPromotion(promotion);
               }}
             >
-              {course.name}
+              {promotion.name}
             </Button>
           </Grid>
         ))}
