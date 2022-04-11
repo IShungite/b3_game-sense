@@ -19,6 +19,8 @@ export class CharactersService {
 
     if (characterExists) throw new ConflictException("Nickname already exists");
 
+    console.log(createCharacterDto);
+
     const createdCharacter = new this.characterModel({
       ...createCharacterDto,
       userId: user.id,

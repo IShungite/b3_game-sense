@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "hooks";
 import { ISchool } from "models/schools/school";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getSchools, setCurrentSchool } from "reducers/schoolSlice";
+import { getDirectorSchools, setCurrentSchool } from "reducers/schoolSlice";
 
 export default function SelectSchool() {
   const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ export default function SelectSchool() {
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    dispatch(getSchools());
+    dispatch(getDirectorSchools());
   }, [dispatch, navigate]);
 
   const handleSelectSchool = (school: ISchool) => {

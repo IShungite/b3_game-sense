@@ -24,11 +24,11 @@ const initialSchool: SchoolState = {
   schools: [],
 };
 
-export const getSchools = createAsyncThunk<ISchool[], void, { rejectValue: string }>(
-  "school/getAll",
+export const getDirectorSchools = createAsyncThunk<ISchool[], void, { rejectValue: string }>(
+  "school/getDirectorSchools",
   async (_, thunkAPI) => {
     try {
-      const schools = await schoolService.getSchools();
+      const schools = await schoolService.getDirectorSchools();
       return schools;
     } catch (err) {
       const error = err as Error | AxiosError;
@@ -63,14 +63,14 @@ const schoolSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getSchools.pending, (state) => {
+      .addCase(getDirectorSchools.pending, (state) => {
         state.status = SchoolStatus.Loading;
       })
-      .addCase(getSchools.fulfilled, (state, { payload }) => {
+      .addCase(getDirectorSchools.fulfilled, (state, { payload }) => {
         state.status = SchoolStatus.Finished;
         state.schools = [...payload];
       })
-      .addCase(getSchools.rejected, (state, { payload }) => {
+      .addCase(getDirectorSchools.rejected, (state, { payload }) => {
         state.status = SchoolStatus.Error;
 
         /* Used to display an error message to the user. */

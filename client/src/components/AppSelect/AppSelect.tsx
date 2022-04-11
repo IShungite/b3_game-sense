@@ -13,6 +13,7 @@ interface AppSelectProps<FormFieldTypes, AppSelectOptions extends AppSelectOptio
   control: Control<FormFieldTypes, object> | undefined;
   options: AppSelectOptions;
   defaultValue: AppSelectOptions[number]["value"] | "";
+  disabled: boolean | undefined;
 }
 export function UnmemoizedAppSelect<FormFieldTypes, AppSelectOptions extends AppSelectOption[]>({
   name,
@@ -20,6 +21,7 @@ export function UnmemoizedAppSelect<FormFieldTypes, AppSelectOptions extends App
   control,
   options,
   defaultValue,
+  disabled,
 }: AppSelectProps<FormFieldTypes, AppSelectOptions>) {
   return (
     <Controller
@@ -27,7 +29,7 @@ export function UnmemoizedAppSelect<FormFieldTypes, AppSelectOptions extends App
       name={name}
       defaultValue={defaultValue as UnpackNestedValue<PathValue<FormFieldTypes, Path<FormFieldTypes>>>}
       render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
-        <FormControl error={Boolean(error)} variant="outlined" style={{ width: "100%" }}>
+        <FormControl disabled={disabled} error={Boolean(error)} variant="outlined" style={{ width: "100%" }}>
           <InputLabel>{label}</InputLabel>
           <Select style={{ width: "100%" }} onChange={onChange} onBlur={onBlur} value={value} label={label} autoWidth>
             {options.map((option) => (

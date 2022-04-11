@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, ObjectId, SchemaTypes } from "mongoose";
+import { Promotion } from "src/promotions/entities/promotion.schema";
+import { School } from "src/schools/entities/school.schema";
 import { User } from "src/users/schemas/user.schema";
 
 export type CharacterDocument = Character & Document;
@@ -26,6 +28,12 @@ export class Character {
 
   @Prop({ type: Object, required: true })
   equipments: CharacterEquipments;
+
+  @Prop({ type: SchemaTypes.ObjectId, ref: "School" })
+  schoolId: School;
+
+  @Prop({ type: SchemaTypes.ObjectId, ref: "Promotion" })
+  promotionId: Promotion;
 }
 
 export const CharacterSchema = SchemaFactory.createForClass(Character);

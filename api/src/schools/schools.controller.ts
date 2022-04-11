@@ -16,9 +16,13 @@ export class SchoolsController {
     return this.schoolsService.create(createSchoolDto);
   }
 
+  @Get("/getDirectorSchools")
+  findDirectorSchools(@GetUser() user: IUserRequest) {
+    return this.schoolsService.findDirectorSchools(user.id);
+  }
   @Get()
-  findAll(@GetUser() user: IUserRequest) {
-    return this.schoolsService.findAll(user.id);
+  findAll() {
+    return this.schoolsService.findAll();
   }
 
   @Get(":id")
