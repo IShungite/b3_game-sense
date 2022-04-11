@@ -19,13 +19,13 @@ interface CourseState {
   currentCourse?: ICourse;
 }
 
-const initialSchool: CourseState = {
+const initialCourse: CourseState = {
   status: CourseStatus.None,
   courses: [],
 };
 
 export const getCourses = createAsyncThunk<ICourse[], string, { rejectValue: string }>(
-  "classRoom/getAll",
+  "course/getAll",
   async (schoolId, thunkAPI) => {
     try {
       const courses = await courseService.getCourses(schoolId);
@@ -38,7 +38,7 @@ export const getCourses = createAsyncThunk<ICourse[], string, { rejectValue: str
 );
 
 export const createCourse = createAsyncThunk<ICourse, CreateCourseDto, { rejectValue: string }>(
-  "classRoom/create",
+  "course/create",
   async (formData: CreateCourseDto, thunkAPI) => {
     try {
       const course = await courseService.createCourse(formData);
@@ -51,8 +51,8 @@ export const createCourse = createAsyncThunk<ICourse, CreateCourseDto, { rejectV
 );
 
 const courseSlice = createSlice({
-  name: "character",
-  initialState: initialSchool,
+  name: "course",
+  initialState: initialCourse,
   reducers: {
     clearState: (state) => {
       state.errorMessage = undefined;

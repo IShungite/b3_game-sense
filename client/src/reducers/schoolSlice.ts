@@ -51,7 +51,7 @@ export const createSchool = createAsyncThunk<ISchool, CreateSchoolDto, { rejectV
 );
 
 const schoolSlice = createSlice({
-  name: "character",
+  name: "school",
   initialState: initialSchool,
   reducers: {
     clearState: (state) => {

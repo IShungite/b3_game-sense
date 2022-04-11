@@ -5,7 +5,6 @@ import { CreateCourseDto } from "models/courses/create-course.dto";
 import createCourseValidation from "models/courses/create-course.validation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { clearState } from "reducers/authSlice";
 import { createCourse } from "reducers/courseSlice";
 
 export default function CreateCourseForm() {
@@ -24,14 +23,6 @@ export default function CreateCourseForm() {
     setValue,
     formState: { errors },
   } = useForm({ mode: "onChange", defaultValues: initialFormValues, resolver: yupResolver(createCourseValidation) });
-
-  // Clear Auth state when component is unmounted
-  // eslint-disable-next-line arrow-body-style
-  useEffect(() => {
-    return () => {
-      dispatch(clearState());
-    };
-  }, [dispatch]);
 
   const onSubmit = (data: CreateCourseDto) => {
     if (currentSchool) {
@@ -73,7 +64,6 @@ export default function CreateCourseForm() {
           </Grid>
           <Grid item>
             <Typography>{errorMessage}</Typography>
-            <Typography>{errors.schoolId?.message}</Typography>
           </Grid>
         </Grid>
       </Box>
