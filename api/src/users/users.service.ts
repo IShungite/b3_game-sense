@@ -38,6 +38,10 @@ export class UsersService {
     return this.userModel.find({ roles: Role.Director });
   }
 
+  async findProfessors(): Promise<User[]> {
+    return this.userModel.find({ roles: Role.Professor });
+  }
+
   async findById(id: string): Promise<User> {
     return this.userModel.findById(id).exec();
   }

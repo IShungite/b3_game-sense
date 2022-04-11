@@ -29,6 +29,7 @@ const register = (formData: RegisterCredentialsDto): Promise<AxiosResponse<IAuth
   API.post("/auth/register", formData);
 
 const getDirectors = (): Promise<AxiosResponse<IUser[]>> => API.get("/users/directors");
+const getProfessors = (): Promise<AxiosResponse<IUser[]>> => API.get("/users/professors");
 
 const createCharacter = (formData: CreateCharacterDto): Promise<AxiosResponse<ICharacter>> =>
   API.post("/characters", formData);
@@ -52,6 +53,7 @@ export default {
   login,
   register,
   getDirectors,
+  getProfessors,
   createCharacter,
   getCharacters,
   getSchools,

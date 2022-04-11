@@ -22,6 +22,11 @@ export class UsersController {
     return this.usersService.findDirectors();
   }
 
+  @Get("professors")
+  findProfessors() {
+    return this.usersService.findProfessors();
+  }
+
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.usersService.findById(id);

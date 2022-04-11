@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
 import { Control, Controller, Path, PathValue, UnpackNestedValue } from "react-hook-form";
@@ -12,8 +13,8 @@ interface AppSelectProps<FormFieldTypes, AppSelectOptions extends AppSelectOptio
   label: string;
   control: Control<FormFieldTypes, object> | undefined;
   options: AppSelectOptions;
-  defaultValue: AppSelectOptions[number]["value"] | "";
-  disabled: boolean | undefined;
+  defaultValue?: AppSelectOptions[number]["value"];
+  disabled?: boolean | false;
 }
 export function UnmemoizedAppSelect<FormFieldTypes, AppSelectOptions extends AppSelectOption[]>({
   name,
