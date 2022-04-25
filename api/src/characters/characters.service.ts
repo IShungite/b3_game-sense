@@ -38,6 +38,10 @@ export class CharactersService {
     return `This action returns a #${id} character`;
   }
 
+  findAllFromPromotion(promotionId: string): Promise<Character[]> {
+    return this.characterModel.find({ promotionId }).exec();
+  }
+
   update(id: number, updateCharacterDto: UpdateCharacterDto) {
     return `This action updates a #${id} character`;
   }
