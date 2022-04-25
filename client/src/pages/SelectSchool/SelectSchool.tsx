@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { ISchool } from "models/schools/school";
@@ -24,6 +24,12 @@ export default function SelectSchool() {
 
   return (
     <>
+      <Box textAlign="center">
+        <Typography variant="h2">Selection de l'école</Typography>
+      </Box>
+
+      <Typography>Mes écoles</Typography>
+
       {schools.map((school) => (
         <Button key={school._id} onClick={() => handleSelectSchool(school)}>
           {school.name}
