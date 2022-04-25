@@ -6,6 +6,7 @@ import RequireRole from "components/RequireRole/RequireRole";
 import { RouteUrls } from "config";
 import { Role } from "models/auth/auth";
 import CreateCharacter from "pages/CreateCharacter/CreateCharacter";
+import CreateQuiz from "pages/CreateQuiz/CreateQuiz";
 import CreateSchool from "pages/CreateSchool/CreateSchool";
 import Home from "pages/Home/Home";
 import Index from "pages/Index/Index";
@@ -60,6 +61,8 @@ export default function App() {
               <Route path={RouteUrls.SelectSubject} element={<SelectSubject />} />
 
               <Route path={RouteUrls.Subject} element={<Subject />} />
+
+              <Route path={RouteUrls.CreateQuiz} element={<CreateQuiz />} />
             </Route>
           </Route>
         </Routes>

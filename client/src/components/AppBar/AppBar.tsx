@@ -45,6 +45,7 @@ export default function AppBar() {
         pagesLeft.push({ name: "Mes écoles", url: RouteUrls.SelectSchool });
       } else if (decodedToken.roles.includes(Role.Professor)) {
         pagesLeft.push({ name: "Mes matières", url: RouteUrls.SelectSubject });
+        pagesLeft.push({ name: "Créer un quiz", url: RouteUrls.CreateQuiz });
       }
     }
 
