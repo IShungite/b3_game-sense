@@ -13,6 +13,9 @@ export enum RouteUrls {
   SelectSchool = "/select-school",
   School = "/school",
 
+  SelectSubject = "/select-subject",
+  Subject = "/subject",
+
   Promotion = "/promotion",
 
   Home = "/home",

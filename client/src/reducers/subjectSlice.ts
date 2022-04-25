@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { CreateSubjectDto } from "models/subjects/create-subject.dto";
 import { ISubject } from "models/subjects/subject";
@@ -14,6 +14,7 @@ export enum SubjectStatus {
 
 interface SubjectState {
   subjects: ISubject[];
+  currentSubject?: ISubject;
   errorMessage?: string;
   status: SubjectStatus;
 }
@@ -27,8 +28,19 @@ export const getSubjects = createAsyncThunk<ISubject[], string, { rejectValue: s
   "subject/getAll",
   async (promotionId, thunkAPI) => {
     try {
-      const subjects = await subjectService.getSubjects(promotionId);
-      return subjects;
+      return await subjectService.getSubjects(promotionId);
+    } catch (err) {
+      const error = err as Error | AxiosError;
+      return thunkAPI.rejectWithValue(getErrorMessage(error));
+    }
+  },
+);
+
+export const getProfessorSubjects = createAsyncThunk<ISubject[], void, { rejectValue: string }>(
+  "school/getProfessorSubjects",
+  async (_, thunkAPI) => {
+    try {
+      return await subjectService.getProfessorSubjects();
     } catch (err) {
       const error = err as Error | AxiosError;
       return thunkAPI.rejectWithValue(getErrorMessage(error));
@@ -40,8 +52,7 @@ export const createSubject = createAsyncThunk<ISubject, CreateSubjectDto, { reje
   "subject/create",
   async (createSubjectDto: CreateSubjectDto, thunkAPI) => {
     try {
-      const subject = await subjectService.createSubject(createSubjectDto);
-      return subject;
+      return await subjectService.createSubject(createSubjectDto);
     } catch (err) {
       const error = err as Error | AxiosError;
       return thunkAPI.rejectWithValue(getErrorMessage(error));
@@ -55,6 +66,9 @@ const promotionSlice = createSlice({
   reducers: {
     clearState: (state) => {
       state.errorMessage = undefined;
+    },
+    setCurrentSubject: (state, { payload }: PayloadAction<ISubject>) => {
+      state.currentSubject = payload;
     },
   },
   extraReducers: (builder) => {
@@ -83,9 +97,22 @@ const promotionSlice = createSlice({
         state.status = SubjectStatus.Error;
 
         state.errorMessage = payload;
+      })
+
+      .addCase(getProfessorSubjects.pending, (state) => {
+        state.status = SubjectStatus.Loading;
+      })
+      .addCase(getProfessorSubjects.fulfilled, (state, { payload }) => {
+        state.status = SubjectStatus.Finished;
+        state.subjects = [...payload];
+      })
+      .addCase(getProfessorSubjects.rejected, (state, { payload }) => {
+        state.status = SubjectStatus.Error;
+
+        state.errorMessage = payload;
       });
   },
 });
 
-export const { clearState } = promotionSlice.actions;
+export const { clearState, setCurrentSubject } = promotionSlice.actions;
 export default promotionSlice.reducer;

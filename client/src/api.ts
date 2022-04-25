@@ -48,6 +48,7 @@ const getPromotions = (schoolId: string): Promise<AxiosResponse<IPromotion[]>> =
 const createSubject = (formData: CreateSubjectDto): Promise<AxiosResponse<ISubject>> => API.post("/subjects", formData);
 const getSubjects = (promotionId: string): Promise<AxiosResponse<ISubject[]>> =>
   API.post("/subjects/getAll", { promotionId });
+const getProfessorSubjects = (): Promise<AxiosResponse<ISubject[]>> => API.get("/subjects/getProfessorSubjects");
 
 export default {
   login,
@@ -63,4 +64,5 @@ export default {
   createPromotion,
   getSubjects,
   createSubject,
+  getProfessorSubjects,
 };

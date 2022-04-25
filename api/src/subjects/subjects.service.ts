@@ -27,6 +27,11 @@ export class SubjectsService {
     return this.subjectModel.find({ promotionId });
   }
 
+  getProfessorSubjects(professorId: string) {
+    console.log(professorId);
+    return this.subjectModel.find({ professorId });
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} subject`;
   }

@@ -27,8 +27,7 @@ export const login = createAsyncThunk<IAuthUser, LoginCredentialsDto, { rejectVa
   "auth/login",
   async (formData: LoginCredentialsDto, thunkAPI) => {
     try {
-      const user = await authService.login(formData);
-      return user;
+      return await authService.login(formData);
     } catch (err) {
       const error = err as Error | AxiosError;
       return thunkAPI.rejectWithValue(getErrorMessage(error));

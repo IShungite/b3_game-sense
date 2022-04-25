@@ -15,8 +15,10 @@ import Register from "pages/Register/Register";
 import School from "pages/School/School";
 import SelectCharacter from "pages/SelectCharacter/selectCharacter";
 import SelectSchool from "pages/SelectSchool/SelectSchool";
+import SelectSubject from "pages/SelectSubject/SelectSubject";
 import Shops from "pages/Shops/Shops";
 import Statistics from "pages/Statistics/Statistics";
+import Subject from "pages/Subject/Subject";
 import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -51,6 +53,11 @@ export default function App() {
 
               <Route path={RouteUrls.School} element={<School />} />
               <Route path={RouteUrls.Promotion} element={<Promotion />} />
+            </Route>
+            <Route element={<RequireRole role={Role.Professor} />}>
+              <Route path={RouteUrls.SelectSubject} element={<SelectSubject />} />
+
+              <Route path={RouteUrls.Subject} element={<Subject />} />
             </Route>
           </Route>
         </Routes>

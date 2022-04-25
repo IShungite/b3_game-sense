@@ -12,6 +12,7 @@ export interface RegisterCredentialsDto {
 
 export interface IAuthUser {
   id: string;
+  email: string;
   access_token: string;
 }
 

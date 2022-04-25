@@ -5,4 +5,6 @@ const createSubject = async (createSubjectDto: CreateSubjectDto) => (await api.c
 
 const getSubjects = async (promotionId: string) => (await api.getSubjects(promotionId)).data;
 
-export default { createSubject, getSubjects };
+const getProfessorSubjects = async () => (await api.getProfessorSubjects()).data;
+
+export default { createSubject, getSubjects, getProfessorSubjects };

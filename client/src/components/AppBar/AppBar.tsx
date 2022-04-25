@@ -33,14 +33,19 @@ export default function AppBar() {
   const dispatch = useAppDispatch();
 
   const pagesLeft = [];
+  let decodedToken: JwtToken | null = null;
 
   if (user) {
-    const decodedToken: JwtToken = jwtDecode(user.access_token);
+    decodedToken = jwtDecode(user.access_token);
 
-    if (decodedToken.roles.includes(Role.Super_Admin)) {
-      pagesLeft.push({ name: "Créer une école", url: RouteUrls.CreateSchool });
-    } else if (decodedToken.roles.includes(Role.Director)) {
-      pagesLeft.push({ name: "Mes écoles", url: RouteUrls.SelectSchool });
+    if (decodedToken) {
+      if (decodedToken.roles.includes(Role.Super_Admin)) {
+        pagesLeft.push({ name: "Créer une école", url: RouteUrls.CreateSchool });
+      } else if (decodedToken.roles.includes(Role.Director)) {
+        pagesLeft.push({ name: "Mes écoles", url: RouteUrls.SelectSchool });
+      } else if (decodedToken.roles.includes(Role.Professor)) {
+        pagesLeft.push({ name: "Mes matières", url: RouteUrls.SelectSubject });
+      }
     }
 
     if (currentCharacter) {
@@ -166,7 +171,7 @@ export default function AppBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt={decodedToken ? decodedToken.email : ""} src="/static/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
               <Menu
