@@ -4,6 +4,7 @@ import { Model } from "mongoose";
 import { CreateItemDto } from "./dto/create-item.dto";
 import { UpdateItemDto } from "./dto/update-item.dto";
 import { Item } from "./schemas/item.schema";
+import IStarterItems from "./schemas/starterList";
 
 @Injectable()
 export class ItemsService {
@@ -26,6 +27,25 @@ export class ItemsService {
 
   findAll(): Promise<Item[]> {
     return this.itemModel.find().exec();
+  }
+
+  async findStarterItems(): Promise<IStarterItems> {
+    const starterItems: IStarterItems = {
+      body: [],
+      face: [],
+      head: [],
+      leftArm: [],
+      leftHand: [],
+      leftLeg: [],
+      rightArm: [],
+      rightHand: [],
+      rightLeg: [],
+    };
+    const result = await this.itemModel.find({ isStarter: true }).exec();
+    result.forEach((starterItem) => {
+      starterItems[starterItem.type].push(starterItem);
+    });
+    return starterItems;
   }
 
   findOne(id: number) {

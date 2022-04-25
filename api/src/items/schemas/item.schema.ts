@@ -19,6 +19,9 @@ export class Item {
 
   @Prop({ type: String, required: true })
   type: string;
+
+  @Prop({ type: Boolean, required: true })
+  isStarter: boolean;
 }
 
 export const ItemSchema = SchemaFactory.createForClass(Item);
