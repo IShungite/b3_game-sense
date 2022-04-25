@@ -12,15 +12,8 @@ export class Subject {
   @Prop({ type: String, required: true })
   name: string;
 
-  @Prop({type: SchemaTypes.ObjectId, ref: 'Promotion'})
-  promotion_id: Promotion
-
-
-
-
-  
-
-
+  @Prop({ type: SchemaTypes.ObjectId, ref: "Promotion" })
+  promotionId: Promotion;
 }
 
 export const SubjectSchema = SchemaFactory.createForClass(Subject);

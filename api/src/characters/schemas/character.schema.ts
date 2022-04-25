@@ -10,11 +10,11 @@ export class Character {
   @Prop({ type: SchemaTypes.ObjectId, auto: true })
   _id: ObjectId;
 
-  @Prop({type: SchemaTypes.ObjectId, ref:'School'})
+  @Prop({ type: SchemaTypes.ObjectId, ref: "School" })
   school_id: School;
 
-  @Prop({type: SchemaTypes.ObjectId, ref: 'Promotion'})
-  promotion_id : Promotion;
+  @Prop({ type: SchemaTypes.ObjectId, ref: "Promotion" })
+  promotionId: Promotion;
 
   @Prop({ type: String, required: true })
   nickname: string;
@@ -25,12 +25,10 @@ export class Character {
   @Prop({ type: Number, required: true, unique: true })
   experience: number;
 
-  @Prop({ type: Number , required: true })
+  @Prop({ type: Number, required: true })
   gold: number;
 
   // TODO : add status
-
-
 }
 
 export const CharacterSchema = SchemaFactory.createForClass(Character);

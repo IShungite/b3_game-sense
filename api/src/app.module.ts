@@ -4,13 +4,13 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { UsersModule } from "./users/users.module";
 import { StatisticsModule } from "./statistics/statistics.module";
-import { GradesModule } from './grades/grades.module';
-import { CharactersModule } from './characters/characters.module';
+import { GradesModule } from "./grades/grades.module";
+import { CharactersModule } from "./characters/characters.module";
 import { AuthModule } from "./auth/auth.module";
 
-import { SchoolsModule } from './schools/schools.module';
-import { SubjectsModule } from './subjects/subjects.module';
-import { PromotionsModule } from './promotions/promotions.module';
+import { SchoolsModule } from "./schools/schools.module";
+import { SubjectsModule } from "./subjects/subjects.module";
+import { PromotionsModule } from "./promotions/promotions.module";
 @Module({
   imports: [
     MongooseModule.forRoot("mongodb+srv://client:qqni3XexM5T3E5XQ@cluster0.yfyha.mongodb.net/Game-sense"),

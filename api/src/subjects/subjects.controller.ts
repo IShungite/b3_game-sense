@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { SubjectsService } from './subjects.service';
-import { CreateSubjectDto } from './dto/create-subject.dto';
-import { UpdateSubjectDto } from './dto/update-subject.dto';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
+import { SubjectsService } from "./subjects.service";
+import { CreateSubjectDto } from "./dto/create-subject.dto";
+import { UpdateSubjectDto } from "./dto/update-subject.dto";
+import { VerifyOwnedCharacterGuards } from "src/characters/verify-owned-character.guard";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller('subjects')
+@UseGuards(JwtAuthGuard)
+@Controller("subjects")
 export class SubjectsController {
   constructor(private readonly subjectsService: SubjectsService) {}
 
@@ -13,22 +16,23 @@ export class SubjectsController {
   }
 
   @Get()
-  findAll() {
-    return this.subjectsService.findAll();
+  // @UseGuards(VerifyOwnedCharacterGuards)
+  findAll(@Body("promotionId") promotionId: string) {
+    return this.subjectsService.findAll(promotionId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.subjectsService.findOne(+id);
+  @Get(":id")
+  findOne(@Param("id") id: string) {
+    return this.subjectsService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSubjectDto: UpdateSubjectDto) {
+  @Patch(":id")
+  update(@Param("id") id: string, @Body() updateSubjectDto: UpdateSubjectDto) {
     return this.subjectsService.update(+id, updateSubjectDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete(":id")
+  remove(@Param("id") id: string) {
     return this.subjectsService.remove(+id);
   }
 }

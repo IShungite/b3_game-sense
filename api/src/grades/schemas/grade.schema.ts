@@ -16,13 +16,13 @@ export class Grade {
   character_id: Character;
 
   @Prop({ type: SchemaTypes.ObjectId, ref: "Promotion" })
-  promotion_id: Promotion;
+  promotionId: Promotion;
 
   @Prop({ type: Number, required: true })
   grade: number;
 
   @Prop({ type: SchemaTypes.ObjectId, ref: "Subject" })
-  subject_id: Subject;
+  subject_id: ObjectId;
   // TODO CreatedAt : date
 }
 

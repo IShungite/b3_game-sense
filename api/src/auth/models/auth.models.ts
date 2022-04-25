@@ -11,3 +11,8 @@ export interface IAuthLoginResponse {
   id: string;
   access_token: string;
 }
+
+export interface IUserRequest {
+  id: string;
+  email: string;
+}

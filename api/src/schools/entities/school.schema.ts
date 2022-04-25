@@ -10,11 +10,6 @@ export class School {
 
   @Prop({ type: String, required: true })
   name: string;
-
-
-  
-
-
 }
 
 export const SchoolSchema = SchemaFactory.createForClass(School);

@@ -14,7 +14,6 @@ export class GradesService {
   }
 
   findAllbyStudentID(id: string) {
-    console.log(id);
     return this.gradeModel
       .find({
         character_id: id,
@@ -24,7 +23,7 @@ export class GradesService {
   findAll(findOptions?: FilterQuery<Grade>): Promise<Grade[]> {
     if (findOptions !== undefined)
       Object.keys(findOptions).forEach((key) => findOptions[key] === undefined && delete findOptions[key]);
-    console.log({ ...findOptions });
+
     return this.gradeModel.find({ ...findOptions }).exec();
   }
   findOne(id: number) {
@@ -38,17 +37,20 @@ export class GradesService {
   remove(id: number) {
     return `This action removes a #${id} grade`;
   }
-  async average() {
-    const grades = await this.findAll();
-    console.log(grades);
+  async average(character_id: string) {
+    const grades = await this.findAll({ character_id: character_id });
+
+    if (grades.length === 0) {
+      return 0;
+    }
+
     let sum_grades = 0;
     let res = 0;
+
     grades.map((grade) => {
       sum_grades += grade.grade;
-      console.log(grade.grade);
     });
     res = sum_grades / grades.length;
-    console.log(res);
     return res;
   }
 }
