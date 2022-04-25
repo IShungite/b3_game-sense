@@ -23,7 +23,6 @@ export class SubjectsController {
   @UseGuards(JwtAuthGuard)
   @Get("/getProfessorSubjects")
   getProfessorSubjects(@GetUser() user: IUserRequest) {
-    console.log("usedzadzar");
     return this.subjectsService.getProfessorSubjects(user.id);
   }
 

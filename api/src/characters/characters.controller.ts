@@ -26,6 +26,11 @@ export class CharactersController {
     return this.charactersService.findOne(+id);
   }
 
+  @Get("promotion/:id")
+  findAllFromPromotion(@Param("id") promotionId: string) {
+    return this.charactersService.findAllFromPromotion(promotionId);
+  }
+
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateCharacterDto: UpdateCharacterDto) {
     return this.charactersService.update(+id, updateCharacterDto);

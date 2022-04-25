@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import StudentsGrid from "components/StudentsGrid/StudentsGrid";
 import { RouteUrls } from "config";
 import { useAppSelector } from "hooks";
 import React from "react";
@@ -16,6 +17,8 @@ export default function Subject() {
       <Box textAlign="center">
         <Typography variant="h2">{currentSubject.name}</Typography>
       </Box>
+
+      <StudentsGrid />
     </>
   );
 }

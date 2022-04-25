@@ -242,7 +242,7 @@ export default function CreateCharacter() {
             />
           </Grid>
           <Grid item sx={{ width: 200 }}>
-            <AppSelect<CreateCharacterDto, SchoolIdType[]>
+            <AppSelect<CreateCharacterDto, PromotionIdType[]>
               name="promotionId"
               label="Classe"
               disabled={!schoolIdWatched}

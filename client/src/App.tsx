@@ -54,6 +54,8 @@ export default function App() {
               <Route path={RouteUrls.School} element={<School />} />
               <Route path={RouteUrls.Promotion} element={<Promotion />} />
             </Route>
+
+            {/* Required the Professor or Super_Admin role */}
             <Route element={<RequireRole role={Role.Professor} />}>
               <Route path={RouteUrls.SelectSubject} element={<SelectSubject />} />
 

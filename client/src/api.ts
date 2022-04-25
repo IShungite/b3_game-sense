@@ -35,6 +35,8 @@ const createCharacter = (formData: CreateCharacterDto): Promise<AxiosResponse<IC
   API.post("/characters", formData);
 
 const getCharacters = (): Promise<AxiosResponse<ICharacter[]>> => API.get("/characters");
+const getCharactersFromPromotion = (promotionId: string): Promise<AxiosResponse<ICharacter[]>> =>
+  API.get(`/characters/promotion/${promotionId}`);
 
 const createSchool = (formData: CreateSchoolDto): Promise<AxiosResponse<ISchool>> => API.post("/schools", formData);
 const getSchools = (): Promise<AxiosResponse<ISchool[]>> => API.get("/schools");
@@ -57,6 +59,7 @@ export default {
   getProfessors,
   createCharacter,
   getCharacters,
+  getCharactersFromPromotion,
   getSchools,
   getDirectorSchools,
   createSchool,
