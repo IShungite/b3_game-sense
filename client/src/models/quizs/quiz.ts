@@ -1,11 +1,12 @@
 export interface IQuiz {
   _id: string;
-  name: string;
+  title: string;
+  subjectId: string;
+  professorId: string;
   questions: IQuestion[];
 }
 
 export interface IQuestion {
-  _id: string;
   question: string;
   answers: Answer[];
   correctAnswer: number;

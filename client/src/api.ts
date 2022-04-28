@@ -5,6 +5,8 @@ import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
 import { CreatePromotionDto } from "models/promotions/create-promotion.dto";
 import { IPromotion } from "models/promotions/promotion";
+import { CreateQuizDto } from "models/quizs/create-quiz.dto";
+import { IQuiz } from "models/quizs/quiz";
 import { CreateSchoolDto } from "models/schools/create-school.dto";
 import { ISchool } from "models/schools/school";
 import { CreateSubjectDto } from "models/subjects/create-subject.dto";
@@ -52,6 +54,9 @@ const getSubjects = (promotionId: string): Promise<AxiosResponse<ISubject[]>> =>
   API.post("/subjects/getAll", { promotionId });
 const getProfessorSubjects = (): Promise<AxiosResponse<ISubject[]>> => API.get("/subjects/getProfessorSubjects");
 
+const createQuiz = (createQuizDto: CreateQuizDto): Promise<AxiosResponse<IQuiz>> => API.post("/quizzes", createQuizDto);
+const getProfessorQuizzes = (): Promise<AxiosResponse<IQuiz[]>> => API.get("/quizzes/getByProfessor");
+
 export default {
   login,
   register,
@@ -68,4 +73,6 @@ export default {
   getSubjects,
   createSubject,
   getProfessorSubjects,
+  createQuiz,
+  getProfessorQuizzes,
 };

@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import { logout as logoutSlice } from "reducers/authSlice";
 import { clearCharacters } from "reducers/characterSlice";
 import { clearPromotion } from "reducers/promotionSlice";
+import { clearQuizzes } from "reducers/quizSlice";
 import { clearSchool } from "reducers/schoolSlice";
 import { clearSubject } from "reducers/subjectSlice";
 import authService from "services/auth.service";
@@ -15,6 +16,7 @@ export default function useAuth() {
     dispatch(clearPromotion());
     dispatch(clearSchool());
     dispatch(clearSubject());
+    dispatch(clearQuizzes());
     dispatch(logoutSlice(authService.logout()));
   }, [dispatch]);
 

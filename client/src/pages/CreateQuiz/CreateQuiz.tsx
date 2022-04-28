@@ -1,14 +1,22 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { AppSelect } from "components/AppSelect/AppSelect";
+import { RouteUrls } from "config";
+import { useAppDispatch, useAppSelector } from "hooks";
+import FetchStatus from "models/FetchStatus";
 import { CreateQuizDto } from "models/quizs/create-quiz.dto";
 import createQuizValidation from "models/quizs/create-quiz.validation";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { clearState, createQuiz } from "reducers/quizSlice";
+import { getProfessorSubjects, setCurrentSubject } from "reducers/subjectSlice";
 import QuestionsField from "./QuestionsField";
 
 const initialFormValues: CreateQuizDto = {
-  name: "",
+  title: "",
+  subjectId: "",
   questions: [
     {
       question: "",
@@ -19,15 +27,42 @@ const initialFormValues: CreateQuizDto = {
 };
 
 export default function CreateQuiz() {
-  const { control, register, handleSubmit, formState } = useForm<CreateQuizDto>({
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { subjects } = useAppSelector((state) => state.subject);
+
+  const { status } = useAppSelector((state) => state.quiz);
+
+  const { control, getValues, register, handleSubmit, formState } = useForm<CreateQuizDto>({
     mode: "onChange",
     defaultValues: initialFormValues,
     resolver: yupResolver(createQuizValidation),
   });
 
   const onSubmit = (data: CreateQuizDto) => {
-    console.log("submit", data);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    dispatch(createQuiz(data));
   };
+
+  useEffect(() => {
+    if (subjects.length === 0) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      dispatch(getProfessorSubjects());
+    }
+  }, [dispatch, subjects.length]);
+
+  // redirect the user to the subject page after the quiz has been created
+  useEffect(() => {
+    if (status === FetchStatus.Finished) {
+      const currentSubject = subjects.find((subject) => getValues().subjectId === subject._id);
+      if (currentSubject) {
+        dispatch(setCurrentSubject(currentSubject));
+      }
+      dispatch(clearState());
+      navigate(RouteUrls.Subject);
+    }
+  }, [dispatch, getValues, navigate, status, subjects, subjects.length]);
 
   return (
     <>
@@ -36,7 +71,17 @@ export default function CreateQuiz() {
       </Box>
 
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-        <TextField label="Titre" {...register("name")} />
+        <TextField label="Titre" {...register("title")} />
+        <AppSelect<CreateQuizDto, { label: string; value: string }[]>
+          name="subjectId"
+          label="Matière"
+          control={control}
+          options={subjects.map((subject) => ({
+            label: subject.name,
+            value: subject._id,
+          }))}
+          defaultValue=""
+        />
 
         <QuestionsField control={control} register={register} formState={formState} />
 

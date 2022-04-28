@@ -1,7 +1,8 @@
 import { Answer } from "./quiz";
 
 export interface CreateQuizDto {
-  name: string;
+  title: string;
+  subjectId: string;
   questions: CreateQuestionDto[];
 }
 

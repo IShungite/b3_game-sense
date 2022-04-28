@@ -31,7 +31,7 @@ export default function PromotionsGrid() {
 
       <Grid container direction="column">
         {promotions.map((promotion) => (
-          <Grid item key={promotion.name}>
+          <Grid item key={promotion._id}>
             <Button
               onClick={() => {
                 handleClickPromotion(promotion);

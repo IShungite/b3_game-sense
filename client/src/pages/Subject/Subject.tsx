@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import QuizzesGrid from "components/QuizzesGrid/QuizzesGrid";
 import StudentsGrid from "components/StudentsGrid/StudentsGrid";
 import { RouteUrls } from "config";
 import { useAppSelector } from "hooks";
@@ -19,6 +20,8 @@ export default function Subject() {
       </Box>
 
       <StudentsGrid />
+
+      <QuizzesGrid />
     </>
   );
 }
