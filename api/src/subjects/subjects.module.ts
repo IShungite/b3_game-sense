@@ -8,5 +8,6 @@ import { Subject, SubjectSchema } from "./entities/subject.schema";
   imports: [MongooseModule.forFeature([{ name: Subject.name, schema: SubjectSchema }])],
   controllers: [SubjectsController],
   providers: [SubjectsService],
+  exports: [SubjectsService],
 })
 export class SubjectsModule {}

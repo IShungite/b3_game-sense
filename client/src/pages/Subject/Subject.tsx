@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
+import CharactersGrid from "components/CharactersGrid/CharactersGrid";
 import QuizzesGrid from "components/QuizzesGrid/QuizzesGrid";
-import StudentsGrid from "components/StudentsGrid/StudentsGrid";
 import { RouteUrls } from "config";
 import { useAppSelector } from "hooks";
 import React from "react";
@@ -19,7 +19,7 @@ export default function Subject() {
         <Typography variant="h2">{currentSubject.name}</Typography>
       </Box>
 
-      <StudentsGrid />
+      <CharactersGrid />
 
       <QuizzesGrid />
     </>

@@ -34,8 +34,8 @@ export class CharactersService {
     return this.characterModel.find({ userId: user.id }).exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} character`;
+  async findOne(characterId: string): Promise<Character> {
+    return this.characterModel.findById(characterId).exec();
   }
 
   findAllFromPromotion(promotionId: string): Promise<Character[]> {

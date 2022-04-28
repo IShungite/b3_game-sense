@@ -5,4 +5,6 @@ const createQuiz = async (createQuizDto: CreateQuizDto) => (await api.createQuiz
 
 const getProfessorQuizzes = async () => (await api.getProfessorQuizzes()).data;
 
-export default { createQuiz, getProfessorQuizzes };
+const getCharacterQuizzes = async (characterId: string) => (await api.getCharacterQuizzes(characterId)).data;
+
+export default { createQuiz, getProfessorQuizzes, getCharacterQuizzes };

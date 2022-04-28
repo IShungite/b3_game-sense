@@ -26,6 +26,11 @@ export class QuizzesController {
     return this.quizzesService.findAll({ professorId: user.id });
   }
 
+  @Post("/getByCharacter")
+  findAllWithStudentId(@Body("characterId") characterId: string) {
+    return this.quizzesService.findAllCharacterQuizzes(characterId);
+  }
+
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.quizzesService.findOne(+id);

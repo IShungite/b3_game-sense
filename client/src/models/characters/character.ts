@@ -1,6 +1,12 @@
 export interface ICharacter {
+  _id: string;
   nickname: string;
   equipments: CharacterEquipments;
+  promotionId: string;
+  schoolId: string;
+  gold: number;
+  experience: number;
+  level: number;
 }
 
 export interface CharacterEquipments {

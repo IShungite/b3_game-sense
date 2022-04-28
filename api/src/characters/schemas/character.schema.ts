@@ -30,10 +30,10 @@ export class Character {
   equipments: CharacterEquipments;
 
   @Prop({ type: SchemaTypes.ObjectId, ref: "School" })
-  schoolId: School;
+  schoolId: ObjectId;
 
   @Prop({ type: SchemaTypes.ObjectId, ref: "Promotion" })
-  promotionId: Promotion;
+  promotionId: ObjectId;
 }
 
 export const CharacterSchema = SchemaFactory.createForClass(Character);

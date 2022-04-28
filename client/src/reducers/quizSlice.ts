@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import FetchStatus from "models/FetchStatus";
 import { CreateQuizDto } from "models/quizs/create-quiz.dto";
-import { IQuiz } from "models/quizs/quiz";
+import { IQuiz, IQuizWithoutCorrectAnswer } from "models/quizs/quiz";
 import quizService from "services/quiz.service";
 import { getErrorMessage } from "utils";
 
@@ -10,11 +10,13 @@ interface QuizState {
   errorMessage?: string;
   status: FetchStatus;
   quizzes: IQuiz[];
+  quizzesWithoutCorrectAnswers: IQuizWithoutCorrectAnswer[];
 }
 
 const initialQuiz: QuizState = {
   status: FetchStatus.None,
   quizzes: [],
+  quizzesWithoutCorrectAnswers: [],
 };
 
 export const createQuiz = createAsyncThunk<IQuiz, CreateQuizDto, { rejectValue: string }>(
@@ -34,6 +36,18 @@ export const getProfessorQuizzes = createAsyncThunk<IQuiz[], void, { rejectValue
   async (_, thunkAPI) => {
     try {
       return await quizService.getProfessorQuizzes();
+    } catch (err) {
+      const error = err as Error | AxiosError;
+      return thunkAPI.rejectWithValue(getErrorMessage(error));
+    }
+  },
+);
+
+export const getCharacterQuizzes = createAsyncThunk<IQuizWithoutCorrectAnswer[], string, { rejectValue: string }>(
+  "quiz/getCharacterQuizzes",
+  async (characterId, thunkAPI) => {
+    try {
+      return await quizService.getCharacterQuizzes(characterId);
     } catch (err) {
       const error = err as Error | AxiosError;
       return thunkAPI.rejectWithValue(getErrorMessage(error));
@@ -75,6 +89,19 @@ const quizSlice = createSlice({
         state.quizzes = payload;
       })
       .addCase(getProfessorQuizzes.rejected, (state, { payload }) => {
+        state.status = FetchStatus.Error;
+
+        state.errorMessage = payload;
+      })
+      .addCase(getCharacterQuizzes.pending, (state) => {
+        state.status = FetchStatus.Loading;
+      })
+      .addCase(getCharacterQuizzes.fulfilled, (state, { payload }) => {
+        state.status = FetchStatus.Finished;
+
+        state.quizzesWithoutCorrectAnswers = payload;
+      })
+      .addCase(getCharacterQuizzes.rejected, (state, { payload }) => {
         state.status = FetchStatus.Error;
 
         state.errorMessage = payload;

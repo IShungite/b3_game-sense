@@ -15,3 +15,7 @@ export interface IQuestion {
 export interface Answer {
   value: string;
 }
+
+export interface IQuizWithoutCorrectAnswer extends Omit<IQuiz, "questions"> {
+  questions: Omit<IQuestion, "correctAnswer">[];
+}

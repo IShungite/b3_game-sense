@@ -4,7 +4,7 @@ import { useAppSelector } from "hooks";
 import { ICharacter } from "models/characters/character";
 import React, { useEffect, useState } from "react";
 
-export default function StudentsGrid() {
+export default function CharactersGrid() {
   const { currentSubject } = useAppSelector((state) => state.subject);
 
   const [characters, setCharacters] = useState<ICharacter[]>([]);
@@ -27,7 +27,7 @@ export default function StudentsGrid() {
 
       <Grid container direction="column">
         {characters.map((character) => (
-          <Grid item key={character.nickname}>
+          <Grid item key={character._id}>
             <Typography>- {character.nickname}</Typography>
           </Grid>
         ))}
