@@ -70,6 +70,10 @@ const promotionSlice = createSlice({
     setCurrentSubject: (state, { payload }: PayloadAction<ISubject>) => {
       state.currentSubject = payload;
     },
+    clearSubject: (state) => {
+      state.currentSubject = undefined;
+      state.subjects = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -114,5 +118,5 @@ const promotionSlice = createSlice({
   },
 });
 
-export const { clearState, setCurrentSubject } = promotionSlice.actions;
+export const { clearState, clearSubject, setCurrentSubject } = promotionSlice.actions;
 export default promotionSlice.reducer;

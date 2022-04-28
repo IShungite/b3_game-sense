@@ -60,6 +60,10 @@ const promotionSlice = createSlice({
     setCurrentPromotion: (state, { payload }: PayloadAction<IPromotion>) => {
       state.currentPromotion = payload;
     },
+    clearPromotion: (state) => {
+      state.currentPromotion = undefined;
+      state.promotions = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -91,5 +95,5 @@ const promotionSlice = createSlice({
   },
 });
 
-export const { clearState, setCurrentPromotion } = promotionSlice.actions;
+export const { clearState, clearPromotion, setCurrentPromotion } = promotionSlice.actions;
 export default promotionSlice.reducer;

@@ -60,6 +60,10 @@ const schoolSlice = createSlice({
     setCurrentSchool: (state, action: PayloadAction<ISchool>) => {
       state.currentSchool = action.payload;
     },
+    clearSchool: (state) => {
+      state.currentSchool = undefined;
+      state.schools = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -91,5 +95,5 @@ const schoolSlice = createSlice({
   },
 });
 
-export const { clearState, setCurrentSchool } = schoolSlice.actions;
+export const { clearState, clearSchool, setCurrentSchool } = schoolSlice.actions;
 export default schoolSlice.reducer;
