@@ -1,12 +1,14 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { API_PORT, API_URL } from "config";
+import { IAnswer } from "models/answers/answer";
+import { CreateAnswerDto } from "models/answers/create-answer.dto";
 import { IAuthUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
 import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
 import { CreatePromotionDto } from "models/promotions/create-promotion.dto";
 import { IPromotion } from "models/promotions/promotion";
-import { CreateQuizDto } from "models/quizs/create-quiz.dto";
-import { IQuiz, IQuizWithoutCorrectAnswer } from "models/quizs/quiz";
+import { CreateQuizDto } from "models/quizzes/create-quiz.dto";
+import { IQuiz, IQuizWithoutCorrectAnswer } from "models/quizzes/quiz";
 import { CreateSchoolDto } from "models/schools/create-school.dto";
 import { ISchool } from "models/schools/school";
 import { CreateSubjectDto } from "models/subjects/create-subject.dto";
@@ -56,8 +58,15 @@ const getProfessorSubjects = (): Promise<AxiosResponse<ISubject[]>> => API.get("
 
 const createQuiz = (createQuizDto: CreateQuizDto): Promise<AxiosResponse<IQuiz>> => API.post("/quizzes", createQuizDto);
 const getProfessorQuizzes = (): Promise<AxiosResponse<IQuiz[]>> => API.get("/quizzes/getByProfessor");
-const getCharacterQuizzes = (characterId: string): Promise<AxiosResponse<IQuizWithoutCorrectAnswer[]>> =>
+const getCharacterQuizzes = (
+  characterId: string,
+): Promise<AxiosResponse<{ quizDone: IQuizWithoutCorrectAnswer[]; quizToDo: IQuizWithoutCorrectAnswer[] }>> =>
   API.post("/quizzes/getByCharacter", { characterId });
+const getQuizWithoutCorrectAnswer = (quizId: string): Promise<AxiosResponse<IQuizWithoutCorrectAnswer>> =>
+  API.get(`/quizzes/getQuizWithoutCorrectAnswer/${quizId}`);
+
+const createAnswer = (createAnswerDto: CreateAnswerDto): Promise<AxiosResponse<IAnswer>> =>
+  API.post("/answers", createAnswerDto);
 
 export default {
   login,
@@ -78,4 +87,6 @@ export default {
   createQuiz,
   getProfessorQuizzes,
   getCharacterQuizzes,
+  getQuizWithoutCorrectAnswer,
+  createAnswer,
 };

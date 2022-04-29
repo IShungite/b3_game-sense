@@ -31,6 +31,11 @@ export class QuizzesController {
     return this.quizzesService.findAllCharacterQuizzes(characterId);
   }
 
+  @Get("/getQuizWithoutCorrectAnswer/:id")
+  findOneWithoutCorrectAnswer(@Param("id") id: string) {
+    return this.quizzesService.findOneWithoutCorrectAnswer(id);
+  }
+
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.quizzesService.findOne(+id);

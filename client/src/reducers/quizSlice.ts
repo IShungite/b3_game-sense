@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import FetchStatus from "models/FetchStatus";
-import { CreateQuizDto } from "models/quizs/create-quiz.dto";
-import { IQuiz, IQuizWithoutCorrectAnswer } from "models/quizs/quiz";
+import { CreateQuizDto } from "models/quizzes/create-quiz.dto";
+import { IQuiz, IQuizWithoutCorrectAnswer } from "models/quizzes/quiz";
 import quizService from "services/quiz.service";
 import { getErrorMessage } from "utils";
 
@@ -10,13 +10,13 @@ interface QuizState {
   errorMessage?: string;
   status: FetchStatus;
   quizzes: IQuiz[];
-  quizzesWithoutCorrectAnswers: IQuizWithoutCorrectAnswer[];
+  quizzesWithoutCorrectAnswers: { quizDone: IQuizWithoutCorrectAnswer[]; quizToDo: IQuizWithoutCorrectAnswer[] };
 }
 
 const initialQuiz: QuizState = {
   status: FetchStatus.None,
   quizzes: [],
-  quizzesWithoutCorrectAnswers: [],
+  quizzesWithoutCorrectAnswers: { quizDone: [], quizToDo: [] },
 };
 
 export const createQuiz = createAsyncThunk<IQuiz, CreateQuizDto, { rejectValue: string }>(
@@ -43,17 +43,18 @@ export const getProfessorQuizzes = createAsyncThunk<IQuiz[], void, { rejectValue
   },
 );
 
-export const getCharacterQuizzes = createAsyncThunk<IQuizWithoutCorrectAnswer[], string, { rejectValue: string }>(
-  "quiz/getCharacterQuizzes",
-  async (characterId, thunkAPI) => {
-    try {
-      return await quizService.getCharacterQuizzes(characterId);
-    } catch (err) {
-      const error = err as Error | AxiosError;
-      return thunkAPI.rejectWithValue(getErrorMessage(error));
-    }
-  },
-);
+export const getCharacterQuizzes = createAsyncThunk<
+  { quizDone: IQuizWithoutCorrectAnswer[]; quizToDo: IQuizWithoutCorrectAnswer[] },
+  string,
+  { rejectValue: string }
+>("quiz/getCharacterQuizzes", async (characterId, thunkAPI) => {
+  try {
+    return await quizService.getCharacterQuizzes(characterId);
+  } catch (err) {
+    const error = err as Error | AxiosError;
+    return thunkAPI.rejectWithValue(getErrorMessage(error));
+  }
+});
 
 const quizSlice = createSlice({
   name: "quiz",
@@ -65,6 +66,7 @@ const quizSlice = createSlice({
     },
     clearQuizzes: (state) => {
       state.quizzes = [];
+      state.quizzesWithoutCorrectAnswers = { quizDone: [], quizToDo: [] };
     },
   },
   extraReducers: (builder) => {

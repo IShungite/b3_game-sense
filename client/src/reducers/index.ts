@@ -5,6 +5,7 @@ import promotionSlice from "./promotionSlice";
 import quizSlice from "./quizSlice";
 import schoolSlice from "./schoolSlice";
 import subjectSlice from "./subjectSlice";
+import answerSlice from "./answerSlice";
 
 const rootReducer = combineReducers({
   auth: authSlice,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   promotion: promotionSlice,
   subject: subjectSlice,
   quiz: quizSlice,
+  answer: answerSlice
 });
 
 export default rootReducer;

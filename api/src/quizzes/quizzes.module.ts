@@ -5,9 +5,15 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { Quiz, QuizSchema } from "./schema/quiz.schema";
 import { CharactersModule } from "src/characters/characters.module";
 import { SubjectsModule } from "src/subjects/subjects.module";
+import { AnswersModule } from "src/answers/answers.module";
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Quiz.name, schema: QuizSchema }]), CharactersModule, SubjectsModule],
+  imports: [
+    MongooseModule.forFeature([{ name: Quiz.name, schema: QuizSchema }]),
+    CharactersModule,
+    SubjectsModule,
+    AnswersModule,
+  ],
   controllers: [QuizzesController],
   providers: [QuizzesService],
 })

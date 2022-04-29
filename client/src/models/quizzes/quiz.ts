@@ -8,11 +8,11 @@ export interface IQuiz {
 
 export interface IQuestion {
   question: string;
-  answers: Answer[];
+  availableAnswers: AvailableAnswer[];
   correctAnswer: number;
 }
 
-export interface Answer {
+export interface AvailableAnswer {
   value: string;
 }
 

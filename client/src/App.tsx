@@ -5,6 +5,7 @@ import RequireAuth from "components/RequireAuth/RequireAuth";
 import RequireRole from "components/RequireRole/RequireRole";
 import { RouteUrls } from "config";
 import { Role } from "models/auth/auth";
+import AnswerQuiz from "pages/AnswerQuiz/AnswerQuiz";
 import CreateCharacter from "pages/CreateCharacter/CreateCharacter";
 import CreateQuiz from "pages/CreateQuiz/CreateQuiz";
 import CreateSchool from "pages/CreateSchool/CreateSchool";
@@ -64,6 +65,7 @@ export default function App() {
 
               <Route path={RouteUrls.CreateQuiz} element={<CreateQuiz />} />
             </Route>
+            <Route path={`${RouteUrls.AnswerQuiz}/:quizId`} element={<AnswerQuiz />} />
           </Route>
         </Routes>
       </BrowserRouter>

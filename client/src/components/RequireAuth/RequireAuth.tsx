@@ -1,5 +1,5 @@
 import { RouteUrls } from "config";
-import { useAppDispatch, useAppSelector } from "hooks";
+import { useAppSelector } from "hooks";
 import useAuth from "hooks/useAuth";
 import jwtDecode from "jwt-decode";
 import { JwtToken } from "models/auth/auth";
@@ -12,7 +12,6 @@ type Props = {
 };
 
 export default function RequireAuth({ children }: Props) {
-  const dispatch = useAppDispatch();
   const appSelector = useAppSelector((state) => state.auth);
 
   const { logout } = useAuth();

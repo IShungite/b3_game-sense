@@ -1,4 +1,4 @@
-import { Answer } from "./quiz";
+import { AvailableAnswer } from "./quiz";
 
 export interface CreateQuizDto {
   title: string;
@@ -8,6 +8,6 @@ export interface CreateQuizDto {
 
 export interface CreateQuestionDto {
   question: string;
-  answers: Answer[];
+  availableAnswers: AvailableAnswer[];
   correctAnswer: number;
 }

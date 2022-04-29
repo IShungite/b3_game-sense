@@ -13,6 +13,7 @@ import { SubjectsModule } from "./subjects/subjects.module";
 import { CaslModule } from "./casl/casl.module";
 import { PromotionsModule } from "./promotions/promotions.module";
 import { QuizzesModule } from './quizzes/quizzes.module';
+import { AnswersModule } from './answers/answers.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { QuizzesModule } from './quizzes/quizzes.module';
     CaslModule,
     PromotionsModule,
     QuizzesModule,
+    AnswersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -25,10 +25,10 @@ export const QuizSchema = SchemaFactory.createForClass(Quiz);
 
 export interface Question {
   question: string;
-  answers: Answer[];
+  availableAnswers: AvailableAnswers[];
   correctAnswer: number;
 }
 
-export interface Answer {
+export interface AvailableAnswers {
   value: string;
 }

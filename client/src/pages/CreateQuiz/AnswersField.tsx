@@ -1,5 +1,5 @@
 import { Box, Button, Grid, TextField } from "@mui/material";
-import { CreateQuizDto } from "models/quizs/create-quiz.dto";
+import { CreateQuizDto } from "models/quizzes/create-quiz.dto";
 import React from "react";
 import { Control, FormState, useFieldArray, UseFormRegister } from "react-hook-form";
 

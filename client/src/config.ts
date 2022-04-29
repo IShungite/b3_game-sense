@@ -18,7 +18,8 @@ export enum RouteUrls {
 
   Promotion = "/promotion",
 
-  CreateQuiz = "create-quiz",
+  CreateQuiz = "/create-quiz",
+  AnswerQuiz = "/answer-quiz",
 
   Home = "/home",
   Shops = "/shops",
