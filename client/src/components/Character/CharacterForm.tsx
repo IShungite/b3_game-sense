@@ -1,14 +1,17 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Grid, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import api from "api";
+import { AppSelect } from "components/AppSelect/AppSelect";
 import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
 import CreateCharacterDto from "models/characters/create-character.dto";
 import createCharacterValidationSchema from "models/characters/create-character.validation";
 import { IItem, IStarterItems } from "models/items/item";
+import { IPromotion } from "models/promotions/promotion";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { CharacterStatus, createCharacter } from "reducers/characterSlice";
+import { CharacterStatus, clearState, createCharacter } from "reducers/characterSlice";
 import getItemImage from "utils/items";
 import Character, { CharacterConfig } from "./Character";
 
@@ -16,10 +19,16 @@ interface Props {
   starterItems: IStarterItems;
 }
 
+type SchoolIdType = { label: string; value: string };
+type PromotionIdType = { label: string; value: string };
+
 export default function CharacterForm({ starterItems }: Props) {
   const dispatch = useAppDispatch();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const navigate = useNavigate();
+
+  const [schools, setSchools] = useState<ISchoolool[]>([]);
+  const [promotions, setPromotions] = useState<IPromotion[]>([]);
 
   const initialCharacterConfig: CharacterConfig = {
     body: starterItems.body[0],
@@ -107,6 +116,8 @@ export default function CharacterForm({ starterItems }: Props) {
       rightHandId: characterConfig.rightHand._id,
       rightLegId: characterConfig.rightLeg._id,
     },
+    schoolId: "",
+    promotionId: "",
   };
 
   const {
@@ -114,6 +125,8 @@ export default function CharacterForm({ starterItems }: Props) {
     handleSubmit,
     setValue,
     getValues,
+    control,
+    watch,
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -121,15 +134,47 @@ export default function CharacterForm({ starterItems }: Props) {
     resolver: yupResolver(createCharacterValidationSchema),
   });
 
+  const schoolIdWatched = watch("schoolId");
+
   const onSubmit = (data: CreateCharacterDto) => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     dispatch(createCharacter(data));
   };
 
+  useEffect(
+    () => () => {
+      dispatch(clearState());
+    },
+    [dispatch],
+  );
+
   // If the character is successfully created, redirect to the home
   useEffect(() => {
     if (createStatus === CharacterStatus.Finished) navigate(RouteUrls.Home);
   }, [createStatus, navigate]);
+
+  useEffect(() => {
+    const fetchSchools = async () => {
+      const schoolsFetched = (await api.getSchools()).data;
+      setSchools(schoolsFetched);
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    fetchSchools();
+  }, []);
+
+  useEffect(() => {
+    if (schoolIdWatched) {
+      const fetchPromotions = async () => {
+        const promotionsFetched = (await api.getPromotions(schoolIdWatched)).data;
+        setPromotions(promotionsFetched);
+        setValue("promotionId", "");
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      fetchPromotions();
+    }
+  }, [schoolIdWatched, setValue]);
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -176,6 +221,31 @@ export default function CharacterForm({ starterItems }: Props) {
             defaultValue={initialFormValues.nickname}
             helperText={errors.nickname?.message}
             {...registerFormField("nickname")}
+          />
+        </Grid>
+        <Grid item sx={{ width: 200 }}>
+          <AppSelect<CreateCharacterDto, SchoolIdType[]>
+            name="schoolId"
+            label="École"
+            control={control}
+            options={schools.map((school) => ({
+              label: school.name,
+              value: school._id,
+            }))}
+            defaultValue=""
+          />
+        </Grid>
+        <Grid item sx={{ width: 200 }}>
+          <AppSelect<CreateCharacterDto, PromotionIdType[]>
+            name="promotionId"
+            label="Classe"
+            disabled={!schoolIdWatched}
+            control={control}
+            options={promotions.map((promotion) => ({
+              label: promotion.name,
+              value: promotion._id,
+            }))}
+            defaultValue=""
           />
         </Grid>
         <Grid item>
