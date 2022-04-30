@@ -5,26 +5,33 @@ import { JwtToken } from "models/auth/auth";
 import React, { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { logout } from "reducers/authSlice";
+import { clearCharacters } from "reducers/characterSlice";
 import authService from "services/auth.service";
 
-export default function RequireAuth() {
+type Props = {
+  // eslint-disable-next-line react/require-default-props
+  children?: React.ReactElement;
+};
+
+export default function RequireAuth({ children }: Props) {
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
+  const appSelector = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     // JWT check if token expired
-    if (user) {
-      const decodedToken: JwtToken = jwtDecode(user.access_token);
+    if (appSelector.user) {
+      const decodedToken: JwtToken = jwtDecode(appSelector.user.access_token);
       if (decodedToken.exp * 1000 < new Date().getTime()) {
+        dispatch(clearCharacters());
         dispatch(logout(authService.logout()));
       }
     }
-  }, [dispatch, user]);
+  }, [dispatch, appSelector.user]);
 
   // redirect if there is no user
-  if (!user) {
+  if (!appSelector.user) {
     return <Navigate to={RouteUrls.Login} />;
   }
 
-  return <Outlet />;
+  return children || <Outlet />;
 }

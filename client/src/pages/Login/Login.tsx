@@ -2,7 +2,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { LoginCredentialsDto } from "models/auth/auth";
+import jwtDecode from "jwt-decode";
+import { JwtToken, LoginCredentialsDto, Role } from "models/auth/auth";
 import { loginValidationSchema } from "models/auth/auth.validation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -37,7 +38,15 @@ export default function Login() {
   // Redirect the user if he is already logged in
   useEffect(() => {
     if (user) {
-      navigate(RouteUrls.SelectCharacter);
+      const decodedToken: JwtToken = jwtDecode(user.access_token);
+
+      if (decodedToken.roles.includes(Role.Super_Admin)) {
+        navigate(RouteUrls.CreateSchool);
+      } else if (decodedToken.roles.includes(Role.Director)) {
+        navigate(RouteUrls.SelectSchool);
+      } else {
+        navigate(RouteUrls.SelectCharacter);
+      }
     }
   }, [user, navigate]);
 

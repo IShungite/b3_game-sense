@@ -5,9 +5,20 @@ export enum RouteUrls {
   Index = "/",
   Login = "/login",
   Register = "/register",
-  Shops = "/shops",
-  Statistics = "/statistics",
-  Home = "/home",
+
   SelectCharacter = "/select-character",
   CreateCharacter = "/create-character",
+  CreateSchool = "/create-school",
+
+  SelectSchool = "/select-school",
+  School = "/school",
+
+  SelectSubject = "/select-subject",
+  Subject = "/subject",
+
+  Promotion = "/promotion",
+
+  Home = "/home",
+  Shops = "/shops",
+  Statistics = "/statistics",
 }

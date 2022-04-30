@@ -17,6 +17,8 @@ const createCharacterValidationSchema = yup.object<ValidationShape<CreateCharact
       rightLegId: yup.string().required(),
     })
     .required("Equipments are required"),
+  schoolId: yup.string().required("School ID is required").length(24, "School ID is invalid"),
+  promotionId: yup.string().required("Promotion ID is required").length(24, "Promotion ID is invalid"),
 });
 
 export default createCharacterValidationSchema;

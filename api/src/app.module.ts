@@ -12,6 +12,7 @@ import { SchoolsModule } from "./schools/schools.module";
 import { SubjectsModule } from "./subjects/subjects.module";
 import { CaslModule } from "./casl/casl.module";
 import { ItemsModule } from "./items/items.module";
+import { PromotionsModule } from "./promotions/promotions.module";
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ItemsModule } from "./items/items.module";
     SubjectsModule,
     CaslModule,
     ItemsModule,
+    PromotionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

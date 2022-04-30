@@ -1,4 +1,4 @@
-import { IUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
+import { IAuthUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
 import { hash } from "utils";
 import api from "../api";
 
@@ -24,7 +24,7 @@ export const getUserFromLocalStorage = () => {
 
   if (storageUser) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const user: IUser = JSON.parse(storageUser);
+    const user: IAuthUser = JSON.parse(storageUser);
     if (user) return user;
   }
 
