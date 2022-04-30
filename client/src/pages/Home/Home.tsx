@@ -12,6 +12,8 @@ export default function Home() {
     return <Navigate to={RouteUrls.SelectCharacter} />;
   }
 
+  console.log(currentCharacter);
+
   return (
     <>
       <Box textAlign="center">

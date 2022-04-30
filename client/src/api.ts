@@ -3,7 +3,7 @@ import { API_PORT, API_URL } from "config";
 import { IUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
 import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
-import { IItem } from "models/items/item";
+import { IStarterItems } from "models/items/item";
 import { getUserFromLocalStorage } from "services/auth.service";
 
 const API = axios.create({ baseURL: `${API_URL}:${API_PORT}` });
@@ -26,6 +26,6 @@ const createCharacter = (formData: CreateCharacterDto): Promise<AxiosResponse<IC
   API.post("/characters", formData);
 
 const getCharacters = (): Promise<AxiosResponse<ICharacter[]>> => API.get("/characters");
-const getStarterItems = (): Promise<AxiosResponse<IItem[]>> => API.get("/starters");
+const getStarterItems = (): Promise<AxiosResponse<IStarterItems>> => API.get("/items/starters");
 
 export default { login, register, createCharacter, getCharacters, getStarterItems };
