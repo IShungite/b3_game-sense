@@ -15,26 +15,7 @@ import React, { useEffect, useState } from "react";
 import statisticsService from "services/statistics.service";
 
 export default function Statistics() {
-  // const [grades, setGrades] = useState<IStatistics[]>([]);
-  // const [average, setAverage] = useState<number>(0);
-
   const [gradessubjects, setGradesSubjects] = useState<IGradesBySubjects>();
-
-  // const getGrades = async (data: GradesData) => {
-  //   const gradesFetched = await statisticsService.getGrades(data);
-  //   console.log(gradesFetched, "test");
-  //   setGrades(gradesFetched);
-  // };
-  // const getAverage = async (data: GradesData) => {
-  //   const averageFetched = await statisticsService.getAverage(data);
-  //   console.log(averageFetched);
-  //   setAverage(averageFetched);
-  // };
-
-  const onClick = () => {
-    const gradesData = { character_id: "624339e3398a3c594121866b" };
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  };
 
   useEffect(() => {
     const getGradesBySubjects = async () => {

@@ -14,20 +14,13 @@ import {
 } from "@mui/material";
 import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
+import jwtDecode from "jwt-decode";
+import { JwtToken, Role } from "models/auth/auth";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "reducers/authSlice";
+import { clearCharacters } from "reducers/characterSlice";
 import authService from "services/auth.service";
-
-const pagesLeft = [
-  { name: "Accueil", url: RouteUrls.Home },
-  { name: "Magasins", url: RouteUrls.Shops },
-  { name: "Statistiques", url: RouteUrls.Statistics },
-];
-const pagesRight = [
-  { name: "Connexion", url: RouteUrls.Login },
-  { name: "Inscription", url: RouteUrls.Register },
-];
 
 export default function AppBar() {
   const navigate = useNavigate();
@@ -35,8 +28,39 @@ export default function AppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const { user } = useAppSelector((state) => state.auth);
+  const { currentCharacter } = useAppSelector((state) => state.character);
 
   const dispatch = useAppDispatch();
+
+  const pagesLeft = [];
+  let decodedToken: JwtToken | null = null;
+
+  if (user) {
+    decodedToken = jwtDecode(user.access_token);
+
+    if (decodedToken) {
+      if (decodedToken.roles.includes(Role.Super_Admin)) {
+        pagesLeft.push({ name: "Créer une école", url: RouteUrls.CreateSchool });
+      } else if (decodedToken.roles.includes(Role.Director)) {
+        pagesLeft.push({ name: "Mes écoles", url: RouteUrls.SelectSchool });
+      } else if (decodedToken.roles.includes(Role.Professor)) {
+        pagesLeft.push({ name: "Mes matières", url: RouteUrls.SelectSubject });
+      }
+    }
+
+    if (currentCharacter) {
+      pagesLeft.push({ name: "Accueil", url: RouteUrls.Home });
+      pagesLeft.push({ name: "Statistiques", url: RouteUrls.Statistics });
+      pagesLeft.push({ name: "Magasins", url: RouteUrls.Shops });
+    }
+  } else {
+    pagesLeft.push({ name: "Accueil", url: RouteUrls.Index });
+  }
+
+  const pagesRight = [
+    { name: "Connexion", url: RouteUrls.Login },
+    { name: "Inscription", url: RouteUrls.Register },
+  ];
 
   const settings = [
     {
@@ -46,8 +70,15 @@ export default function AppBar() {
       },
     },
     {
-      name: "Logout",
+      name: "Changer de personnage",
       callback: () => {
+        navigate(RouteUrls.SelectCharacter);
+      },
+    },
+    {
+      name: "Déconnexion",
+      callback: () => {
+        dispatch(clearCharacters());
         dispatch(logout(authService.logout()));
       },
     },
@@ -140,7 +171,7 @@ export default function AppBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt={decodedToken ? decodedToken.email : ""} src="/static/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
               <Menu

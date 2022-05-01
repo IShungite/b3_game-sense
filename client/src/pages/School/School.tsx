@@ -1,0 +1,26 @@
+import { Box, Typography } from "@mui/material";
+import CreatePromotionForm from "components/CreatePromotionForm/CreatePromotionForm";
+import PromotionsGrid from "components/PromotionsGrid/PromotionsGrid";
+import { RouteUrls } from "config";
+import { useAppSelector } from "hooks";
+import React from "react";
+import { Navigate } from "react-router-dom";
+
+export default function School() {
+  const { currentSchool } = useAppSelector((state) => state.school);
+
+  if (!currentSchool) {
+    return <Navigate to={RouteUrls.SelectSchool} />;
+  }
+
+  return (
+    <>
+      <Box textAlign="center">
+        <Typography variant="h2">{currentSchool.name}</Typography>
+      </Box>
+
+      <PromotionsGrid />
+      <CreatePromotionForm />
+    </>
+  );
+}

@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, ObjectId, SchemaTypes } from "mongoose";
+import { ObjectId, SchemaTypes } from "mongoose";
 import { School } from "src/schools/entities/school.schema";
 
-export type ClassDocument = Promotion & Document;
+export type PromotionDocument = Promotion & Document;
 
 @Schema()
 export class Promotion {
@@ -12,12 +12,8 @@ export class Promotion {
   @Prop({ type: String, required: true })
   name: string;
 
-  @Prop({ type: SchemaTypes.ObjectId, ref: 'School' })
-  school_id: School
-
-  
-
-
+  @Prop({ type: SchemaTypes.ObjectId, ref: "School" })
+  schoolId: School;
 }
 
 export const PromotionSchema = SchemaFactory.createForClass(Promotion);

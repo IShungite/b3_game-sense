@@ -1,9 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { RouteUrls } from "config";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { RegisterData } from "models/auth";
-import { registerValidationSchema } from "models/validation/auth";
+import { RegisterCredentialsDto } from "models/auth/auth";
+import { registerValidationSchema } from "models/auth/auth.validation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ export default function Login() {
 
   const { user, status, errorMessage } = useAppSelector((state) => state.auth);
 
-  const initialValues: RegisterData = {
+  const initialValues: RegisterCredentialsDto = {
     email: "",
     first_name: "",
     last_name: "",
@@ -50,13 +50,13 @@ export default function Login() {
     }
   }, [user, navigate]);
 
-  const onSubmit = (data: RegisterData) => {
+  const onSubmit = (data: RegisterCredentialsDto) => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     dispatch(register(data));
   };
 
   return (
-    <Container component="main">
+    <>
       <Typography>Register</Typography>
 
       <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 2 }}>
@@ -110,6 +110,6 @@ export default function Login() {
         </Button>
       </Box>
       {status === AuthStatus.Loading && <Box>Loading...</Box>}
-    </Container>
+    </>
   );
 }
