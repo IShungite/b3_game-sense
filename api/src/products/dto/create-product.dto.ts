@@ -6,6 +6,8 @@ export class CreateProductDto {
 
   readonly categoryId: ObjectId;
 
+  readonly itemId: ObjectId;
+
   @MinLength(3)
   @MaxLength(30)
   readonly name: string;

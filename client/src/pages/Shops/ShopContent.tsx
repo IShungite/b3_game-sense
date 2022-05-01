@@ -6,31 +6,39 @@ import { useParams } from "react-router-dom";
 import productService from "services/product.service";
 
 export default function ShopContent() {
-
   const [products, setProducts] = useState<IProduct[]>([]);
-  const {shopId, categoryId} = useParams();
+  const { shopId, categoryId } = useParams();
 
-  const getProductsByShop = async() => {
-    if(!shopId || !categoryId) return;
+  const getProductsByShop = async () => {
+    if (!shopId || !categoryId) return;
     const productsFetched = await productService.getProductsByCategory(categoryId);
     setProducts(productsFetched);
-  }
+  };
 
-  useEffect( () => {
+  useEffect(() => {
     async function fetchData() {
       await getProductsByShop();
     }
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Container component="main">
       <Grid container spacing={3}>
-      {products.map((product) => <Grid item key={product._id}><Product name={product.name} id={product._id} price={product.price} description={product.description} /></Grid>)}        
+        {products.map((product) => (
+          <Grid item key={product._id}>
+            <Product
+              name={product.name}
+              id={product._id}
+              itemId={product.itemId}
+              price={product.price}
+              description={product.description}
+            />
+          </Grid>
+        ))}
       </Grid>
-
     </Container>
   );
 }

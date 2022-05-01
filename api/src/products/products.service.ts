@@ -13,6 +13,7 @@ export class ProductsService {
     const productExist = await this.productModel.findOne({
       shopId: createProductDto.shopId,
       categoryId: createProductDto.categoryId,
+      itemId: createProductDto.itemId,
       name: createProductDto.name,
       price: createProductDto.price,
       description: createProductDto.description,
