@@ -16,6 +16,8 @@ import School from "pages/School/School";
 import SelectCharacter from "pages/SelectCharacter/selectCharacter";
 import SelectSchool from "pages/SelectSchool/SelectSchool";
 import SelectSubject from "pages/SelectSubject/SelectSubject";
+import ShopCategories from "pages/Shops/ShopCategories";
+import ShopContent from "pages/Shops/ShopContent";
 import Shops from "pages/Shops/Shops";
 import Statistics from "pages/Statistics/Statistics";
 import Subject from "pages/Subject/Subject";
@@ -43,6 +45,8 @@ export default function App() {
 
               <Route path={RouteUrls.Home} element={<Home />} />
               <Route path={RouteUrls.Shops} element={<Shops />} />
+              <Route path={`${RouteUrls.Shops}/:shopId`} element={<ShopCategories />} />
+              <Route path={`${RouteUrls.Shops}/:shopId/:categoryId`} element={<ShopContent />} />
               <Route path={RouteUrls.Statistics} element={<Statistics />} />
             </Route>
 

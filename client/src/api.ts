@@ -1,13 +1,16 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { API_PORT, API_URL } from "config";
 import { IAuthUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
+import { ICategory } from "models/category/category";
 import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
 import { IStarterItems } from "models/items/item";
+import { IProduct } from "models/products/products";
 import { CreatePromotionDto } from "models/promotions/create-promotion.dto";
 import { IPromotion } from "models/promotions/promotion";
 import { CreateSchoolDto } from "models/schools/create-school.dto";
 import { ISchool } from "models/schools/school";
+import { IShop } from "models/shops/shop";
 import { GradesBySubjectsData, GradesData, IGradesBySubjects, IStatistics } from "models/statistics/statistics";
 import { CreateSubjectDto } from "models/subjects/create-subject.dto";
 import { ISubject } from "models/subjects/subject";
@@ -63,6 +66,13 @@ const getSubjects = (promotionId: string): Promise<AxiosResponse<ISubject[]>> =>
   API.post("/subjects/getAll", { promotionId });
 const getProfessorSubjects = (): Promise<AxiosResponse<ISubject[]>> => API.get("/subjects/getProfessorSubjects");
 
+const getShops = (): Promise<AxiosResponse<IShop[]>> => API.get("/shops");
+const getProducts = (): Promise<AxiosResponse<IProduct[]>> => API.get("/products");
+const getCategoriesByShop = (shopId: string): Promise<AxiosResponse<ICategory[]>> =>
+  API.get(`/categories/shop/${shopId}`);
+const getProductsByCategory = (shopId: string, categoryId: string): Promise<AxiosResponse<IProduct[]>> =>
+  API.get(`/products/shop/${shopId}/${categoryId}`);
+
 export default {
   login,
   register,
@@ -83,4 +93,8 @@ export default {
   getAverage,
   getGradesBySubjects,
   getStarterItems,
+  getShops,
+  getProducts,
+  getCategoriesByShop,
+  getProductsByCategory,
 };

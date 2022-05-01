@@ -130,5 +130,9 @@
   {
     "id": "625423a0f3869d10eacda78a",
     "image": "./images/characters/right_legs/right_leg_fallen_angel_3.png"
+  },
+  {
+    "id": "626e882676ee79a90e77d1d8",
+    "image": "/images/consumables/heal/healing_potion.png"
   }
 ]

@@ -11,6 +11,9 @@ import { CharactersModule } from "./characters/characters.module";
 import { SchoolsModule } from "./schools/schools.module";
 import { SubjectsModule } from "./subjects/subjects.module";
 import { CaslModule } from "./casl/casl.module";
+import { CategoriesModule } from "./categories/categories.module";
+import { ProductsModule } from "./products/products.module";
+import { ShopsModule } from "./shops/shops.module";
 import { ItemsModule } from "./items/items.module";
 import { PromotionsModule } from "./promotions/promotions.module";
 
@@ -18,6 +21,8 @@ import { PromotionsModule } from "./promotions/promotions.module";
   imports: [
     MongooseModule.forRoot("mongodb+srv://client:qqni3XexM5T3E5XQ@cluster0.yfyha.mongodb.net/Game-sense"),
     UsersModule,
+    ShopsModule,
+    ProductsModule,
     AuthModule,
     StatisticsModule,
     GradesModule,
@@ -25,6 +30,7 @@ import { PromotionsModule } from "./promotions/promotions.module";
     SchoolsModule,
     SubjectsModule,
     CaslModule,
+    CategoriesModule,
     ItemsModule,
     PromotionsModule,
     AuthModule,
