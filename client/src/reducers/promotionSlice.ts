@@ -1,26 +1,20 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
+import FetchStatus from "models/FetchStatus";
 import { CreatePromotionDto } from "models/promotions/create-promotion.dto";
 import { IPromotion } from "models/promotions/promotion";
 import promotionService from "services/promotion.service";
 import { getErrorMessage } from "utils";
 
-export enum PromotionStatus {
-  None,
-  Loading,
-  Finished,
-  Error,
-}
-
 interface PromotionState {
   promotions: IPromotion[];
   errorMessage?: string;
-  status: PromotionStatus;
+  status: FetchStatus;
   currentPromotion?: IPromotion;
 }
 
 const initialPromotion: PromotionState = {
-  status: PromotionStatus.None,
+  status: FetchStatus.None,
   promotions: [],
 };
 
@@ -60,36 +54,40 @@ const promotionSlice = createSlice({
     setCurrentPromotion: (state, { payload }: PayloadAction<IPromotion>) => {
       state.currentPromotion = payload;
     },
+    clearPromotion: (state) => {
+      state.currentPromotion = undefined;
+      state.promotions = [];
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getPromotions.pending, (state) => {
-        state.status = PromotionStatus.Loading;
+        state.status = FetchStatus.Loading;
       })
       .addCase(getPromotions.fulfilled, (state, { payload }) => {
-        state.status = PromotionStatus.Finished;
+        state.status = FetchStatus.Finished;
         state.promotions = [...payload];
       })
       .addCase(getPromotions.rejected, (state, { payload }) => {
-        state.status = PromotionStatus.Error;
+        state.status = FetchStatus.Error;
 
         /* Used to display an error message to the user. */
         state.errorMessage = payload;
       })
       .addCase(createPromotion.pending, (state) => {
-        state.status = PromotionStatus.Loading;
+        state.status = FetchStatus.Loading;
       })
       .addCase(createPromotion.fulfilled, (state, { payload }) => {
-        state.status = PromotionStatus.Finished;
+        state.status = FetchStatus.Finished;
         state.promotions = [...state.promotions, payload];
       })
       .addCase(createPromotion.rejected, (state, { payload }) => {
-        state.status = PromotionStatus.Error;
+        state.status = FetchStatus.Error;
 
         state.errorMessage = payload;
       });
   },
 });
 
-export const { clearState, setCurrentPromotion } = promotionSlice.actions;
+export const { clearState, clearPromotion, setCurrentPromotion } = promotionSlice.actions;
 export default promotionSlice.reducer;

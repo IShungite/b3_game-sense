@@ -1,5 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { API_PORT, API_URL } from "config";
+import { IAnswer } from "models/answers/answer";
+import { CreateAnswerDto } from "models/answers/create-answer.dto";
 import { IAuthUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
 import { ICategory } from "models/category/category";
 import { ICharacter } from "models/characters/character";
@@ -8,6 +10,8 @@ import { IStarterItems } from "models/items/item";
 import { IProduct } from "models/products/products";
 import { CreatePromotionDto } from "models/promotions/create-promotion.dto";
 import { IPromotion } from "models/promotions/promotion";
+import { CreateQuizDto } from "models/quizzes/create-quiz.dto";
+import { IQuiz, IQuizWithoutCorrectAnswer } from "models/quizzes/quiz";
 import { CreateSchoolDto } from "models/schools/create-school.dto";
 import { ISchool } from "models/schools/school";
 import { IShop } from "models/shops/shop";
@@ -73,6 +77,18 @@ const getCategoriesByShop = (shopId: string): Promise<AxiosResponse<ICategory[]>
 const getProductsByCategory = (shopId: string, categoryId: string): Promise<AxiosResponse<IProduct[]>> =>
   API.get(`/products/shop/${shopId}/${categoryId}`);
 
+const createQuiz = (createQuizDto: CreateQuizDto): Promise<AxiosResponse<IQuiz>> => API.post("/quizzes", createQuizDto);
+const getProfessorQuizzes = (): Promise<AxiosResponse<IQuiz[]>> => API.get("/quizzes/getByProfessor");
+const getCharacterQuizzes = (
+  characterId: string,
+): Promise<AxiosResponse<{ quizDone: IQuizWithoutCorrectAnswer[]; quizToDo: IQuizWithoutCorrectAnswer[] }>> =>
+  API.post("/quizzes/getByCharacter", { characterId });
+const getQuizWithoutCorrectAnswer = (quizId: string): Promise<AxiosResponse<IQuizWithoutCorrectAnswer>> =>
+  API.get(`/quizzes/getQuizWithoutCorrectAnswer/${quizId}`);
+
+const createAnswer = (createAnswerDto: CreateAnswerDto): Promise<AxiosResponse<IAnswer>> =>
+  API.post("/answers", createAnswerDto);
+
 export default {
   login,
   register,
@@ -97,4 +113,9 @@ export default {
   getProducts,
   getCategoriesByShop,
   getProductsByCategory,
+  createQuiz,
+  getProfessorQuizzes,
+  getCharacterQuizzes,
+  getQuizWithoutCorrectAnswer,
+  createAnswer,
 };

@@ -1,26 +1,20 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
+import FetchStatus from "models/FetchStatus";
 import { CreateSchoolDto } from "models/schools/create-school.dto";
 import { ISchool } from "models/schools/school";
 import schoolService from "services/school.service";
 import { getErrorMessage } from "utils";
 
-export enum SchoolStatus {
-  None,
-  Loading,
-  Finished,
-  Error,
-}
-
 interface SchoolState {
   schools: ISchool[];
   errorMessage?: string;
-  status: SchoolStatus;
+  status: FetchStatus;
   currentSchool?: ISchool;
 }
 
 const initialSchool: SchoolState = {
-  status: SchoolStatus.None,
+  status: FetchStatus.None,
   schools: [],
 };
 
@@ -60,36 +54,40 @@ const schoolSlice = createSlice({
     setCurrentSchool: (state, action: PayloadAction<ISchool>) => {
       state.currentSchool = action.payload;
     },
+    clearSchool: (state) => {
+      state.currentSchool = undefined;
+      state.schools = [];
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getDirectorSchools.pending, (state) => {
-        state.status = SchoolStatus.Loading;
+        state.status = FetchStatus.Loading;
       })
       .addCase(getDirectorSchools.fulfilled, (state, { payload }) => {
-        state.status = SchoolStatus.Finished;
+        state.status = FetchStatus.Finished;
         state.schools = [...payload];
       })
       .addCase(getDirectorSchools.rejected, (state, { payload }) => {
-        state.status = SchoolStatus.Error;
+        state.status = FetchStatus.Error;
 
         /* Used to display an error message to the user. */
         state.errorMessage = payload;
       })
       .addCase(createSchool.pending, (state) => {
-        state.status = SchoolStatus.Loading;
+        state.status = FetchStatus.Loading;
       })
       .addCase(createSchool.fulfilled, (state, { payload }) => {
-        state.status = SchoolStatus.Finished;
+        state.status = FetchStatus.Finished;
         state.schools = [...state.schools, payload];
       })
       .addCase(createSchool.rejected, (state, { payload }) => {
-        state.status = SchoolStatus.Error;
+        state.status = FetchStatus.Error;
 
         state.errorMessage = payload;
       });
   },
 });
 
-export const { clearState, setCurrentSchool } = schoolSlice.actions;
+export const { clearState, clearSchool, setCurrentSchool } = schoolSlice.actions;
 export default schoolSlice.reducer;
