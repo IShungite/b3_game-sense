@@ -3,6 +3,7 @@ import { API_PORT, API_URL } from "config";
 import { IAuthUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
 import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
+import { IStarterItems } from "models/items/item";
 import { CreatePromotionDto } from "models/promotions/create-promotion.dto";
 import { IPromotion } from "models/promotions/promotion";
 import { CreateSchoolDto } from "models/schools/create-school.dto";
@@ -43,6 +44,8 @@ const createCharacter = (formData: CreateCharacterDto): Promise<AxiosResponse<IC
   API.post("/characters", formData);
 
 const getCharacters = (): Promise<AxiosResponse<ICharacter[]>> => API.get("/characters");
+const getStarterItems = (): Promise<AxiosResponse<IStarterItems>> => API.get("/items/starters");
+
 const getCharactersFromPromotion = (promotionId: string): Promise<AxiosResponse<ICharacter[]>> =>
   API.get(`/characters/promotion/${promotionId}`);
 
@@ -79,4 +82,5 @@ export default {
   getGrades,
   getAverage,
   getGradesBySubjects,
+  getStarterItems,
 };
