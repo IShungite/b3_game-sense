@@ -21,4 +21,6 @@ export enum RouteUrls {
   Home = "/home",
   Shops = "/shops",
   Statistics = "/statistics",
+
+  Inventory = "/inventory",
 }

@@ -3,17 +3,26 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import { useAppSelector } from "hooks";
+import { CreateInventoryDto } from "models/inventory/create-inventory.dto";
 import React from "react";
+import inventoryService from "services/inventory.service";
 import getItemImage from "utils/items";
 
 type Props = { name: string; id: string; itemId: string; price: number; description: string };
 
 export default function Product({ name, id, itemId, price, description }: Props) {
   const imageSrc = getItemImage(itemId);
+  const { currentCharacter } = useAppSelector((state) => state.character);
 
-  function buyItem() {
+  const data: CreateInventoryDto = {
+    productId: id,
+    characterId: "",
+  };
+
+  async function buy() {
     // eslint-disable-next-line no-alert
-    alert("TODO : handle buying item");
+    await inventoryService.buyProduct(data);
   }
 
   return (
@@ -39,7 +48,7 @@ export default function Product({ name, id, itemId, price, description }: Props)
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={() => buyItem()}>Buy</Button>
+        <Button onClick={() => buy()}>Buy</Button>
       </CardActions>
     </Card>
   );

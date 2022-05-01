@@ -4,6 +4,8 @@ import { IAuthUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/a
 import { ICategory } from "models/category/category";
 import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
+import { CreateInventoryDto } from "models/inventory/create-inventory.dto";
+import { IInventory } from "models/inventory/inventory";
 import { IStarterItems } from "models/items/item";
 import { IProduct } from "models/products/products";
 import { CreatePromotionDto } from "models/promotions/create-promotion.dto";
@@ -73,6 +75,10 @@ const getCategoriesByShop = (shopId: string): Promise<AxiosResponse<ICategory[]>
 const getProductsByCategory = (shopId: string, categoryId: string): Promise<AxiosResponse<IProduct[]>> =>
   API.get(`/products/shop/${shopId}/${categoryId}`);
 
+const getCharacterInventory = (characterId: string): Promise<AxiosResponse<IInventory[]>> =>
+  API.get(`/inventory/${characterId}`);
+const buyItem = (data: CreateInventoryDto): Promise<AxiosResponse<IInventory>> => API.post("/inventory", data);
+
 export default {
   login,
   register,
@@ -97,4 +103,6 @@ export default {
   getProducts,
   getCategoriesByShop,
   getProductsByCategory,
+  getCharacterInventory,
+  buyItem,
 };
