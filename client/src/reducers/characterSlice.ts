@@ -69,6 +69,10 @@ const characterSlice = createSlice({
     setCurrentCharacter: (state, { payload }: PayloadAction<ICharacter>) => {
       state.currentCharacter = payload;
     },
+    clearCharacters: (state) => {
+      state.characters = initialCharacter.characters;
+      state.currentCharacter = undefined;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -99,5 +103,5 @@ const characterSlice = createSlice({
   },
 });
 
-export const { clearState, setCurrentCharacter } = characterSlice.actions;
+export const { clearState, setCurrentCharacter, clearCharacters } = characterSlice.actions;
 export default characterSlice.reducer;

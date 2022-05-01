@@ -1,7 +1,6 @@
 import { ForbiddenError } from "@casl/ability";
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
-import { Observable } from "rxjs";
 import { IUserRequest } from "src/auth/models/auth.models";
 import { CHECK_ABILITY, RequiredRule } from "./casl-ability.decorator";
 import { CaslAbilityFactory } from "./casl-ability.factory";

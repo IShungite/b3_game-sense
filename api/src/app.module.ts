@@ -8,13 +8,14 @@ import { AuthModule } from "./auth/auth.module";
 import { StatisticsModule } from "./statistics/statistics.module";
 import { GradesModule } from "./grades/grades.module";
 import { CharactersModule } from "./characters/characters.module";
-import { ClassesModule } from "./classes/classes.module";
 import { SchoolsModule } from "./schools/schools.module";
 import { SubjectsModule } from "./subjects/subjects.module";
 import { CaslModule } from "./casl/casl.module";
 import { CategoriesModule } from "./categories/categories.module";
 import { ProductsModule } from "./products/products.module";
 import { ShopsModule } from "./shops/shops.module";
+import { ItemsModule } from "./items/items.module";
+import { PromotionsModule } from "./promotions/promotions.module";
 
 @Module({
   imports: [
@@ -26,11 +27,12 @@ import { ShopsModule } from "./shops/shops.module";
     StatisticsModule,
     GradesModule,
     CharactersModule,
-    ClassesModule,
     SchoolsModule,
     SubjectsModule,
     CaslModule,
     CategoriesModule,
+    ItemsModule,
+    PromotionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
