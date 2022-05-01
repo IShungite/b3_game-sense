@@ -1,6 +1,6 @@
-import { ConflictException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { FilterQuery, Model } from "mongoose";
+import { ConflictException, Injectable } from "@nestjs/common";
 import { IUserRequest } from "src/auth/models/auth.models";
 import { CreateCharacterDto } from "./dto/create-character.dto";
 import { UpdateCharacterDto } from "./dto/update-character.dto";
@@ -34,8 +34,10 @@ export class CharactersService {
     return this.characterModel.find({ userId: user.id }).exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} character`;
+  async findOne(findOptions?: FilterQuery<Character>): Promise<Character> {
+    if (findOptions !== undefined)
+      Object.keys(findOptions).forEach((key) => findOptions[key] === undefined && delete findOptions[key]);
+    return this.characterModel.findOne({ ...findOptions }).exec();
   }
 
   findAllFromPromotion(promotionId: string): Promise<Character[]> {

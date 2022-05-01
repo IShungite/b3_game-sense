@@ -11,6 +11,7 @@ import { IPromotion } from "models/promotions/promotion";
 import { CreateSchoolDto } from "models/schools/create-school.dto";
 import { ISchool } from "models/schools/school";
 import { IShop } from "models/shops/shop";
+import { GradesBySubjectsData, GradesData, IGradesBySubjects, IStatistics } from "models/statistics/statistics";
 import { CreateSubjectDto } from "models/subjects/create-subject.dto";
 import { ISubject } from "models/subjects/subject";
 import { IUser } from "models/users/user";
@@ -27,6 +28,13 @@ API.interceptors.request.use((req: AxiosRequestConfig) => {
 
   return req;
 });
+
+const getGrades = (paramCharacterId: GradesData): Promise<AxiosResponse<IStatistics[]>> =>
+  API.post("/grades/getAll", paramCharacterId);
+const getAverage = (paramCharacterId: GradesData): Promise<AxiosResponse<number>> =>
+  API.post("grades/getAverage", paramCharacterId);
+const getGradesBySubjects = (paramsGrades: GradesBySubjectsData): Promise<AxiosResponse<IGradesBySubjects>> =>
+  API.post("/statistics/", paramsGrades);
 
 const login = (formData: LoginCredentialsDto): Promise<AxiosResponse<IAuthUser>> => API.post("/auth/login", formData);
 const register = (formData: RegisterCredentialsDto): Promise<AxiosResponse<IAuthUser>> =>
@@ -81,6 +89,9 @@ export default {
   getSubjects,
   createSubject,
   getProfessorSubjects,
+  getGrades,
+  getAverage,
+  getGradesBySubjects,
   getStarterItems,
   getShops,
   getProducts,

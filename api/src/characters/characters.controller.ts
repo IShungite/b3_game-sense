@@ -23,7 +23,7 @@ export class CharactersController {
 
   @Get(":id")
   findOne(@Param("id") id: string) {
-    return this.charactersService.findOne(+id);
+    return this.charactersService.findOne({ _id: id });
   }
 
   @Get("promotion/:id")

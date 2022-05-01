@@ -32,8 +32,8 @@ export class SubjectsService {
     return this.subjectModel.find({ professorId });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} subject`;
+  findOne(id: string) {
+    return this.subjectModel.findById(id).exec();
   }
 
   update(id: number, updateSubjectDto: UpdateSubjectDto) {

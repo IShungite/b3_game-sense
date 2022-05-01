@@ -2,10 +2,12 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@n
 import { SubjectsService } from "./subjects.service";
 import { CreateSubjectDto } from "./dto/create-subject.dto";
 import { UpdateSubjectDto } from "./dto/update-subject.dto";
+import { VerifyOwnedCharacterGuards } from "src/characters/verify-owned-character.guard";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { GetUser } from "src/decorator/get-user.decorator";
 import { IUserRequest } from "src/auth/models/auth.models";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
+@UseGuards(JwtAuthGuard)
 @Controller("subjects")
 export class SubjectsController {
   constructor(private readonly subjectsService: SubjectsService) {}
@@ -15,9 +17,10 @@ export class SubjectsController {
     return this.subjectsService.create(createSubjectDto);
   }
 
-  @Post("/getAll")
-  findAll(@Body() params: { promotionId: string }) {
-    return this.subjectsService.findAll(params.promotionId);
+  @Post("getAll")
+  // @UseGuards(VerifyOwnedCharacterGuards)
+  findAll(@Body("promotionId") promotionId: string) {
+    return this.subjectsService.findAll(promotionId);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -28,7 +31,7 @@ export class SubjectsController {
 
   @Get(":id")
   findOne(@Param("id") id: string) {
-    return this.subjectsService.findOne(+id);
+    return this.subjectsService.findOne(id);
   }
 
   @Patch(":id")

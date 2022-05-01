@@ -33,6 +33,8 @@ import { PromotionsModule } from "./promotions/promotions.module";
     CategoriesModule,
     ItemsModule,
     PromotionsModule,
+    AuthModule,
+    CaslModule,
   ],
   controllers: [AppController],
   providers: [AppService],
