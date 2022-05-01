@@ -68,7 +68,7 @@ export default function CreateSubjectForm() {
         <Grid container spacing={1} alignItems="center">
           <Grid item>
             <TextField
-              label="Nom de la classe"
+              label="Nom de la matière"
               variant="outlined"
               error={Boolean(errors.name)}
               defaultValue={initialFormValues.name}

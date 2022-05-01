@@ -1,4 +1,3 @@
-import {} from "@casl/ability";
 import { SetMetadata } from "@nestjs/common";
 import { Action, Subjects } from "./casl-ability.factory";
 
