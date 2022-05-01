@@ -23,8 +23,8 @@ export class SubjectsService {
     return createdSubject.save();
   }
 
-  findAll(promotionId: string) {
-    return this.subjectModel.find({ promotionId });
+  async findAll(promotionId: string) {
+    return this.subjectModel.find({ promotionId }).exec();
   }
 
   getProfessorSubjects(professorId: string) {

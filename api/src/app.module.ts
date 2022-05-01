@@ -16,7 +16,9 @@ import { ProductsModule } from "./products/products.module";
 import { ShopsModule } from "./shops/shops.module";
 import { ItemsModule } from "./items/items.module";
 import { PromotionsModule } from "./promotions/promotions.module";
-import { InventoriesModule } from './inventories/inventories.module';
+import { InventoriesModule } from "./inventories/inventories.module";
+import { QuizzesModule } from "./quizzes/quizzes.module";
+import { AnswersModule } from "./answers/answers.module";
 
 @Module({
   imports: [
@@ -37,6 +39,8 @@ import { InventoriesModule } from './inventories/inventories.module';
     AuthModule,
     CaslModule,
     InventoriesModule,
+    QuizzesModule,
+    AnswersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

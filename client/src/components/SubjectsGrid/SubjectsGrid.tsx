@@ -22,7 +22,7 @@ export default function SubjectsGrid() {
 
       <Grid container direction="column">
         {subjects.map((subject) => (
-          <Grid item key={subject.name}>
+          <Grid item key={subject._id}>
             <Typography>- {subject.name}</Typography>
           </Grid>
         ))}

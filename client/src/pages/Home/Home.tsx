@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import Character from "components/Character/Character";
+import QuizzesGridStudent from "components/QuizzesGridStudent/QuizzesGridStudent";
 import { RouteUrls } from "config";
 import { useAppSelector } from "hooks";
 import React from "react";
@@ -21,6 +22,8 @@ export default function Home() {
       <Typography variant="h4">{currentCharacter.nickname}</Typography>
 
       <Character character={currentCharacter} />
+
+      <QuizzesGridStudent />
     </>
   );
 }

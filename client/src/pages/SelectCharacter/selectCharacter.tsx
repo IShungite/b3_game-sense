@@ -5,6 +5,7 @@ import { ICharacter } from "models/characters/character";
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getCharacters, setCurrentCharacter } from "reducers/characterSlice";
+import { clearQuizzes } from "reducers/quizSlice";
 
 export default function SelectCharacter() {
   const dispatch = useAppDispatch();
@@ -22,6 +23,7 @@ export default function SelectCharacter() {
 
   const handleSelectCharacter = (character: ICharacter) => {
     dispatch(setCurrentCharacter(character));
+    dispatch(clearQuizzes());
     navigate(RouteUrls.Home);
   };
 

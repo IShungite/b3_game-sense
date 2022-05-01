@@ -13,14 +13,12 @@ import {
   Typography,
 } from "@mui/material";
 import { RouteUrls } from "config";
-import { useAppDispatch, useAppSelector } from "hooks";
+import { useAppSelector } from "hooks";
+import useAuth from "hooks/useAuth";
 import jwtDecode from "jwt-decode";
 import { JwtToken, Role } from "models/auth/auth";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { logout } from "reducers/authSlice";
-import { clearCharacters } from "reducers/characterSlice";
-import authService from "services/auth.service";
 
 export default function AppBar() {
   const navigate = useNavigate();
@@ -30,7 +28,7 @@ export default function AppBar() {
   const { user } = useAppSelector((state) => state.auth);
   const { currentCharacter } = useAppSelector((state) => state.character);
 
-  const dispatch = useAppDispatch();
+  const { logout } = useAuth();
 
   const pagesLeft = [];
   let decodedToken: JwtToken | null = null;
@@ -45,6 +43,7 @@ export default function AppBar() {
         pagesLeft.push({ name: "Mes écoles", url: RouteUrls.SelectSchool });
       } else if (decodedToken.roles.includes(Role.Professor)) {
         pagesLeft.push({ name: "Mes matières", url: RouteUrls.SelectSubject });
+        pagesLeft.push({ name: "Créer un quiz", url: RouteUrls.CreateQuiz });
       }
     }
 
@@ -79,8 +78,7 @@ export default function AppBar() {
     {
       name: "Déconnexion",
       callback: () => {
-        dispatch(clearCharacters());
-        dispatch(logout(authService.logout()));
+        logout();
       },
     },
   ];

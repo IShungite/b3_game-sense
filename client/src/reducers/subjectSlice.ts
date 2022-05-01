@@ -1,26 +1,20 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
+import FetchStatus from "models/FetchStatus";
 import { CreateSubjectDto } from "models/subjects/create-subject.dto";
 import { ISubject } from "models/subjects/subject";
 import subjectService from "services/subject.service";
 import { getErrorMessage } from "utils";
 
-export enum SubjectStatus {
-  None,
-  Loading,
-  Finished,
-  Error,
-}
-
 interface SubjectState {
   subjects: ISubject[];
   currentSubject?: ISubject;
   errorMessage?: string;
-  status: SubjectStatus;
+  status: FetchStatus;
 }
 
 const initialSchool: SubjectState = {
-  status: SubjectStatus.None,
+  status: FetchStatus.None,
   subjects: [],
 };
 
@@ -70,49 +64,53 @@ const promotionSlice = createSlice({
     setCurrentSubject: (state, { payload }: PayloadAction<ISubject>) => {
       state.currentSubject = payload;
     },
+    clearSubject: (state) => {
+      state.currentSubject = undefined;
+      state.subjects = [];
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getSubjects.pending, (state) => {
-        state.status = SubjectStatus.Loading;
+        state.status = FetchStatus.Loading;
       })
       .addCase(getSubjects.fulfilled, (state, { payload }) => {
-        state.status = SubjectStatus.Finished;
+        state.status = FetchStatus.Finished;
         state.subjects = [...payload];
       })
       .addCase(getSubjects.rejected, (state, { payload }) => {
-        state.status = SubjectStatus.Error;
+        state.status = FetchStatus.Error;
 
         /* Used to display an error message to the user. */
         state.errorMessage = payload;
       })
       .addCase(createSubject.pending, (state) => {
-        state.status = SubjectStatus.Loading;
+        state.status = FetchStatus.Loading;
       })
       .addCase(createSubject.fulfilled, (state, { payload }) => {
-        state.status = SubjectStatus.Finished;
+        state.status = FetchStatus.Finished;
         state.subjects = [...state.subjects, payload];
       })
       .addCase(createSubject.rejected, (state, { payload }) => {
-        state.status = SubjectStatus.Error;
+        state.status = FetchStatus.Error;
 
         state.errorMessage = payload;
       })
 
       .addCase(getProfessorSubjects.pending, (state) => {
-        state.status = SubjectStatus.Loading;
+        state.status = FetchStatus.Loading;
       })
       .addCase(getProfessorSubjects.fulfilled, (state, { payload }) => {
-        state.status = SubjectStatus.Finished;
+        state.status = FetchStatus.Finished;
         state.subjects = [...payload];
       })
       .addCase(getProfessorSubjects.rejected, (state, { payload }) => {
-        state.status = SubjectStatus.Error;
+        state.status = FetchStatus.Error;
 
         state.errorMessage = payload;
       });
   },
 });
 
-export const { clearState, setCurrentSubject } = promotionSlice.actions;
+export const { clearState, clearSubject, setCurrentSubject } = promotionSlice.actions;
 export default promotionSlice.reducer;
