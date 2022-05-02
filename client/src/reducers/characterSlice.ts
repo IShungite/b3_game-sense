@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
+import { BuyProductDto } from "models/shops/buyProduct.dto";
 import characterService from "services/character.service";
 import { getErrorMessage } from "utils";
 
@@ -60,19 +61,18 @@ export const getCharacters = createAsyncThunk<ICharacter[], void, { rejectValue:
   },
 );
 
-export const buyItem = createAsyncThunk<
-  ICharacter,
-  { characterId: string; productId: string },
-  { rejectValue: string }
->("character/buyItem", async ({ characterId, productId }, thunkAPI) => {
-  try {
-    const currentCharacter = await characterService.buyItem({ characterId, productId });
-    return currentCharacter;
-  } catch (err) {
-    const error = err as Error | AxiosError;
-    return thunkAPI.rejectWithValue(getErrorMessage(error));
-  }
-});
+export const buyProduct = createAsyncThunk<ICharacter, BuyProductDto, { rejectValue: string }>(
+  "character/buyProduct",
+  async (buyProductDto, thunkAPI) => {
+    try {
+      const currentCharacter = await characterService.buyProduct(buyProductDto);
+      return currentCharacter;
+    } catch (err) {
+      const error = err as Error | AxiosError;
+      return thunkAPI.rejectWithValue(getErrorMessage(error));
+    }
+  },
+);
 
 const characterSlice = createSlice({
   name: "character",
@@ -120,14 +120,14 @@ const characterSlice = createSlice({
 
         state.getAllErrorMessage = payload ?? "";
       })
-      .addCase(buyItem.pending, (state) => {
+      .addCase(buyProduct.pending, (state) => {
         state.itemStatus = CharacterStatus.Loading;
       })
-      .addCase(buyItem.fulfilled, (state, { payload }) => {
+      .addCase(buyProduct.fulfilled, (state, { payload }) => {
         state.currentCharacter = payload;
         state.itemStatus = CharacterStatus.Finished;
       })
-      .addCase(buyItem.rejected, (state, { payload }) => {
+      .addCase(buyProduct.rejected, (state, { payload }) => {
         state.itemStatus = CharacterStatus.Error;
         state.itemErrorMessage = payload ?? "";
       });

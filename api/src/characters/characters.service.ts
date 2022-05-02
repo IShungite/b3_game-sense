@@ -78,11 +78,11 @@ export class CharactersService {
     const createInventoryItemPromises = [];
     for (const key in equipments) {
       if (Object.prototype.hasOwnProperty.call(equipments, key)) {
-        const productId: string = equipments[key];
+        const itemId: string = equipments[key];
         createInventoryItemPromises.push(
-          this.inventoriesService.create({
+          this.inventoriesService.addItem({
             characterId,
-            productId,
+            itemId,
           }),
         );
       }
@@ -102,9 +102,9 @@ export class CharactersService {
     const product = await this.productsService.findOne(productId);
     if (!product) throw new NotFoundException("Product not found.");
     const updatedCharacter = await this.updateGold(characterId, product.price);
-    this.inventoriesService.create({
+    this.inventoriesService.addItem({
       characterId,
-      productId,
+      itemId: product.itemId.toString(),
     });
     return updatedCharacter;
   }

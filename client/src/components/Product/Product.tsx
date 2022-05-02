@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { useAppDispatch, useAppSelector } from "hooks";
 import React, { useEffect } from "react";
-import { buyItem, CharacterStatus, clearState } from "reducers/characterSlice";
+import { buyProduct, CharacterStatus, clearState } from "reducers/characterSlice";
 import getItemImage from "utils/items";
 
 type Props = { name: string; id: string; itemId: string; price: number; description: string };
@@ -16,16 +16,15 @@ export default function Product({ name, id, itemId, price, description }: Props)
   const { currentCharacter, itemErrorMessage, itemStatus } = useAppSelector((state) => state.character);
 
   const data = {
-    characterId: "",
+    characterId: currentCharacter?._id ?? "",
     productId: id,
   };
 
   function buy() {
-    const characterId = currentCharacter?._id;
-    if (!characterId) return;
-    data.characterId = characterId;
+    if (!currentCharacter) return;
+
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    dispatch(buyItem(data));
+    dispatch(buyProduct(data));
   }
 
   useEffect(() => {

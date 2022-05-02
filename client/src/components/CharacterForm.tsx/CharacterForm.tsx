@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { CharacterStatus, clearState, createCharacter } from "reducers/characterSlice";
 import getItemImage from "utils/items";
-import Character from "./Character";
+import Character from "../Character/Character";
 
 export type CharacterConfig = {
   body: IItem;

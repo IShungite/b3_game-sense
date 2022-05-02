@@ -1,15 +1,8 @@
-import { Controller, Get, Post, Body, Param, Delete } from "@nestjs/common";
+import { Controller, Get, Param, Delete } from "@nestjs/common";
 import { InventoriesService } from "./inventories.service";
-import { CreateInventoryDto } from "./dto/create-inventory.dto";
-
 @Controller("inventories")
 export class InventoriesController {
   constructor(private readonly inventoriesService: InventoriesService) {}
-
-  @Post()
-  create(@Body() createInventoryDto: CreateInventoryDto) {
-    return this.inventoriesService.create(createInventoryDto);
-  }
 
   @Get()
   findAll() {

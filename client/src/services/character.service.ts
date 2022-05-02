@@ -5,6 +5,6 @@ const createCharacter = async (formData: CreateCharacterDto) => (await api.creat
 
 const getCharacters = async () => (await api.getCharacters()).data;
 
-const buyItem = async (data: { characterId: string; productId: string }) => (await api.buyItem(data)).data;
+const buyProduct = async (data: { characterId: string; productId: string }) => (await api.buyProduct(data)).data;
 
-export default { createCharacter, getCharacters, buyItem };
+export default { createCharacter, getCharacters, buyProduct };

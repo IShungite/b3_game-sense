@@ -1,4 +1,4 @@
-export interface CreateInventoryDto {
+export interface BuyProductDto {
   characterId: string;
   productId: string;
 }

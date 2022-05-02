@@ -1,17 +1,32 @@
 import { Box, Typography } from "@mui/material";
 import Character from "components/Character/Character";
+import CharacterForm from "components/CharacterForm.tsx/CharacterForm";
 import QuizzesGridStudent from "components/QuizzesGridStudent/QuizzesGridStudent";
 import { RouteUrls } from "config";
 import { useAppSelector } from "hooks";
-import React from "react";
+import { IStarterItems } from "models/items/item";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import inventoryService from "services/inventory.service";
 
 export default function Home() {
   const { currentCharacter } = useAppSelector((state) => state.character);
 
+  const [items, setItems] = useState<IStarterItems | undefined>();
+
   if (!currentCharacter) {
     return <Navigate to={RouteUrls.SelectCharacter} />;
   }
+
+  useEffect(() => {
+    if (!items) {
+      const fetchItems = async () => {
+        const fetchedItems = (await inventoryService.getInventory()).data;
+
+        setItems(fetchedItems);
+      };
+    }
+  }, []);
 
   return (
     <>
@@ -24,6 +39,8 @@ export default function Home() {
       <Character equipments={currentCharacter.equipments} />
 
       <QuizzesGridStudent />
+
+      {items && <CharacterForm starterItems={items} />}
     </>
   );
 }

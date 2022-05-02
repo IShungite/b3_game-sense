@@ -1,10 +1,7 @@
 import api from "api";
 
-const getItems = async() => {
-    const items = (await api.getStarterItems()).data;
-    return items;
-}
+const getStarterItems = async () => (await api.getStarterItems()).data;
 
 export default {
-    getItems,
-}
+  getStarterItems,
+};

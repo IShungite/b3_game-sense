@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import CharacterForm from "components/Character/CharacterForm";
+import CharacterForm from "components/CharacterForm.tsx/CharacterForm";
 import { useAppDispatch } from "hooks";
 import { IStarterItems } from "models/items/item";
 import React, { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ export default function CreateCharacter() {
 
   useEffect(() => {
     async function fetchStarterItems() {
-      const fetchedStarterItems = await itemService.getItems();
+      const fetchedStarterItems = await itemService.getStarterItems();
       if (!fetchedStarterItems) return;
       setStarterItems(fetchedStarterItems);
     }
