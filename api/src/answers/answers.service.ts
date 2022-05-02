@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { FilterQuery, Model } from "mongoose";
+import { CharactersService } from "src/characters/characters.service";
 import { GradesService } from "src/grades/grades.service";
 import { Quiz } from "src/quizzes/schema/quiz.schema";
 import { CreateAnswerDto } from "./dto/create-answer.dto";
@@ -13,6 +14,7 @@ export class AnswersService {
     @InjectModel(Answer.name) private readonly answerModel: Model<Answer>,
     @InjectModel(Quiz.name) private readonly quizModel: Model<Quiz>,
     private readonly gradesService: GradesService,
+    private readonly characterService: CharactersService,
   ) {}
   async create(createAnswerDto: CreateAnswerDto): Promise<Answer> {
     const createdAnswer = await new this.answerModel({
@@ -47,6 +49,11 @@ export class AnswersService {
       subjectId: quiz.subjectId.toString(),
       quizId: quiz._id.toString(),
     });
+
+    const currentCharacter = await this.characterService.findOne({ _id: answer.characterId.toString() });
+    const newAmount = currentCharacter.gold + finalGrade * 25;
+
+    await this.characterService.update(answer.characterId.toString(), { gold: newAmount });
   }
 
   findOne(id: number) {
