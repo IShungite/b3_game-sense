@@ -19,18 +19,17 @@ export class GradesController {
   @UseGuards(VerifyOwnedCharacterGuards)
   findAll(
     @Query("promotionId") promotionId: string,
-    @Query("subject_id") subject_id: string,
+    @Query("subjectId") subjectId: string,
     @Query("grade") grade: number,
-    @Body("character_id") character_id: string,
+    @Body("characterId") characterId: string,
   ): Promise<Grade[]> {
-    return this.gradesService.findAll({ promotionId, subject_id, grade, character_id });
+    return this.gradesService.findAll({ promotionId, subjectId, grade, characterId });
   }
 
   @Post("getAverage")
   @UseGuards(VerifyOwnedCharacterGuards)
-  average(@Body("character_id") character_id: string) {
-    console.log("test1");
-    return this.gradesService.average(character_id);
+  totalAverage(@Body("characterId") characterId: string) {
+    return this.gradesService.totalAverage(characterId);
   }
 
   @Get("student_id/:id")

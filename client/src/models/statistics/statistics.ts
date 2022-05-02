@@ -1,6 +1,6 @@
 export interface IStatistics {
   id: string;
-  character_id: string;
+  characterId: string;
   promotion_id: string;
   grade: number;
   subject_id: string;
@@ -13,15 +13,17 @@ export interface IGradesBySubject {
 }
 
 export interface IGradesBySubjects {
-  averageGrade: number;
   gradesBySubjects: IGradesBySubject[];
+  averageGrade: number;
+  semesterAverage: number[];
+  comparedCharacters: number[];
 }
 
 export interface GradesData {
-  character_id: string;
+  characterId: string;
 }
 
 export interface GradesBySubjectsData {
-  character_id: string;
+  characterId: string;
   promotionId: string;
 }

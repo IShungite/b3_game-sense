@@ -1,8 +1,7 @@
 import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { IUserRequest } from "src/auth/models/auth.models";
-import { Role } from "src/auth/models/roles.enum";
+import Role from "src/auth/models/roles.enum";
 import { UsersService } from "src/users/users.service";
 import { CreateSchoolDto } from "./dto/create-school.dto";
 import { UpdateSchoolDto } from "./dto/update-school.dto";
