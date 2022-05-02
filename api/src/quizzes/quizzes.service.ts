@@ -32,7 +32,7 @@ export class QuizzesService {
   }
 
   async findAllCharacterQuizzes(characterId: string): Promise<{ quizDone: Quiz[]; quizToDo: Quiz[] }> {
-    const character = await this.charactersService.findOne(characterId);
+    const character = await this.charactersService.findOne({ _id: characterId });
     const subjects = await this.subjectsService.findAll(character.promotionId.toString());
 
     const quizzes = await this.quizModel
