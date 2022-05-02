@@ -8,12 +8,25 @@ import CreateCharacterDto from "models/characters/create-character.dto";
 import createCharacterValidationSchema from "models/characters/create-character.validation";
 import { IItem, IStarterItems } from "models/items/item";
 import { IPromotion } from "models/promotions/promotion";
+import { ISchool } from "models/schools/school";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { CharacterStatus, clearState, createCharacter } from "reducers/characterSlice";
 import getItemImage from "utils/items";
-import Character, { CharacterConfig } from "./Character";
+import Character from "./Character";
+
+export type CharacterConfig = {
+  body: IItem;
+  head: IItem;
+  face: IItem;
+  leftArm: IItem;
+  leftHand: IItem;
+  rightArm: IItem;
+  rightHand: IItem;
+  leftLeg: IItem;
+  rightLeg: IItem;
+};
 
 interface Props {
   starterItems: IStarterItems;
@@ -27,7 +40,7 @@ export default function CharacterForm({ starterItems }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const navigate = useNavigate();
 
-  const [schools, setSchools] = useState<ISchoolool[]>([]);
+  const [schools, setSchools] = useState<ISchool[]>([]);
   const [promotions, setPromotions] = useState<IPromotion[]>([]);
 
   const initialCharacterConfig: CharacterConfig = {
@@ -180,7 +193,7 @@ export default function CharacterForm({ starterItems }: Props) {
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
       <Grid container justifyContent="space-around" sx={{ mb: 2 }}>
         <Grid item>
-          <Character character={getValues()} />
+          <Character equipments={getValues().equipments} />
         </Grid>
         <Grid item>
           {categories.map((option) => (

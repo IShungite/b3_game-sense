@@ -21,7 +21,7 @@ export default function Home() {
 
       <Typography variant="h4">{currentCharacter.nickname}</Typography>
 
-      <Character character={currentCharacter} />
+      <Character equipments={currentCharacter.equipments} />
 
       <QuizzesGridStudent />
     </>
