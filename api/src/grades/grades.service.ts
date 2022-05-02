@@ -19,7 +19,7 @@ export class GradesService {
   findAllbyStudentID(id: string) {
     return this.gradeModel
       .find({
-        character_id: id,
+        characterId: id,
       })
       .exec();
   }
@@ -40,8 +40,8 @@ export class GradesService {
   remove(id: number) {
     return `This action removes a #${id} grade`;
   }
-  async average(character_id: string) {
-    const grades = await this.findAll({ character_id: character_id });
+  async average(characterId: string) {
+    const grades = await this.findAll({ characterId: characterId });
 
     if (grades.length === 0) {
       return 0;

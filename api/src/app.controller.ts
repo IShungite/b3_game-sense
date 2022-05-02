@@ -10,11 +10,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
-  @UseGuards(JwtAuthGuard)
-  @Get("protected")
-  getHelloProtected(@Request() req): string {
-    // return req;
-    return this.appService.getHelloProtected();
-  }
 }

@@ -11,8 +11,8 @@ export class StatisticsController {
   constructor(private readonly statisticsService: StatisticsService) {}
 
   @Post()
-  getStatistics(@Body("character_id") character_id: string, @Body("promotionId") promotionId: string) {
-    console.log(character_id, promotionId);
-    return this.statisticsService.getStatistics(character_id, promotionId);
+  getStatistics(@Body("characterId") characterId: string, @Body("promotionId") promotionId: string) {
+    console.log(characterId, promotionId);
+    return this.statisticsService.getStatistics(characterId, promotionId);
   }
 }
