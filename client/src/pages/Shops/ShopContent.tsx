@@ -11,7 +11,7 @@ export default function ShopContent() {
 
   const getProductsByShop = async () => {
     if (!shopId || !categoryId) return;
-    const productsFetched = await productService.getProductsByCategory(categoryId);
+    const productsFetched = await productService.getProductsByCategory(shopId, categoryId);
     setProducts(productsFetched);
   };
 
