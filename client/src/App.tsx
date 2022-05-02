@@ -11,6 +11,7 @@ import CreateQuiz from "pages/CreateQuiz/CreateQuiz";
 import CreateSchool from "pages/CreateSchool/CreateSchool";
 import Home from "pages/Home/Home";
 import Index from "pages/Index/Index";
+import Inventory from "pages/Inventory/Inventory";
 import Login from "pages/Login/Login";
 import Promotion from "pages/Promotion/Promotion";
 import Register from "pages/Register/Register";
@@ -23,6 +24,7 @@ import ShopContent from "pages/Shops/ShopContent";
 import Shops from "pages/Shops/Shops";
 import Statistics from "pages/Statistics/Statistics";
 import Subject from "pages/Subject/Subject";
+import UpdateCharacter from "pages/UpdateCharacter/UpdateCharacter";
 import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -44,9 +46,11 @@ export default function App() {
             <Route element={<RequireAuth />}>
               <Route path={RouteUrls.SelectCharacter} element={<SelectCharacter />} />
               <Route path={RouteUrls.CreateCharacter} element={<CreateCharacter />} />
+              <Route path={RouteUrls.UpdateCharacter} element={<UpdateCharacter />} />
 
               <Route path={RouteUrls.Home} element={<Home />} />
               <Route path={RouteUrls.Shops} element={<Shops />} />
+              <Route path={RouteUrls.Inventory} element={<Inventory />} />
               <Route path={`${RouteUrls.Shops}/:shopId`} element={<ShopCategories />} />
               <Route path={`${RouteUrls.Shops}/:shopId/:categoryId`} element={<ShopContent />} />
               <Route path={RouteUrls.Statistics} element={<Statistics />} />

@@ -9,12 +9,14 @@ import { getErrorMessage } from "utils";
 interface QuizState {
   errorMessage?: string;
   status: FetchStatus;
+  createStatus: FetchStatus;
   quizzes: IQuiz[];
   quizzesWithoutCorrectAnswers: { quizDone: IQuizWithoutCorrectAnswer[]; quizToDo: IQuizWithoutCorrectAnswer[] };
 }
 
 const initialQuiz: QuizState = {
   status: FetchStatus.None,
+  createStatus: FetchStatus.None,
   quizzes: [],
   quizzesWithoutCorrectAnswers: { quizDone: [], quizToDo: [] },
 };
@@ -62,6 +64,7 @@ const quizSlice = createSlice({
   reducers: {
     clearState: (state) => {
       state.status = FetchStatus.None;
+      state.createStatus = FetchStatus.None;
       state.errorMessage = undefined;
     },
     clearQuizzes: (state) => {
@@ -72,13 +75,13 @@ const quizSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createQuiz.pending, (state) => {
-        state.status = FetchStatus.Loading;
+        state.createStatus = FetchStatus.Loading;
       })
       .addCase(createQuiz.fulfilled, (state, { payload }) => {
-        state.status = FetchStatus.Finished;
+        state.createStatus = FetchStatus.Finished;
       })
       .addCase(createQuiz.rejected, (state, { payload }) => {
-        state.status = FetchStatus.Error;
+        state.createStatus = FetchStatus.Error;
 
         state.errorMessage = payload;
       })

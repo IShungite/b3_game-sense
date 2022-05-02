@@ -15,7 +15,7 @@ export default function QuizzesGridStudent() {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       dispatch(getCharacterQuizzes(currentCharacter._id));
     }
-  }, [currentCharacter, dispatch, quizzesWithoutCorrectAnswers.quizDone.length, quizzesWithoutCorrectAnswers.quizDone]);
+  }, [currentCharacter, dispatch, quizzesWithoutCorrectAnswers.quizDone.length]);
 
   return (
     <>
@@ -32,8 +32,8 @@ export default function QuizzesGridStudent() {
       <Typography>Quiz restant:</Typography>
       <Grid container direction="column">
         {quizzesWithoutCorrectAnswers.quizToDo.map((quiz) => (
-          <Grid item key={quiz._id}>
-            <Typography>- {quiz.title}</Typography>
+          <Grid item key={quiz._id} display="flex">
+            <Typography sx={{ mr: 1 }}>- {quiz.title}</Typography>
             <Link to={`${RouteUrls.AnswerQuiz}/${quiz._id}`}>Répondre</Link>
           </Grid>
         ))}

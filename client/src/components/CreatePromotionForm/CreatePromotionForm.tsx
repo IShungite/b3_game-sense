@@ -1,26 +1,27 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks";
+import FetchStatus from "models/FetchStatus";
 import { CreatePromotionDto } from "models/promotions/create-promotion.dto";
 import createPromotionValidation from "models/promotions/create-promotion.validation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { createPromotion } from "reducers/promotionSlice";
+import { clearState, createPromotion } from "reducers/promotionSlice";
 
 export default function CreatePromotionForm() {
   const dispatch = useAppDispatch();
 
   const { currentSchool } = useAppSelector((state) => state.school);
-  const { errorMessage } = useAppSelector((state) => state.promotion);
+  const { createStatus, errorMessage } = useAppSelector((state) => state.promotion);
 
   const initialFormValues: CreatePromotionDto = {
     name: "",
-    schoolId: "",
+    schoolId: currentSchool?._id || "",
   };
   const {
     register: registerFormField,
     handleSubmit,
-    setValue,
+    reset,
     formState: { errors },
   } = useForm({ mode: "onChange", defaultValues: initialFormValues, resolver: yupResolver(createPromotionValidation) });
 
@@ -32,10 +33,12 @@ export default function CreatePromotionForm() {
   };
 
   useEffect(() => {
-    if (currentSchool) {
-      setValue("schoolId", currentSchool._id);
+    if (createStatus === FetchStatus.Finished) {
+      reset();
+      dispatch(clearState());
+      alert("Promotion created");
     }
-  });
+  }, [dispatch, createStatus, reset]);
 
   return (
     <>

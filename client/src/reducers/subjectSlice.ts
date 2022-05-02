@@ -11,10 +11,12 @@ interface SubjectState {
   currentSubject?: ISubject;
   errorMessage?: string;
   status: FetchStatus;
+  createStatus: FetchStatus;
 }
 
 const initialSchool: SubjectState = {
   status: FetchStatus.None,
+  createStatus: FetchStatus.None,
   subjects: [],
 };
 
@@ -60,6 +62,7 @@ const promotionSlice = createSlice({
   reducers: {
     clearState: (state) => {
       state.errorMessage = undefined;
+      state.createStatus = FetchStatus.None;
     },
     setCurrentSubject: (state, { payload }: PayloadAction<ISubject>) => {
       state.currentSubject = payload;
@@ -85,14 +88,14 @@ const promotionSlice = createSlice({
         state.errorMessage = payload;
       })
       .addCase(createSubject.pending, (state) => {
-        state.status = FetchStatus.Loading;
+        state.createStatus = FetchStatus.Loading;
       })
       .addCase(createSubject.fulfilled, (state, { payload }) => {
-        state.status = FetchStatus.Finished;
+        state.createStatus = FetchStatus.Finished;
         state.subjects = [...state.subjects, payload];
       })
       .addCase(createSubject.rejected, (state, { payload }) => {
-        state.status = FetchStatus.Error;
+        state.createStatus = FetchStatus.Error;
 
         state.errorMessage = payload;
       })

@@ -6,31 +6,30 @@ import { useParams } from "react-router-dom";
 import categoryService from "services/category.service";
 
 export default function ShopCategories() {
-
   const [categories, setCategories] = useState<ICategory[]>([]);
-  const {shopId} = useParams();
+  const { shopId } = useParams();
 
-  const getCategoriesByShop = async() => {
-    if(!shopId) return;
-    const categoriesFetched = await categoryService.getCategoriesByShop(shopId);
-    setCategories(categoriesFetched);
-  }
-
-  useEffect( () => {
+  useEffect(() => {
     async function fetchData() {
-      await getCategoriesByShop();
+      if (!shopId) return;
+
+      const categoriesFetched = await categoryService.getCategoriesByShop(shopId);
+      setCategories(categoriesFetched);
     }
+
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [shopId]);
 
   return (
     <Container component="main">
       <Grid container spacing={3}>
-      {categories.map((category) => <Grid item key={category._id}><Category name={category.name} id={category._id}/></Grid>)}        
+        {categories.map((category) => (
+          <Grid item key={category._id}>
+            <Category name={category.name} id={category._id} />
+          </Grid>
+        ))}
       </Grid>
-
     </Container>
   );
 }

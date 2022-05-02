@@ -18,7 +18,7 @@ export class ProductsController {
   }
 
   @Get("shop/:shopId/:categoryId")
-  findAllByCategory(@Param("shopId") @Param("categoryId") categoryId: string) {
+  findAllByCategory(@Param("shopId") shopId: string, @Param("categoryId") categoryId: string) {
     return this.productsService.findAllByCategory(categoryId);
   }
 

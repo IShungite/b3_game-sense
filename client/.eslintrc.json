@@ -19,7 +19,7 @@
     "react/jsx-props-no-spreading": [
       "error",
       {
-        "exceptions": ["TextField", "Button"]
+        "exceptions": ["TextField", "Button", "FormProvider"]
       }
     ],
     "@typescript-eslint/no-misused-promises": [

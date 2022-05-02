@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { ICharacter } from "models/characters/character";
-import { IItem } from "models/items/item";
+import { CharacterEquipments } from "models/characters/character";
 import React from "react";
 import { Layer, Shape, Stage } from "react-konva";
 import getItemImage from "utils/items";
@@ -13,32 +12,20 @@ type ItemImage = {
   is_loaded: boolean;
 };
 
-export type CharacterConfig = {
-  body: IItem;
-  head: IItem;
-  face: IItem;
-  leftArm: IItem;
-  leftHand: IItem;
-  rightArm: IItem;
-  rightHand: IItem;
-  leftLeg: IItem;
-  rightLeg: IItem;
-};
-
-export default function Character({ character }: { character: ICharacter }) {
+export default function Character({ equipments }: { equipments: CharacterEquipments }) {
   const x = 50;
   const y = 150;
 
   const itemsImage: ItemImage[] = [
-    { is_loaded: false, imageName: getItemImage(character.equipments.leftHandId).image, x: x + 195, y: y + 265 }, // leftHand
-    { is_loaded: false, imageName: getItemImage(character.equipments.leftArmId).image, x: x + 189, y: y + 220 }, // leftArm
-    { is_loaded: false, imageName: getItemImage(character.equipments.leftLegId).image, x: x + 164, y: y + 317 }, // leftLeg
-    { is_loaded: false, imageName: getItemImage(character.equipments.rightLegId).image, x: x + 80, y: y + 317 }, // rightLeg
-    { is_loaded: false, imageName: getItemImage(character.equipments.bodyId).image, x: x + 14, y: y + 132 }, // body
-    { is_loaded: false, imageName: getItemImage(character.equipments.headId).image, x: x - 75, y: y - 170 }, // head
-    { is_loaded: false, imageName: getItemImage(character.equipments.faceId).image, x: x + 58, y: y + 35 }, // face
-    { is_loaded: false, imageName: getItemImage(character.equipments.rightHandId).image, x: x + 33, y: y + 275 }, // rightHand
-    { is_loaded: false, imageName: getItemImage(character.equipments.rightArmId).image, x: x + 40, y: y + 220 }, // rightArm
+    { is_loaded: false, imageName: getItemImage(equipments.leftHandId).image, x: x + 195, y: y + 265 }, // leftHand
+    { is_loaded: false, imageName: getItemImage(equipments.leftArmId).image, x: x + 189, y: y + 220 }, // leftArm
+    { is_loaded: false, imageName: getItemImage(equipments.leftLegId).image, x: x + 164, y: y + 317 }, // leftLeg
+    { is_loaded: false, imageName: getItemImage(equipments.rightLegId).image, x: x + 80, y: y + 317 }, // rightLeg
+    { is_loaded: false, imageName: getItemImage(equipments.bodyId).image, x: x + 14, y: y + 132 }, // body
+    { is_loaded: false, imageName: getItemImage(equipments.headId).image, x: x - 75, y: y - 170 }, // head
+    { is_loaded: false, imageName: getItemImage(equipments.faceId).image, x: x + 58, y: y + 35 }, // face
+    { is_loaded: false, imageName: getItemImage(equipments.rightHandId).image, x: x + 33, y: y + 275 }, // rightHand
+    { is_loaded: false, imageName: getItemImage(equipments.rightArmId).image, x: x + 40, y: y + 220 }, // rightArm
   ];
 
   return (

@@ -3,19 +3,20 @@ import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import api from "api";
 import { AppSelect } from "components/AppSelect/AppSelect";
 import { useAppDispatch, useAppSelector } from "hooks";
+import FetchStatus from "models/FetchStatus";
 import { CreateSchoolDto } from "models/schools/create-school.dto";
 import createSchoolValidation from "models/schools/create-school.validation";
 import { IUser } from "models/users/user";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { createSchool } from "reducers/schoolSlice";
+import { clearState, createSchool } from "reducers/schoolSlice";
 
 type DirectorType = { label: string; value: string };
 
 export default function CreateSchool() {
   const dispatch = useAppDispatch();
 
-  const { errorMessage } = useAppSelector((state) => state.school);
+  const { status, errorMessage } = useAppSelector((state) => state.school);
 
   const [directors, setDirectors] = useState<IUser[]>([]);
 
@@ -28,6 +29,7 @@ export default function CreateSchool() {
     register: registerFormField,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -49,6 +51,14 @@ export default function CreateSchool() {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     fetchDirectors();
   }, []);
+
+  useEffect(() => {
+    if (status === FetchStatus.Finished) {
+      reset();
+      dispatch(clearState());
+      alert("School created");
+    }
+  }, [dispatch, reset, status]);
 
   return (
     <>

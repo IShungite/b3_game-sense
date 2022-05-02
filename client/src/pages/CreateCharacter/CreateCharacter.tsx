@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import CharacterForm from "components/Character/CharacterForm";
+import CreateCharacterForm from "components/CreateCharacterForm.tsx/CreateCharacterForm";
 import { useAppDispatch } from "hooks";
-import { IStarterItems } from "models/items/item";
+import { AvailableEquipmentItems } from "models/items/item";
 import React, { useEffect, useState } from "react";
 import { clearState } from "reducers/characterSlice";
 import itemService from "services/item.service";
@@ -9,11 +9,11 @@ import itemService from "services/item.service";
 export default function CreateCharacter() {
   const dispatch = useAppDispatch();
 
-  const [starterItems, setStarterItems] = useState<IStarterItems | undefined>(undefined);
+  const [starterItems, setStarterItems] = useState<AvailableEquipmentItems | undefined>(undefined);
 
   useEffect(() => {
     async function fetchStarterItems() {
-      const fetchedStarterItems = await itemService.getItems();
+      const fetchedStarterItems = await itemService.getStarterItems();
       if (!fetchedStarterItems) return;
       setStarterItems(fetchedStarterItems);
     }
@@ -41,7 +41,7 @@ export default function CreateCharacter() {
         </Typography>
       </Box>
 
-      <CharacterForm starterItems={starterItems} />
+      <CreateCharacterForm starterItems={starterItems} />
     </>
   );
 }

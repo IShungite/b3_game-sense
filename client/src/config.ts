@@ -8,6 +8,8 @@ export enum RouteUrls {
 
   SelectCharacter = "/select-character",
   CreateCharacter = "/create-character",
+  UpdateCharacter = "/update-character",
+
   CreateSchool = "/create-school",
 
   SelectSchool = "/select-school",
@@ -24,4 +26,6 @@ export enum RouteUrls {
   Home = "/home",
   Shops = "/shops",
   Statistics = "/statistics",
+
+  Inventory = "/inventory",
 }

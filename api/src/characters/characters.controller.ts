@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Patch } from "@nestjs/common";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { IUserRequest } from "src/auth/models/auth.models";
 import { GetUser } from "src/decorator/get-user.decorator";
@@ -16,6 +16,11 @@ export class CharactersController {
     return this.charactersService.create(user, createCharacterDto);
   }
 
+  @Patch("/:characterId")
+  update(@Param("characterId") characterId: string, @Body() updateCharacterDto: UpdateCharacterDto) {
+    return this.charactersService.update(characterId, updateCharacterDto);
+  }
+
   @Get()
   findAll(@GetUser() user: IUserRequest) {
     return this.charactersService.findAll(user.id);
@@ -31,13 +36,13 @@ export class CharactersController {
     return this.charactersService.findAllFromPromotion(promotionId);
   }
 
-  @Patch(":id")
-  update(@Param("id") id: string, @Body() updateCharacterDto: UpdateCharacterDto) {
-    return this.charactersService.update(+id, updateCharacterDto);
-  }
-
   @Delete(":id")
   remove(@Param("id") id: string) {
     return this.charactersService.remove(+id);
+  }
+
+  @Post("/buyItem")
+  buyItem(@Body("characterId") characterId: string, @Body("productId") productId: string) {
+    return this.charactersService.buyItem(characterId, productId);
   }
 }

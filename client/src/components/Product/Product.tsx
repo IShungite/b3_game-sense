@@ -1,46 +1,71 @@
-import { Box, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import React from "react";
+import { useAppDispatch, useAppSelector } from "hooks";
+import { IProduct } from "models/products/products";
+import React, { useEffect } from "react";
+import { buyProduct, CharacterStatus, clearState } from "reducers/characterSlice";
 import getItemImage from "utils/items";
 
-type Props = { name: string; id: string; itemId: string; price: number; description: string };
+export default function Product({ product }: { product: IProduct }) {
+  const imageSrc = getItemImage(product.itemId);
+  const dispatch = useAppDispatch();
+  const { currentCharacter, itemErrorMessage, itemStatus } = useAppSelector((state) => state.character);
 
-export default function Product({ name, id, itemId, price, description }: Props) {
-  const imageSrc = getItemImage(itemId);
+  const data = {
+    characterId: currentCharacter?._id ?? "",
+    productId: product._id,
+  };
 
-  function buyItem() {
-    // eslint-disable-next-line no-alert
-    alert("TODO : handle buying item");
+  function buy() {
+    if (!currentCharacter) return;
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    dispatch(buyProduct(data));
   }
+
+  useEffect(() => {
+    if (itemStatus === CharacterStatus.Finished) {
+      dispatch(clearState());
+    }
+  }, [dispatch, itemStatus]);
+
+  useEffect(
+    () => () => {
+      dispatch(clearState());
+    },
+    [dispatch],
+  );
 
   return (
     <Card variant="outlined" sx={{ maxWidth: 150 }}>
       <CardContent>
-        <Box
-          component="img"
-          sx={{
-            height: 150,
+        <img
+          style={{
             width: 100,
           }}
-          alt="item image"
-          src={imageSrc.image}
+          alt="product"
+          src={`${imageSrc.image}`}
         />
         <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
-          {name}
+          {product.name}
         </Typography>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {price} G
+          {product.price} G
         </Typography>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {description}
+          {product.description}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={() => buyItem()}>Buy</Button>
+        <Button variant="outlined" onClick={() => buy()}>
+          Buy
+        </Button>
       </CardActions>
+      <Typography>{itemStatus === CharacterStatus.Finished && "Achat réussi."}</Typography>
+      <Typography>{itemErrorMessage}</Typography>
     </Card>
   );
 }

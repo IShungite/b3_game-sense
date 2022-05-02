@@ -1,16 +1,11 @@
-import api from "api"
+import api from "api";
 
-const getProducts = async() => {
-    const products = (await api.getProducts()).data;
-    return products;
-}
+const getProducts = async () => (await api.getProducts()).data;
 
-const getProductsByCategory = async(categoryId: string) => {
-    const products = (await api.getProductsByCategory(categoryId)).data
-    return products;
-}
+const getProductsByCategory = async (shopId: string, categoryId: string) =>
+  (await api.getProductsByCategory(shopId, categoryId)).data;
 
 export default {
-    getProducts,
-    getProductsByCategory,
-}
+  getProducts,
+  getProductsByCategory,
+};

@@ -4,7 +4,7 @@ import QuizzesGridStudent from "components/QuizzesGridStudent/QuizzesGridStudent
 import { RouteUrls } from "config";
 import { useAppSelector } from "hooks";
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 export default function Home() {
   const { currentCharacter } = useAppSelector((state) => state.character);
@@ -21,9 +21,11 @@ export default function Home() {
 
       <Typography variant="h4">{currentCharacter.nickname}</Typography>
 
-      <Character character={currentCharacter} />
+      <Character equipments={currentCharacter.equipments} />
 
       <QuizzesGridStudent />
+
+      <Link to={RouteUrls.UpdateCharacter}>Modifier le personnage</Link>
     </>
   );
 }

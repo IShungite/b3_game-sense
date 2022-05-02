@@ -10,11 +10,13 @@ interface PromotionState {
   promotions: IPromotion[];
   errorMessage?: string;
   status: FetchStatus;
+  createStatus: FetchStatus;
   currentPromotion?: IPromotion;
 }
 
 const initialPromotion: PromotionState = {
   status: FetchStatus.None,
+  createStatus: FetchStatus.None,
   promotions: [],
 };
 
@@ -50,6 +52,8 @@ const promotionSlice = createSlice({
   reducers: {
     clearState: (state) => {
       state.errorMessage = undefined;
+      state.status = FetchStatus.None;
+      state.createStatus = FetchStatus.None;
     },
     setCurrentPromotion: (state, { payload }: PayloadAction<IPromotion>) => {
       state.currentPromotion = payload;
@@ -75,14 +79,14 @@ const promotionSlice = createSlice({
         state.errorMessage = payload;
       })
       .addCase(createPromotion.pending, (state) => {
-        state.status = FetchStatus.Loading;
+        state.createStatus = FetchStatus.Loading;
       })
       .addCase(createPromotion.fulfilled, (state, { payload }) => {
-        state.status = FetchStatus.Finished;
+        state.createStatus = FetchStatus.Finished;
         state.promotions = [...state.promotions, payload];
       })
       .addCase(createPromotion.rejected, (state, { payload }) => {
-        state.status = FetchStatus.Error;
+        state.createStatus = FetchStatus.Error;
 
         state.errorMessage = payload;
       });

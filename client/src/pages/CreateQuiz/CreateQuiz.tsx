@@ -20,7 +20,7 @@ const initialFormValues: CreateQuizDto = {
   questions: [
     {
       question: "",
-      answers: [],
+      availableAnswers: [{ value: "" }, { value: "" }],
       correctAnswer: 0,
     },
   ],
@@ -32,7 +32,7 @@ export default function CreateQuiz() {
 
   const { subjects } = useAppSelector((state) => state.subject);
 
-  const { status } = useAppSelector((state) => state.quiz);
+  const { createStatus } = useAppSelector((state) => state.quiz);
 
   const { control, getValues, register, handleSubmit, formState } = useForm<CreateQuizDto>({
     mode: "onChange",
@@ -54,7 +54,8 @@ export default function CreateQuiz() {
 
   // redirect the user to the subject page after the quiz has been created
   useEffect(() => {
-    if (status === FetchStatus.Finished) {
+    if (createStatus === FetchStatus.Finished) {
+      console.log("finished");
       const currentSubject = subjects.find((subject) => getValues().subjectId === subject._id);
       if (currentSubject) {
         dispatch(setCurrentSubject(currentSubject));
@@ -62,7 +63,7 @@ export default function CreateQuiz() {
       dispatch(clearState());
       navigate(RouteUrls.Subject);
     }
-  }, [dispatch, getValues, navigate, status, subjects, subjects.length]);
+  }, [dispatch, getValues, navigate, createStatus, subjects, subjects.length]);
 
   return (
     <>
@@ -71,7 +72,7 @@ export default function CreateQuiz() {
       </Box>
 
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-        <TextField label="Titre" {...register("title")} />
+        <TextField label="Titre" {...register("title")} helperText={formState.errors.title?.message} sx={{ mb: 2 }} />
         <AppSelect<CreateQuizDto, { label: string; value: string }[]>
           name="subjectId"
           label="Matière"
