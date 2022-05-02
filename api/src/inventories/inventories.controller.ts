@@ -4,14 +4,9 @@ import { InventoriesService } from "./inventories.service";
 export class InventoriesController {
   constructor(private readonly inventoriesService: InventoriesService) {}
 
-  @Get()
-  findAll() {
-    return this.inventoriesService.findAll();
-  }
-
   @Get(":characterId")
   findAllById(@Param("characterId") characterId: string) {
-    return this.inventoriesService.findAllById(characterId);
+    return this.inventoriesService.findAll({ characterId });
   }
 
   @Delete(":id")

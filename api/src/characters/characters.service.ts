@@ -90,8 +90,8 @@ export class CharactersService {
     await Promise.all(createInventoryItemPromises);
   }
 
-  update(id: number, updateCharacterDto: UpdateCharacterDto) {
-    return `This action updates a #${id} character`;
+  async update(id: string, updateCharacterDto: UpdateCharacterDto): Promise<Character> {
+    return this.characterModel.findByIdAndUpdate(id, updateCharacterDto, { new: true });
   }
 
   remove(id: number) {

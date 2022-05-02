@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Param, Delete, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Patch } from "@nestjs/common";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { IUserRequest } from "src/auth/models/auth.models";
 import { GetUser } from "src/decorator/get-user.decorator";
 import { CharactersService } from "./characters.service";
 import { CreateCharacterDto } from "./dto/create-character.dto";
+import { UpdateCharacterDto } from "./dto/update-character.dto";
 
 @UseGuards(JwtAuthGuard)
 @Controller("characters")
@@ -13,6 +14,11 @@ export class CharactersController {
   @Post()
   create(@GetUser() user: IUserRequest, @Body() createCharacterDto: CreateCharacterDto) {
     return this.charactersService.create(user, createCharacterDto);
+  }
+
+  @Patch("/:characterId")
+  update(@Param("characterId") characterId: string, @Body() updateCharacterDto: UpdateCharacterDto) {
+    return this.charactersService.update(characterId, updateCharacterDto);
   }
 
   @Get()

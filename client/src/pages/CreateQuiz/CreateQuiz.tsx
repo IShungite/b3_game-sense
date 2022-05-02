@@ -20,7 +20,7 @@ const initialFormValues: CreateQuizDto = {
   questions: [
     {
       question: "",
-      answers: [],
+      availableAnswers: [],
       correctAnswer: 0,
     },
   ],

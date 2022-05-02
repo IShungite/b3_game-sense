@@ -137,130 +137,130 @@
   },
   {
     "id": "626f01a80cc56405d5c44ff1",
-    "image": "./image/bodies/body_goblin.png"
+    "image": "./images/characters/bodies/body_goblin.png"
   },
   {
     "id": "626f03500cc56405d5c44ff2",
-    "image": "./image/faces/face_1_goblin.png"
+    "image": "./images/characters/faces/face_1_goblin.png"
   },
   {
     "id": "626f036f0cc56405d5c44ff3",
-    "image": "./image/faces/face_2_goblin.png"
+    "image": "./images/characters/faces/face_2_goblin.png"
   },
   {
     "id": "626f03880cc56405d5c44ff4",
-    "image": "./image/faces/face_3_goblin.png"
+    "image": "./images/characters/faces/face_3_goblin.png"
   },
   {
     "id": "626f03990cc56405d5c44ff5",
-    "image": "./image/heads/head_goblin.png"
+    "image": "./images/characters/heads/head_goblin.png"
   },
   {
     "id": "626f03b00cc56405d5c44ff6",
-    "image": "./image/left_arms/left_arm_goblin.png"
+    "image": "./images/characters/left_arms/left_arm_goblin.png"
   },
   {
     "id": "626f03f60cc56405d5c44ff7",
-    "image": "./image/left_hands/left_hand_goblin.png"
+    "image": "./images/characters/left_hands/left_hand_goblin.png"
   },
   {
     "id": "626f04080cc56405d5c44ff8",
-    "image": "./image/left_legs/left_leg_goblin.png"
+    "image": "./images/characters/left_legs/left_leg_goblin.png"
   },
   {
     "id": "626f041c0cc56405d5c44ff9",
-    "image": "./image/right_arms/right_arm_goblin.png"
+    "image": "./images/characters/right_arms/right_arm_goblin.png"
   },
   {
     "id": "626f043c0cc56405d5c44ffa",
-    "image": "./image/right_hands/right_hand_goblin.png"
+    "image": "./images/characters/right_hands/right_hand_goblin.png"
   },
   {
     "id": "626f044d0cc56405d5c44ffb",
-    "image": "./image/right_legs/right_leg_goblin.png"
+    "image": "./images/characters/right_legs/right_leg_goblin.png"
   },
   {
     "id": "626f04890cc56405d5c44ffc",
-    "image": "./image/bodies/body_ogre.png"
+    "image": "./images/characters/bodies/body_ogre.png"
   },
   {
     "id": "626f049e0cc56405d5c44ffd",
-    "image": "./image/faces/face_1_ogre.png"
+    "image": "./images/characters/faces/face_1_ogre.png"
   },
   {
     "id": "626f04ca0cc56405d5c44ffe",
-    "image": "./image/faces/face_2_ogre.png"
+    "image": "./images/characters/faces/face_2_ogre.png"
   },
   {
     "id": "626f04da0cc56405d5c44fff",
-    "image": "./image/faces/face_3_ogre.png"
+    "image": "./images/characters/faces/face_3_ogre.png"
   },
   {
     "id": "626f04ef0cc56405d5c45000",
-    "image": "./image/heads/head_ogre.png"
+    "image": "./images/characters/heads/head_ogre.png"
   },
   {
     "id": "626f050c0cc56405d5c45001",
-    "image": "./image/left_arms/left_arm_ogre.png"
+    "image": "./images/characters/left_arms/left_arm_ogre.png"
   },
   {
     "id": "626f05450cc56405d5c45002",
-    "image": "./image/left_hands/left_hand_ogre.png"
+    "image": "./images/characters/left_hands/left_hand_ogre.png"
   },
   {
     "id": "626f056d0cc56405d5c45003",
-    "image": "./image/left_legs/left_leg_ogre.png"
+    "image": "./images/characters/left_legs/left_leg_ogre.png"
   },
   {
     "id": "626f057d0cc56405d5c45004",
-    "image": "./image/right_arms/right_arm_ogre.png"
+    "image": "./images/characters/right_arms/right_arm_ogre.png"
   },
   {
     "id": "626f059f0cc56405d5c45006",
-    "image": "./image/right_legs/right_leg_ogre.png"
+    "image": "./images/characters/right_legs/right_leg_ogre.png"
   },
   {
     "id": "626f05d20cc56405d5c45007",
-    "image": "./image/bodies/body_orc.png"
+    "image": "./images/characters/bodies/body_orc.png"
   },
   {
     "id": "626f05e80cc56405d5c45008",
-    "image": "./image/faces/face_1_orc.png"
+    "image": "./images/characters/faces/face_1_orc.png"
   },
   {
     "id": "626f05f90cc56405d5c45009",
-    "image": "./image/faces/face_2_orc.png"
+    "image": "./images/characters/faces/face_2_orc.png"
   },
   {
     "id": "626f06080cc56405d5c4500a",
-    "image": "./image/faces/face_3_orc.png"
+    "image": "./images/characters/faces/face_3_orc.png"
   },
   {
     "id": "626f06160cc56405d5c4500b",
-    "image": "./image/heads/head_orc.png"
+    "image": "./images/characters/heads/head_orc.png"
   },
   {
     "id": "626f06260cc56405d5c4500c",
-    "image": "./image/left_arms/left_arm_orc.png"
+    "image": "./images/characters/left_arms/left_arm_orc.png"
   },
   {
     "id": "626f063a0cc56405d5c4500d",
-    "image": "./image/left_hands/left_hand_orc.png"
+    "image": "./images/characters/left_hands/left_hand_orc.png"
   },
   {
     "id": "626f064b0cc56405d5c4500e",
-    "image": "./image/left_legs/left_leg_orc.png"
+    "image": "./images/characters/left_legs/left_leg_orc.png"
   },
   {
     "id": "626f065d0cc56405d5c4500f",
-    "image": "./image/right_arms/right_arm_orc.png"
+    "image": "./images/characters/right_arms/right_arm_orc.png"
   },
   {
     "id": "626f066d0cc56405d5c45010",
-    "image": "./image/right_hands/right_hand_orc.png"
+    "image": "./images/characters/right_hands/right_hand_orc.png"
   },
   {
     "id": "626f067d0cc56405d5c45011",
-    "image": "./image/right_legs/right_leg_orc.png"
+    "image": "./images/characters/right_legs/right_leg_orc.png"
   }
 ]

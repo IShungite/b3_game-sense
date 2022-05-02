@@ -12,16 +12,16 @@ export interface IItemImage {
   image: string;
 }
 
-export interface IStarterItems {
+export type AvailableEquipmentItems = {
   body: IItem[];
-  face: IItem[];
   head: IItem[];
+  face: IItem[];
   leftArm: IItem[];
   leftHand: IItem[];
-  leftLeg: IItem[];
   rightArm: IItem[];
   rightHand: IItem[];
+  leftLeg: IItem[];
   rightLeg: IItem[];
-}
+};
 
 export type ItemType = "body" | "face" | "leftArm" | "leftHand" | "leftLeg" | "rightArm" | "rightHand" | "rightLeg";

@@ -15,7 +15,7 @@ export default function QuizzesGridStudent() {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       dispatch(getCharacterQuizzes(currentCharacter._id));
     }
-  }, [currentCharacter, dispatch, quizzesWithoutCorrectAnswers.quizDone.length, quizzesWithoutCorrectAnswers.quizDone]);
+  }, [currentCharacter, dispatch, quizzesWithoutCorrectAnswers.quizDone.length]);
 
   return (
     <>

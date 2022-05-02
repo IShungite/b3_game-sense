@@ -6,7 +6,8 @@ import { IAuthUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/a
 import { ICategory } from "models/category/category";
 import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
-import { IItem, IStarterItems } from "models/items/item";
+import UpdateCharacterDto from "models/characters/update-character.dto";
+import { AvailableEquipmentItems, IItem } from "models/items/item";
 import { IProduct } from "models/products/products";
 import { CreatePromotionDto } from "models/promotions/create-promotion.dto";
 import { IPromotion } from "models/promotions/promotion";
@@ -51,8 +52,13 @@ const getProfessors = (): Promise<AxiosResponse<IUser[]>> => API.get("/users/pro
 const createCharacter = (formData: CreateCharacterDto): Promise<AxiosResponse<ICharacter>> =>
   API.post("/characters", formData);
 
+const updateCharacter = (
+  characterId: string,
+  updateCharacterDto: UpdateCharacterDto,
+): Promise<AxiosResponse<ICharacter>> => API.patch(`/characters/${characterId}`, updateCharacterDto);
+
 const getCharacters = (): Promise<AxiosResponse<ICharacter[]>> => API.get("/characters");
-const getStarterItems = (): Promise<AxiosResponse<IStarterItems>> => API.get("/items/starters");
+const getStarterItems = (): Promise<AxiosResponse<AvailableEquipmentItems>> => API.get("/items/starters");
 
 const getCharactersFromPromotion = (promotionId: string): Promise<AxiosResponse<ICharacter[]>> =>
   API.get(`/characters/promotion/${promotionId}`);
@@ -79,7 +85,7 @@ const getProductsByCategory = (shopId: string, categoryId: string): Promise<Axio
   API.get(`/products/shop/${shopId}/${categoryId}`);
 
 const getCharacterInventory = (characterId: string): Promise<AxiosResponse<IItem[]>> =>
-  API.get(`/inventory/${characterId}`);
+  API.get(`/inventories/${characterId}`);
 const createQuiz = (createQuizDto: CreateQuizDto): Promise<AxiosResponse<IQuiz>> => API.post("/quizzes", createQuizDto);
 const getProfessorQuizzes = (): Promise<AxiosResponse<IQuiz[]>> => API.get("/quizzes/getByProfessor");
 const getCharacterQuizzes = (
@@ -101,6 +107,7 @@ export default {
   getDirectors,
   getProfessors,
   createCharacter,
+  updateCharacter,
   getCharacters,
   getCharactersFromPromotion,
   getSchools,

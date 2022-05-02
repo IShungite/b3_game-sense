@@ -14,7 +14,7 @@ export default function AnswersField({
   register: UseFormRegister<CreateQuizDto>;
   formState: FormState<CreateQuizDto>;
 }) {
-  const { fields, append } = useFieldArray({ name: `questions.${questionIndex}.answers`, control });
+  const { fields, append } = useFieldArray({ name: `questions.${questionIndex}.availableAnswers`, control });
 
   return (
     <Box>
@@ -23,13 +23,13 @@ export default function AnswersField({
           <Grid item key={answer.id} sx={{ mt: 2 }}>
             <TextField
               label={`Réponse ${index}`}
-              helperText={
-                formState.errors?.questions &&
-                formState.errors.questions[questionIndex]?.answers &&
-                formState.errors.questions[questionIndex]?.answers[index] &&
-                formState.errors?.questions[questionIndex]?.answers[index]?.value?.message
-              }
-              {...register(`questions.${questionIndex}.answers.${index}.value`)}
+              // helperText={
+              //   formState.errors?.questions &&
+              //   formState.errors.questions[questionIndex]?.availableAnswers &&
+              //   formState.errors.questions[questionIndex]?.availableAnswers[index] &&
+              //   formState.errors?.questions[questionIndex]?.availableAnswers[index]?.value?.message
+              // }
+              {...register(`questions.${questionIndex}.availableAnswers.${index}.value`)}
             />
           </Grid>
         ))}

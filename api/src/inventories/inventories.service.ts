@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { FilterQuery, Model } from "mongoose";
 import { Item } from "src/items/schemas/item.schema";
 import { AddItemDto } from "./dto/add-item.dto";
 import { Inventory } from "./schemas/inventory.schema";
@@ -20,18 +20,14 @@ export class InventoriesService {
     return itemAdded.save();
   }
 
-  async findAll(): Promise<Item[]> {
-    const itemsInInventory = await this.inventoryModel.find().exec();
+  async findAll(filter: FilterQuery<Inventory>): Promise<Item[]> {
+    const itemsInInventory = await this.inventoryModel.find(filter).exec();
 
     const itemsPromises = itemsInInventory.map(async (item) => {
       return this.itemModel.findById(item.itemId).exec();
     });
 
     return Promise.all(itemsPromises);
-  }
-
-  async findAllById(characterId: string): Promise<Inventory[]> {
-    return this.inventoryModel.find({ characterId }).exec();
   }
 
   remove(id: string) {
