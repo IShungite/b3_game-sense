@@ -1,25 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseGuards } from "@nestjs/common";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { IUserRequest } from "src/auth/models/auth.models";
+import { GetUser } from "src/decorator/get-user.decorator";
 import { CharactersService } from "./characters.service";
 import { CreateCharacterDto } from "./dto/create-character.dto";
 import { UpdateCharacterDto } from "./dto/update-character.dto";
 
+@UseGuards(JwtAuthGuard)
 @Controller("characters")
 export class CharactersController {
   constructor(private readonly charactersService: CharactersService) {}
 
   @Post()
-  create(@Body() createCharacterDto: CreateCharacterDto) {
-    return this.charactersService.create(createCharacterDto);
+  create(@GetUser() user: IUserRequest, @Body() createCharacterDto: CreateCharacterDto) {
+    return this.charactersService.create(user, createCharacterDto);
   }
 
   @Get()
-  findAll() {
-    return this.charactersService.findAll();
+  findAll(@GetUser() user: IUserRequest) {
+    return this.charactersService.findAll(user);
   }
 
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.charactersService.findOne({ _id: id });
+  }
+
+  @Get("promotion/:id")
+  findAllFromPromotion(@Param("id") promotionId: string) {
+    return this.charactersService.findAllFromPromotion(promotionId);
   }
 
   @Patch(":id")

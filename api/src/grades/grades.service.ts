@@ -10,7 +10,10 @@ export class GradesService {
   constructor(@InjectModel(Grade.name) private readonly gradeModel: Model<Grade>) {}
 
   create(createGradeDto: CreateGradeDto) {
-    return "This action adds a new grade";
+    const createdGrade = new this.gradeModel({
+      ...createGradeDto,
+    });
+    return createdGrade.save();
   }
 
   findAllbyStudentID(id: string) {

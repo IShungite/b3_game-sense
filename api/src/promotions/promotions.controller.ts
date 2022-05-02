@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { PromotionsService } from './promotions.service';
-import { CreatePromotionDto } from './dto/create-promotion.dto';
-import { UpdatePromotionDto } from './dto/update-promotion.dto';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { PromotionsService } from "./promotions.service";
+import { CreatePromotionDto } from "./dto/create-promotion.dto";
+import { UpdatePromotionDto } from "./dto/update-promotion.dto";
 
-@Controller('promotions')
+@Controller("promotions")
 export class PromotionsController {
   constructor(private readonly promotionsService: PromotionsService) {}
 
@@ -12,23 +12,23 @@ export class PromotionsController {
     return this.promotionsService.create(createPromotionDto);
   }
 
-  @Get()
-  findAll() {
-    return this.promotionsService.findAll();
+  @Post("/getAll")
+  findAll(@Body() params: { schoolId: string }) {
+    return this.promotionsService.findAll(params.schoolId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.promotionsService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePromotionDto: UpdatePromotionDto) {
+  @Patch(":id")
+  update(@Param("id") id: string, @Body() updatePromotionDto: UpdatePromotionDto) {
     return this.promotionsService.update(+id, updatePromotionDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete(":id")
+  remove(@Param("id") id: string) {
     return this.promotionsService.remove(+id);
   }
 }

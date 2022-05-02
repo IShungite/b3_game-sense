@@ -1,10 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, ObjectId, SchemaTypes } from "mongoose";
 
-import { Character } from "src/characters/schemas/character.schema";
-import { Promotion } from "src/promotions/entities/promotion.schema";
-import { Subject } from "src/subjects/entities/subject.schema";
-
 export type GradeDocument = Grade & Document;
 
 @Schema()
@@ -13,16 +9,17 @@ export class Grade {
   _id: ObjectId;
 
   @Prop({ type: SchemaTypes.ObjectId, ref: "Character" })
-  character_id: Character;
-
-  @Prop({ type: SchemaTypes.ObjectId, ref: "Promotion" })
-  promotionId: Promotion;
+  characterId: ObjectId;
 
   @Prop({ type: Number, required: true })
   grade: number;
 
   @Prop({ type: SchemaTypes.ObjectId, ref: "Subject" })
-  subject_id: ObjectId;
+  subjectId: ObjectId;
+
+  @Prop({ type: SchemaTypes.ObjectId, ref: "Quiz" })
+  quizId: ObjectId;
+
   // TODO CreatedAt : date
 }
 

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { ConflictException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CreateSubjectDto } from "./dto/create-subject.dto";
@@ -9,13 +9,27 @@ import { Subject } from "./entities/subject.schema";
 export class SubjectsService {
   constructor(@InjectModel(Subject.name) private readonly subjectModel: Model<Subject>) {}
 
-  create(createSubjectDto: CreateSubjectDto) {
-    return "This action adds a new subject";
+  async create(createSubjectDto: CreateSubjectDto) {
+    const subjectExists = await this.subjectModel
+      .findOne({ name: createSubjectDto.name, promotionId: createSubjectDto.promotionId })
+      .exec();
+
+    if (subjectExists) throw new ConflictException("Subject already exists");
+
+    const createdSubject = new this.subjectModel({
+      ...createSubjectDto,
+    });
+
+    return createdSubject.save();
   }
 
-  findAll(promotionId: string) {
-    console.log(promotionId);
+  async findAll(promotionId: string) {
     return this.subjectModel.find({ promotionId }).exec();
+  }
+
+  getProfessorSubjects(professorId: string) {
+    console.log(professorId);
+    return this.subjectModel.find({ professorId });
   }
 
   findOne(id: string) {

@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
-import { LoginData, RegisterData, User } from "models/auth";
+import { IAuthUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/auth/auth";
 import authService from "services/auth.service";
 import { getErrorMessage } from "utils";
 
 interface AuthState {
-  user: User | undefined;
+  user?: IAuthUser;
   status: AuthStatus;
   errorMessage: string;
 }
@@ -18,17 +18,16 @@ export enum AuthStatus {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const initalUser: User | undefined = localStorage.getItem("user")
+const initalUser: IAuthUser | undefined = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user") || "")
   : undefined;
 const initialAuthState: AuthState = { user: initalUser, status: AuthStatus.None, errorMessage: "" };
 
-export const login = createAsyncThunk<User, LoginData, { rejectValue: string }>(
+export const login = createAsyncThunk<IAuthUser, LoginCredentialsDto, { rejectValue: string }>(
   "auth/login",
-  async (formData: LoginData, thunkAPI) => {
+  async (formData: LoginCredentialsDto, thunkAPI) => {
     try {
-      const user = await authService.login(formData);
-      return user;
+      return await authService.login(formData);
     } catch (err) {
       const error = err as Error | AxiosError;
       return thunkAPI.rejectWithValue(getErrorMessage(error));
@@ -36,9 +35,9 @@ export const login = createAsyncThunk<User, LoginData, { rejectValue: string }>(
   },
 );
 
-export const register = createAsyncThunk<undefined, RegisterData, { rejectValue: string }>(
+export const register = createAsyncThunk<undefined, RegisterCredentialsDto, { rejectValue: string }>(
   "auth/register",
-  async (formData: RegisterData, thunkAPI) => {
+  async (formData: RegisterCredentialsDto, thunkAPI) => {
     try {
       await authService.register(formData);
       return undefined;
