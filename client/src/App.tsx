@@ -11,6 +11,7 @@ import CreateQuiz from "pages/CreateQuiz/CreateQuiz";
 import CreateSchool from "pages/CreateSchool/CreateSchool";
 import Home from "pages/Home/Home";
 import Index from "pages/Index/Index";
+import Inventory from "pages/Inventory/Inventory";
 import Login from "pages/Login/Login";
 import Promotion from "pages/Promotion/Promotion";
 import Register from "pages/Register/Register";
@@ -47,6 +48,7 @@ export default function App() {
 
               <Route path={RouteUrls.Home} element={<Home />} />
               <Route path={RouteUrls.Shops} element={<Shops />} />
+              <Route path={RouteUrls.Inventory} element={<Inventory />} />
               <Route path={`${RouteUrls.Shops}/:shopId`} element={<ShopCategories />} />
               <Route path={`${RouteUrls.Shops}/:shopId/:categoryId`} element={<ShopContent />} />
               <Route path={RouteUrls.Statistics} element={<Statistics />} />

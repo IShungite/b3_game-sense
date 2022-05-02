@@ -6,6 +6,7 @@ import { IAuthUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/a
 import { ICategory } from "models/category/category";
 import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
+import { IInventory } from "models/inventory/inventory";
 import { IStarterItems } from "models/items/item";
 import { IProduct } from "models/products/products";
 import { CreatePromotionDto } from "models/promotions/create-promotion.dto";
@@ -77,6 +78,8 @@ const getCategoriesByShop = (shopId: string): Promise<AxiosResponse<ICategory[]>
 const getProductsByCategory = (shopId: string, categoryId: string): Promise<AxiosResponse<IProduct[]>> =>
   API.get(`/products/shop/${shopId}/${categoryId}`);
 
+const getCharacterInventory = (characterId: string): Promise<AxiosResponse<IInventory[]>> =>
+  API.get(`/inventory/${characterId}`);
 const createQuiz = (createQuizDto: CreateQuizDto): Promise<AxiosResponse<IQuiz>> => API.post("/quizzes", createQuizDto);
 const getProfessorQuizzes = (): Promise<AxiosResponse<IQuiz[]>> => API.get("/quizzes/getByProfessor");
 const getCharacterQuizzes = (
@@ -88,6 +91,9 @@ const getQuizWithoutCorrectAnswer = (quizId: string): Promise<AxiosResponse<IQui
 
 const createAnswer = (createAnswerDto: CreateAnswerDto): Promise<AxiosResponse<IAnswer>> =>
   API.post("/answers", createAnswerDto);
+
+const buyItem = (data: { characterId: string; productId: string }): Promise<AxiosResponse<ICharacter>> =>
+  API.post("characters/buyItem", data);
 
 export default {
   login,
@@ -113,9 +119,11 @@ export default {
   getProducts,
   getCategoriesByShop,
   getProductsByCategory,
+  getCharacterInventory,
   createQuiz,
   getProfessorQuizzes,
   getCharacterQuizzes,
   getQuizWithoutCorrectAnswer,
   createAnswer,
+  buyItem,
 };

@@ -17,8 +17,10 @@ interface CharacterState {
   currentCharacter: ICharacter | undefined;
   createStatus: CharacterStatus;
   getAllStatus: CharacterStatus;
+  itemStatus: CharacterStatus;
   createErrorMessage: string;
   getAllErrorMessage: string;
+  itemErrorMessage: string;
 }
 
 const initialCharacter: CharacterState = {
@@ -26,8 +28,10 @@ const initialCharacter: CharacterState = {
   currentCharacter: undefined,
   createStatus: CharacterStatus.None,
   getAllStatus: CharacterStatus.None,
+  itemStatus: CharacterStatus.None,
   createErrorMessage: "",
   getAllErrorMessage: "",
+  itemErrorMessage: "",
 };
 
 export const createCharacter = createAsyncThunk<ICharacter, CreateCharacterDto, { rejectValue: string }>(
@@ -56,6 +60,20 @@ export const getCharacters = createAsyncThunk<ICharacter[], void, { rejectValue:
   },
 );
 
+export const buyItem = createAsyncThunk<
+  ICharacter,
+  { characterId: string; productId: string },
+  { rejectValue: string }
+>("character/buyItem", async ({ characterId, productId }, thunkAPI) => {
+  try {
+    const currentCharacter = await characterService.buyItem({ characterId, productId });
+    return currentCharacter;
+  } catch (err) {
+    const error = err as Error | AxiosError;
+    return thunkAPI.rejectWithValue(getErrorMessage(error));
+  }
+});
+
 const characterSlice = createSlice({
   name: "character",
   initialState: initialCharacter,
@@ -63,8 +81,10 @@ const characterSlice = createSlice({
     clearState: (state) => {
       state.createErrorMessage = "";
       state.getAllErrorMessage = "";
+      state.itemErrorMessage = "";
       state.createStatus = CharacterStatus.None;
       state.getAllStatus = CharacterStatus.None;
+      state.itemStatus = CharacterStatus.None;
     },
     setCurrentCharacter: (state, { payload }: PayloadAction<ICharacter>) => {
       state.currentCharacter = payload;
@@ -99,6 +119,17 @@ const characterSlice = createSlice({
         state.getAllStatus = CharacterStatus.Error;
 
         state.getAllErrorMessage = payload ?? "";
+      })
+      .addCase(buyItem.pending, (state) => {
+        state.itemStatus = CharacterStatus.Loading;
+      })
+      .addCase(buyItem.fulfilled, (state, { payload }) => {
+        state.currentCharacter = payload;
+        state.itemStatus = CharacterStatus.Finished;
+      })
+      .addCase(buyItem.rejected, (state, { payload }) => {
+        state.itemStatus = CharacterStatus.Error;
+        state.itemErrorMessage = payload ?? "";
       });
   },
 });
