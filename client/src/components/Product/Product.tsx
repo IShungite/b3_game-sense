@@ -4,8 +4,8 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { useAppDispatch, useAppSelector } from "hooks";
-import React from "react";
-import { buyItem } from "reducers/characterSlice";
+import React, { useEffect } from "react";
+import { buyItem, CharacterStatus, clearState } from "reducers/characterSlice";
 import getItemImage from "utils/items";
 
 type Props = { name: string; id: string; itemId: string; price: number; description: string };
@@ -13,7 +13,7 @@ type Props = { name: string; id: string; itemId: string; price: number; descript
 export default function Product({ name, id, itemId, price, description }: Props) {
   const imageSrc = getItemImage(itemId);
   const dispatch = useAppDispatch();
-  const { currentCharacter } = useAppSelector((state) => state.character);
+  const { currentCharacter, itemErrorMessage, itemStatus } = useAppSelector((state) => state.character);
 
   const data = {
     characterId: "",
@@ -25,10 +25,21 @@ export default function Product({ name, id, itemId, price, description }: Props)
     if (!characterId) return;
     data.characterId = characterId;
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    dispatch(buyItem(data)).then(() => {
-      alert("Item bought!");
-    });
+    dispatch(buyItem(data));
   }
+
+  useEffect(() => {
+    if (itemStatus === CharacterStatus.Finished) {
+      dispatch(clearState());
+    }
+  }, [dispatch, itemStatus]);
+
+  useEffect(
+    () => () => {
+      dispatch(clearState());
+    },
+    [dispatch],
+  );
 
   return (
     <Card variant="outlined" sx={{ maxWidth: 150 }}>
@@ -55,6 +66,8 @@ export default function Product({ name, id, itemId, price, description }: Props)
       <CardActions>
         <Button onClick={() => buy()}>Buy</Button>
       </CardActions>
+      <Typography>{itemStatus === CharacterStatus.Finished && "Achat réussi."}</Typography>
+      <Typography>{itemErrorMessage}</Typography>
     </Card>
   );
 }
