@@ -5,7 +5,6 @@ import { AnswersService } from "src/answers/answers.service";
 import { IUserRequest } from "src/auth/models/auth.models";
 import { CharactersService } from "src/characters/characters.service";
 import { SubjectsService } from "src/subjects/subjects.service";
-import { UsersService } from "src/users/users.service";
 import { CreateQuizDto } from "./dto/create-quiz.dto";
 import { UpdateQuizDto } from "./dto/update-quiz.dto";
 import { Quiz } from "./schema/quiz.schema";
