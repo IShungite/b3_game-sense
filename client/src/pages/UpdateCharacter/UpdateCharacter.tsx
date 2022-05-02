@@ -33,8 +33,8 @@ export default function UpdateCharacter() {
           rightLeg: [],
         };
 
-        fetchedItems.forEach((starterItem) => {
-          availableItems[starterItem.type].push(starterItem);
+        fetchedItems.forEach((item) => {
+          availableItems[item.type].push(item);
         });
 
         setItems(availableItems);
