@@ -56,6 +56,20 @@ export const getCharacters = createAsyncThunk<ICharacter[], void, { rejectValue:
   },
 );
 
+export const buyItem = createAsyncThunk<
+  ICharacter,
+  { characterId: string; productId: string },
+  { rejectValue: string }
+>("character/buyItem", async ({ characterId, productId }, thunkAPI) => {
+  try {
+    const currentCharacter = await characterService.buyItem({ characterId, productId });
+    return currentCharacter;
+  } catch (err) {
+    const error = err as Error | AxiosError;
+    return thunkAPI.rejectWithValue(getErrorMessage(error));
+  }
+});
+
 const characterSlice = createSlice({
   name: "character",
   initialState: initialCharacter,
@@ -99,6 +113,9 @@ const characterSlice = createSlice({
         state.getAllStatus = CharacterStatus.Error;
 
         state.getAllErrorMessage = payload ?? "";
+      })
+      .addCase(buyItem.fulfilled, (state, { payload }) => {
+        state.currentCharacter = payload;
       });
   },
 });

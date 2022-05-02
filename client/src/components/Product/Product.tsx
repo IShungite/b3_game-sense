@@ -3,26 +3,31 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { useAppSelector } from "hooks";
-import { CreateInventoryDto } from "models/inventory/create-inventory.dto";
+import { useAppDispatch, useAppSelector } from "hooks";
 import React from "react";
-import inventoryService from "services/inventory.service";
+import { buyItem } from "reducers/characterSlice";
 import getItemImage from "utils/items";
 
 type Props = { name: string; id: string; itemId: string; price: number; description: string };
 
 export default function Product({ name, id, itemId, price, description }: Props) {
   const imageSrc = getItemImage(itemId);
+  const dispatch = useAppDispatch();
   const { currentCharacter } = useAppSelector((state) => state.character);
 
-  const data: CreateInventoryDto = {
-    productId: id,
+  const data = {
     characterId: "",
+    productId: id,
   };
 
-  async function buy() {
-    // eslint-disable-next-line no-alert
-    await inventoryService.buyProduct(data);
+  function buy() {
+    const characterId = currentCharacter?._id;
+    if (!characterId) return;
+    data.characterId = characterId;
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    dispatch(buyItem(data)).then(() => {
+      alert("Item bought!");
+    });
   }
 
   return (

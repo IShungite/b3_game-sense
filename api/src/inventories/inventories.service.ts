@@ -8,15 +8,6 @@ import { Inventory } from "./schemas/inventory.schema";
 export class InventoriesService {
   constructor(@InjectModel(Inventory.name) private readonly inventoryModel: Model<Inventory>) {}
   async create(createInventoryDto: CreateInventoryDto) {
-    const inventoryExists = await this.inventoryModel
-      .findOne({
-        characterId: createInventoryDto.characterId,
-        productId: createInventoryDto.productId,
-      })
-      .exec();
-
-    if (inventoryExists) throw new ConflictException("Inventory item already exists");
-
     const createdItem = new this.inventoryModel({
       ...createInventoryDto,
     });
