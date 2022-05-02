@@ -5,9 +5,8 @@ import QuizzesGridStudent from "components/QuizzesGridStudent/QuizzesGridStudent
 import { RouteUrls } from "config";
 import { useAppSelector } from "hooks";
 import { IStarterItems } from "models/items/item";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
-import inventoryService from "services/inventory.service";
 
 export default function Home() {
   const { currentCharacter } = useAppSelector((state) => state.character);
@@ -18,15 +17,15 @@ export default function Home() {
     return <Navigate to={RouteUrls.SelectCharacter} />;
   }
 
-  useEffect(() => {
-    if (!items) {
-      const fetchItems = async () => {
-        const fetchedItems = (await inventoryService.getInventory()).data;
+  // useEffect(() => {
+  //   if (!items) {
+  //     const fetchItems = async () => {
+  //       const fetchedItems = (await inventoryService.getCharacterInventory()).data;
 
-        setItems(fetchedItems);
-      };
-    }
-  }, []);
+  //       setItems(fetchedItems);
+  //     };
+  //   }
+  // }, []);
 
   return (
     <>

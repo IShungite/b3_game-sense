@@ -27,7 +27,7 @@ export class InventoriesService {
       return this.itemModel.findById(item.itemId).exec();
     });
 
-    return await Promise.all(itemsPromises);
+    return Promise.all(itemsPromises);
   }
 
   async findAllById(characterId: string): Promise<Inventory[]> {

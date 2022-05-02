@@ -6,7 +6,7 @@ import { IAuthUser, LoginCredentialsDto, RegisterCredentialsDto } from "models/a
 import { ICategory } from "models/category/category";
 import { ICharacter } from "models/characters/character";
 import CreateCharacterDto from "models/characters/create-character.dto";
-import { IStarterItems } from "models/items/item";
+import { IItem, IStarterItems } from "models/items/item";
 import { IProduct } from "models/products/products";
 import { CreatePromotionDto } from "models/promotions/create-promotion.dto";
 import { IPromotion } from "models/promotions/promotion";
@@ -78,7 +78,7 @@ const getCategoriesByShop = (shopId: string): Promise<AxiosResponse<ICategory[]>
 const getProductsByCategory = (shopId: string, categoryId: string): Promise<AxiosResponse<IProduct[]>> =>
   API.get(`/products/shop/${shopId}/${categoryId}`);
 
-const getCharacterInventory = (characterId: string): Promise<AxiosResponse<IInventory[]>> =>
+const getCharacterInventory = (characterId: string): Promise<AxiosResponse<IItem[]>> =>
   API.get(`/inventory/${characterId}`);
 const createQuiz = (createQuizDto: CreateQuizDto): Promise<AxiosResponse<IQuiz>> => API.post("/quizzes", createQuizDto);
 const getProfessorQuizzes = (): Promise<AxiosResponse<IQuiz[]>> => API.get("/quizzes/getByProfessor");
