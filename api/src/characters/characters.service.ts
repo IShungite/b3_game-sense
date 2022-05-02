@@ -4,8 +4,8 @@ import { ConflictException, Injectable, NotFoundException, UnauthorizedException
 import { IUserRequest } from "src/auth/models/auth.models";
 import { CreateCharacterDto } from "./dto/create-character.dto";
 import { UpdateCharacterDto } from "./dto/update-character.dto";
-import { Character } from "./schemas/character.schema";
 import { ProductsService } from "src/products/products.service";
+import { Character, CharacterEquipments } from "./schemas/character.schema";
 import { InventoriesService } from "src/inventories/inventories.service";
 
 @Injectable()
@@ -32,6 +32,8 @@ export class CharactersService {
       gold: 0,
       level: 1,
     });
+
+    await this.addStarterItemsToInventory(createdCharacter._id.toString(), createCharacterDto.equipments);
 
     return createdCharacter.save();
   }
@@ -70,6 +72,26 @@ export class CharactersService {
     return this.characterModel.findByIdAndUpdate(id, updateCharacterDto, {
       new: true,
     });
+  }
+
+  async addStarterItemsToInventory(characterId: string, equipments: CharacterEquipments) {
+    const createInventoryItemPromises = [];
+    for (const key in equipments) {
+      if (Object.prototype.hasOwnProperty.call(equipments, key)) {
+        const productId: string = equipments[key];
+        createInventoryItemPromises.push(
+          this.inventoriesService.create({
+            characterId,
+            productId,
+          }),
+        );
+      }
+    }
+    await Promise.all(createInventoryItemPromises);
+  }
+
+  update(id: number, updateCharacterDto: UpdateCharacterDto) {
+    return `This action updates a #${id} character`;
   }
 
   remove(id: number) {
