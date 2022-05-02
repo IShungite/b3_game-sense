@@ -4,11 +4,15 @@ import { ConflictException, Injectable } from "@nestjs/common";
 import { IUserRequest } from "src/auth/models/auth.models";
 import { CreateCharacterDto } from "./dto/create-character.dto";
 import { UpdateCharacterDto } from "./dto/update-character.dto";
-import { Character } from "./schemas/character.schema";
+import { Character, CharacterEquipments } from "./schemas/character.schema";
+import { InventoriesService } from "src/inventories/inventories.service";
 
 @Injectable()
 export class CharactersService {
-  constructor(@InjectModel(Character.name) private readonly characterModel: Model<Character>) {}
+  constructor(
+    @InjectModel(Character.name) private readonly characterModel: Model<Character>,
+    private readonly inventoriesService: InventoriesService,
+  ) {}
 
   async create(user: IUserRequest, createCharacterDto: CreateCharacterDto) {
     const characterExists = await this.characterModel
@@ -27,6 +31,8 @@ export class CharactersService {
       level: 1,
     });
 
+    await this.addStarterItemsToInventory(createdCharacter._id.toString(), createCharacterDto.equipments);
+
     return createdCharacter.save();
   }
 
@@ -42,6 +48,22 @@ export class CharactersService {
 
   findAllFromPromotion(promotionId: string): Promise<Character[]> {
     return this.characterModel.find({ promotionId }).exec();
+  }
+
+  async addStarterItemsToInventory(characterId: string, equipments: CharacterEquipments) {
+    const createInventoryItemPromises = [];
+    for (const key in equipments) {
+      if (Object.prototype.hasOwnProperty.call(equipments, key)) {
+        const productId: string = equipments[key];
+        createInventoryItemPromises.push(
+          this.inventoriesService.create({
+            characterId,
+            productId,
+          }),
+        );
+      }
+    }
+    await Promise.all(createInventoryItemPromises);
   }
 
   update(id: number, updateCharacterDto: UpdateCharacterDto) {
