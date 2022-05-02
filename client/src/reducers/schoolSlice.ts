@@ -50,6 +50,7 @@ const schoolSlice = createSlice({
   reducers: {
     clearState: (state) => {
       state.errorMessage = undefined;
+      state.status = FetchStatus.None;
     },
     setCurrentSchool: (state, action: PayloadAction<ISchool>) => {
       state.currentSchool = action.payload;

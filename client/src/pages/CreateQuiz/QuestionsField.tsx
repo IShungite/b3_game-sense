@@ -1,4 +1,5 @@
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Box, Button, Grid, IconButton, TextField, Typography } from "@mui/material";
 import { CreateQuizDto } from "models/quizzes/create-quiz.dto";
 import React from "react";
 import { Control, FormState, useFieldArray, UseFormRegister } from "react-hook-form";
@@ -13,7 +14,11 @@ export default function QuestionsField({
   register: UseFormRegister<CreateQuizDto>;
   formState: FormState<CreateQuizDto>;
 }) {
-  const { fields: questionsList, append: appendQuestion } = useFieldArray<CreateQuizDto>({
+  const {
+    fields: questionsList,
+    append: appendQuestion,
+    remove: removeQuestion,
+  } = useFieldArray<CreateQuizDto>({
     name: "questions",
     control,
   });
@@ -23,9 +28,14 @@ export default function QuestionsField({
       <Box>
         {questionsList.map((question, index) => (
           <Box key={question.id} sx={{ mt: 2 }}>
-            <Typography variant="h4" gutterBottom>
-              Question {index + 1}
-            </Typography>
+            <Box display="flex" alignItems="flex-start">
+              <Typography variant="h4" gutterBottom>
+                Question {index + 1}
+              </Typography>
+              <IconButton onClick={() => removeQuestion(index)}>
+                <DeleteIcon fontSize="small" />
+              </IconButton>
+            </Box>
             <Grid container spacing={2}>
               <Grid item sm={12}>
                 <TextField
@@ -40,7 +50,7 @@ export default function QuestionsField({
               </Grid>
               <Grid item sm={12}>
                 <TextField
-                  label="Réponse juste"
+                  label="Numéro de la réponse juste"
                   type="number"
                   helperText={formState.errors.questions && formState.errors.questions[index]?.correctAnswer?.message}
                   {...register(`questions.${index}.correctAnswer`)}
@@ -52,7 +62,7 @@ export default function QuestionsField({
       </Box>
       <Button
         onClick={() => {
-          appendQuestion({});
+          appendQuestion({ correctAnswer: 0, availableAnswers: [{ value: "" }, { value: "" }] });
         }}
       >
         Nouvelle question

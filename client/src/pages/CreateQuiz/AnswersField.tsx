@@ -1,4 +1,5 @@
-import { Box, Button, Grid, TextField } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Box, Button, Grid, IconButton, TextField } from "@mui/material";
 import { CreateQuizDto } from "models/quizzes/create-quiz.dto";
 import React from "react";
 import { Control, FormState, useFieldArray, UseFormRegister } from "react-hook-form";
@@ -14,7 +15,7 @@ export default function AnswersField({
   register: UseFormRegister<CreateQuizDto>;
   formState: FormState<CreateQuizDto>;
 }) {
-  const { fields, append } = useFieldArray({ name: `questions.${questionIndex}.availableAnswers`, control });
+  const { fields, append, remove } = useFieldArray({ name: `questions.${questionIndex}.availableAnswers`, control });
 
   return (
     <Box>
@@ -31,6 +32,9 @@ export default function AnswersField({
               // }
               {...register(`questions.${questionIndex}.availableAnswers.${index}.value`)}
             />
+            <IconButton onClick={() => remove(index)}>
+              <DeleteIcon fontSize="small" />
+            </IconButton>
           </Grid>
         ))}
       </Grid>

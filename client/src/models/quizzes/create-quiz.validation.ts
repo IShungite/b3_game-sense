@@ -10,7 +10,7 @@ const createQuizValidation = yup.object<ValidationShape<CreateQuizDto>>({
       availableAnswers: yup
         .array()
         .of(yup.object({ value: yup.string().required("Value is required") }).required("Answer is required")),
-      correctAnswer: yup.number().required("Correct answer is required"),
+      correctAnswer: yup.number().typeError("Correct answer is required").required("Correct answer is required"),
     }),
   ),
 });

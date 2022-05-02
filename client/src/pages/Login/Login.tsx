@@ -44,6 +44,8 @@ export default function Login() {
         navigate(RouteUrls.CreateSchool);
       } else if (decodedToken.roles.includes(Role.Director)) {
         navigate(RouteUrls.SelectSchool);
+      } else if (decodedToken.roles.includes(Role.Professor)) {
+        navigate(RouteUrls.SelectSubject);
       } else {
         navigate(RouteUrls.SelectCharacter);
       }
