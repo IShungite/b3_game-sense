@@ -12,7 +12,7 @@ export class Character {
   _id: ObjectId;
 
   @Prop({ type: SchemaTypes.ObjectId, ref: "User" })
-  userId: User;
+  userId: ObjectId;
 
   @Prop({ type: String, required: true, unique: true })
   nickname: string;

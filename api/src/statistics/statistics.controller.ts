@@ -12,7 +12,6 @@ export class StatisticsController {
 
   @Post()
   getStatistics(@Body("characterId") characterId: string, @Body("promotionId") promotionId: string) {
-    console.log(characterId, promotionId);
     return this.statisticsService.getStatistics(characterId, promotionId);
   }
 }

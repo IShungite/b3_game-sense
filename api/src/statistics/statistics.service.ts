@@ -1,68 +1,63 @@
 import { Injectable } from "@nestjs/common";
+import { CharactersService } from "src/characters/characters.service";
 import { GradesService } from "src/grades/grades.service";
 import { Grade } from "src/grades/schemas/grade.schema";
 import { Subject } from "src/subjects/entities/subject.schema";
 import { SubjectsService } from "src/subjects/subjects.service";
+import average from "src/utils/average";
+import comparision from "src/utils/comparision";
+import round from "src/utils/round";
 
 import { GradesBySubject, Statistic } from "./schemas/statistic.schema";
 
 @Injectable()
 export class StatisticsService {
-  constructor(private readonly gradesService: GradesService, private readonly subjectsService: SubjectsService) {}
+  constructor(
+    private readonly gradesService: GradesService,
+    private readonly subjectsService: SubjectsService,
+    private readonly charactersService: CharactersService,
+  ) {}
   async getStatistics(characterId: string, promotionId: string): Promise<Statistic> {
     const grades = await this.gradesService.findAll({ characterId });
+    console.log(characterId);
     const subjects = await this.subjectsService.findAll(promotionId);
     const gradesBySubjects = await this.getGradesBySubjects(grades, subjects);
+    const comparedCharacters = await this.getComparisonCharacters(characterId);
 
     const averageGrade = await this.gradesService.totalAverage(characterId);
-    const semesterAverage1 = this.getSemesterAverage(grades, subjects, 1);
-    const semesterAverage2 = this.getSemesterAverage(grades, subjects, 2);
-    return { gradesBySubjects, averageGrade, semesterAverage1, semesterAverage2 };
+    const semesterAverage = this.getSemestersAverage(grades, subjects);
+
+    console.log("semesterAverage", semesterAverage);
+
+    return { gradesBySubjects, averageGrade, semesterAverage, comparedCharacters };
   }
 
-  getSemesterAverage(grades: Grade[], subjects: Subject[], semester: number): number {
-    const gradesSemester: Grade[] = [];
-    console.log(subjects);
-    subjects.map((subject) => {
-      console.log(subject.semester);
-      if (subject.semester === semester) {
-        grades.forEach((grade) => {
-          if (grade.subjectId.toString() === subject._id.toString()) {
-            gradesSemester.push(grade);
-          }
-        });
-      }
+  getSemestersAverage(grades: Grade[], subjects: Subject[]): number[] {
+    const semesters = [[], []];
+
+    subjects.forEach((subject) => {
+      grades.forEach((grade) => {
+        if (grade.subjectId.toString() === subject._id.toString()) {
+          semesters[subject.semester - 1].push(grade); // - 1 because array index starts at 0 (there is no semester 0)
+        }
+      });
     });
-    return this.gradesService.average(gradesSemester);
+
+    return semesters.map((semester) => {
+      return average(semester);
+    });
   }
 
   async getGradesBySubjects(grades: Grade[], subjects: Subject[]): Promise<GradesBySubject[]> {
-    // Créer le tableau GradesBySubjects
     const gradesBySubjects: GradesBySubject[] = [];
-    // Récupère toutes les matières avec le promotion_id du character
 
-    //const subjectsId = getGrades.map((grade) => this.subjectsService.findOne(grade.subjectId));
-
-    subjects.map((subject) => {
+    subjects.forEach((subject) => {
       const subjectName = subject.name;
       const gradesBySubject: Grade[] = grades.filter((grade) => {
-        // console.log("grade.subjectId :" + grade.subjectId, "subject._id :" + subject._id.toString());
-
         return grade.subjectId.toString() === subject._id.toString();
       });
 
-      let sum_grades = 0;
-      let averageSubjectGrade = 0;
-
-      gradesBySubject.map((grade) => {
-        if (grade.grade) {
-          sum_grades += grade.grade;
-        }
-
-        averageSubjectGrade = sum_grades / gradesBySubject.length;
-        return averageSubjectGrade;
-      });
-      // console.log("gradesBySubject" + gradesBySubject);
+      const averageSubjectGrade = average(gradesBySubject);
 
       gradesBySubjects.push({
         grades: gradesBySubject,
@@ -71,5 +66,31 @@ export class StatisticsService {
       });
     });
     return gradesBySubjects;
+  }
+
+  async getComparisonCharacters(characterId: string) {
+    const currentCharacter = await this.charactersService.findOne({ characterId });
+
+    const currentAllCharacters = await this.charactersService.findAll(currentCharacter.userId.toString());
+
+    const averageCurrentCharacter = await this.gradesService.totalAverage(currentCharacter._id.toString());
+    const comparedResult: number[] = [];
+
+    const allCharactersWithoutCurrent = currentAllCharacters.filter(
+      (character) => character._id.toString() !== currentCharacter._id.toString(),
+    );
+
+    const averageComparedCharactersPromises = allCharactersWithoutCurrent.map((character) => {
+      return this.gradesService.totalAverage(character._id.toString());
+    });
+
+    const averageComparedCharacters = await Promise.all(averageComparedCharactersPromises);
+
+    averageComparedCharacters.forEach((averageComparedCharacter, index) => {
+      const char = allCharactersWithoutCurrent[index];
+      const result = round(comparision(averageCurrentCharacter, averageComparedCharacter), 2);
+      comparedResult.push(result);
+    });
+    return comparedResult;
   }
 }

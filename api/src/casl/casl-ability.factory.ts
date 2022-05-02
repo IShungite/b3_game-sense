@@ -1,7 +1,7 @@
 import { Ability, AbilityBuilder, AbilityClass, ExtractSubjectType, InferSubjects } from "@casl/ability";
 import { Injectable } from "@nestjs/common";
 import { IUserRequest } from "src/auth/models/auth.models";
-import { Role } from "src/auth/models/roles.enum";
+import Role from "src/auth/models/roles.enum";
 import { Grade } from "src/grades/schemas/grade.schema";
 import { User } from "src/users/schemas/user.schema";
 
