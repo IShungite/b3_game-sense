@@ -40,20 +40,23 @@ export class GradesService {
   remove(id: number) {
     return `This action removes a #${id} grade`;
   }
-  async average(characterId: string) {
+  async totalAverage(characterId: string) {
     const grades = await this.findAll({ characterId: characterId });
 
+    return this.average(grades);
+  }
+
+  average(grades: Grade[]) {
     if (grades.length === 0) {
       return 0;
     }
 
     let sum_grades = 0;
-    let res = 0;
 
-    grades.map((grade) => {
+    grades.forEach((grade) => {
       sum_grades += grade.grade;
     });
-    res = sum_grades / grades.length;
-    return res;
+
+    return sum_grades / grades.length;
   }
 }

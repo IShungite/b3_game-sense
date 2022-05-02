@@ -28,9 +28,8 @@ export class GradesController {
 
   @Post("getAverage")
   @UseGuards(VerifyOwnedCharacterGuards)
-  average(@Body("characterId") characterId: string) {
-    console.log("test1");
-    return this.gradesService.average(characterId);
+  totalAverage(@Body("characterId") characterId: string) {
+    return this.gradesService.totalAverage(characterId);
   }
 
   @Get("student_id/:id")

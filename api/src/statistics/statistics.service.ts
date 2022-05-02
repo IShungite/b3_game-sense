@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { GradesService } from "src/grades/grades.service";
 import { Grade } from "src/grades/schemas/grade.schema";
+import { Subject } from "src/subjects/entities/subject.schema";
 import { SubjectsService } from "src/subjects/subjects.service";
 
 import { GradesBySubject, Statistic } from "./schemas/statistic.schema";
@@ -9,53 +10,66 @@ import { GradesBySubject, Statistic } from "./schemas/statistic.schema";
 export class StatisticsService {
   constructor(private readonly gradesService: GradesService, private readonly subjectsService: SubjectsService) {}
   async getStatistics(characterId: string, promotionId: string): Promise<Statistic> {
-    const gradesBySubjects = await this.getGradesBySubjects(characterId, promotionId);
+    const grades = await this.gradesService.findAll({ characterId });
+    const subjects = await this.subjectsService.findAll(promotionId);
+    const gradesBySubjects = await this.getGradesBySubjects(grades, subjects);
 
-    const averageGrade = await this.gradesService.average(characterId);
-
-    return { gradesBySubjects, averageGrade };
+    const averageGrade = await this.gradesService.totalAverage(characterId);
+    const semesterAverage1 = this.getSemesterAverage(grades, subjects, 1);
+    const semesterAverage2 = this.getSemesterAverage(grades, subjects, 2);
+    return { gradesBySubjects, averageGrade, semesterAverage1, semesterAverage2 };
   }
 
-  async getGradesBySubjects(characterId: string, promotionId: string): Promise<GradesBySubject[]> {
+  getSemesterAverage(grades: Grade[], subjects: Subject[], semester: number): number {
+    const gradesSemester: Grade[] = [];
+    console.log(subjects);
+    subjects.map((subject) => {
+      console.log(subject.semester);
+      if (subject.semester === semester) {
+        grades.forEach((grade) => {
+          if (grade.subjectId.toString() === subject._id.toString()) {
+            gradesSemester.push(grade);
+          }
+        });
+      }
+    });
+    return this.gradesService.average(gradesSemester);
+  }
+
+  async getGradesBySubjects(grades: Grade[], subjects: Subject[]): Promise<GradesBySubject[]> {
     // Créer le tableau GradesBySubjects
     const gradesBySubjects: GradesBySubject[] = [];
     // Récupère toutes les matières avec le promotion_id du character
-    const getGrades = await this.gradesService.findAll({ characterId });
-    const getSubjects = await this.subjectsService.findAll(promotionId);
-    console.log("getGrades :" + getGrades, "           getSubject :" + getSubjects);
 
     //const subjectsId = getGrades.map((grade) => this.subjectsService.findOne(grade.subjectId));
 
-    getSubjects.map((subject) => {
+    subjects.map((subject) => {
       const subjectName = subject.name;
-
-      const gradesBySubject: Grade[] = getGrades.filter((grade) => {
+      const gradesBySubject: Grade[] = grades.filter((grade) => {
         // console.log("grade.subjectId :" + grade.subjectId, "subject._id :" + subject._id.toString());
-        console.log(grade);
+
         return grade.subjectId.toString() === subject._id.toString();
       });
+
       let sum_grades = 0;
       let averageSubjectGrade = 0;
+
       gradesBySubject.map((grade) => {
-        sum_grades += grade.grade;
+        if (grade.grade) {
+          sum_grades += grade.grade;
+        }
 
         averageSubjectGrade = sum_grades / gradesBySubject.length;
-        console.log(averageSubjectGrade);
         return averageSubjectGrade;
       });
-      console.log("gradesBySubject" + gradesBySubject);
+      // console.log("gradesBySubject" + gradesBySubject);
 
-      gradesBySubjects.push({ grades: gradesBySubject, subjectName, subjectAverage: averageSubjectGrade });
+      gradesBySubjects.push({
+        grades: gradesBySubject,
+        subjectName,
+        subjectAverage: averageSubjectGrade,
+      });
     });
-    // Loop à travers toutes les matières
-    // for (let i = 0; i < getSubjects.length; i++) {
-    //   // Récupère le nom de la matière
-    //   // Récupère les notes de cette matière
-    //   // push GradesBySubject dans GradesBySubjects
-    // }
-
-    // return GradesBySubjects
-    console.log(gradesBySubjects);
     return gradesBySubjects;
   }
 }
