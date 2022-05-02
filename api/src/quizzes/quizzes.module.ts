@@ -16,5 +16,6 @@ import { AnswersModule } from "src/answers/answers.module";
   ],
   controllers: [QuizzesController],
   providers: [QuizzesService],
+  exports: [QuizzesService],
 })
 export class QuizzesModule {}

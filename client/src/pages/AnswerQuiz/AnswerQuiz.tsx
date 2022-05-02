@@ -97,7 +97,7 @@ export default function AnswerQuiz() {
                     onClick={() => {
                       setValue(`answers.${questionIndex}`, answerIndex);
                       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-                      trigger();
+                      trigger(`answers.${questionIndex}`);
                     }}
                     disabled={answersWatched[questionIndex] === answerIndex}
                   >

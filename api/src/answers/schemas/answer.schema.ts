@@ -11,7 +11,7 @@ export class Answer {
   _id: ObjectId;
 
   @Prop({ type: SchemaTypes.ObjectId, ref: "Character" })
-  characterId: Character;
+  characterId: ObjectId;
 
   @Prop({ type: Array, required: true })
   answers: number[];

@@ -32,7 +32,7 @@ export class StatisticsService {
       const gradesBySubject: Grade[] = getGrades.filter((grade) => {
         // console.log("grade.subject_id :" + grade.subject_id, "subject._id :" + subject._id.toString());
 
-        return grade.subject_id.toString() === subject._id.toString();
+        return grade.subjectId.toString() === subject._id.toString();
       });
       let sum_grades = 0;
       let averageSubjectGrade = 0;
