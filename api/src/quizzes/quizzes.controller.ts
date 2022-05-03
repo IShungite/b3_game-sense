@@ -21,9 +21,9 @@ export class QuizzesController {
     return this.quizzesService.findAll({ promotionId });
   }
 
-  @Get("/getByProfessor")
-  findAllWithProfessorId(@GetUser() user: IUserRequest) {
-    return this.quizzesService.findAll({ professorId: user.id });
+  @Post("/getByProfessor")
+  findAllWithProfessorId(@GetUser() user: IUserRequest, @Body("subjectId") subjectId: string) {
+    return this.quizzesService.findAll({ professorId: user.id, subjectId });
   }
 
   @Post("/getByCharacter")

@@ -33,11 +33,11 @@ export const createQuiz = createAsyncThunk<IQuiz, CreateQuizDto, { rejectValue: 
   },
 );
 
-export const getProfessorQuizzes = createAsyncThunk<IQuiz[], void, { rejectValue: string }>(
+export const getProfessorQuizzes = createAsyncThunk<IQuiz[], string, { rejectValue: string }>(
   "quiz/getProfessorQuizzes",
-  async (_, thunkAPI) => {
+  async (subjectId, thunkAPI) => {
     try {
-      return await quizService.getProfessorQuizzes();
+      return await quizService.getProfessorQuizzes(subjectId);
     } catch (err) {
       const error = err as Error | AxiosError;
       return thunkAPI.rejectWithValue(getErrorMessage(error));

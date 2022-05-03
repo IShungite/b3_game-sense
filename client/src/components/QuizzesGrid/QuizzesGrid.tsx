@@ -6,13 +6,14 @@ import { getProfessorQuizzes } from "reducers/quizSlice";
 export default function QuizzesGrid() {
   const dispatch = useAppDispatch();
   const { quizzes } = useAppSelector((state) => state.quiz);
+  const { currentSubject } = useAppSelector((state) => state.subject);
 
   useEffect(() => {
-    if (quizzes.length === 0) {
+    if (quizzes.length === 0 && currentSubject?._id) {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      dispatch(getProfessorQuizzes());
+      dispatch(getProfessorQuizzes(currentSubject._id));
     }
-  }, [dispatch, quizzes.length]);
+  }, [currentSubject?._id, dispatch, quizzes.length]);
 
   return (
     <>

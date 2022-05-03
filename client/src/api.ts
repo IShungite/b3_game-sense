@@ -87,7 +87,8 @@ const getProductsByCategory = (shopId: string, categoryId: string): Promise<Axio
 const getCharacterInventory = (characterId: string): Promise<AxiosResponse<IItem[]>> =>
   API.get(`/inventories/${characterId}`);
 const createQuiz = (createQuizDto: CreateQuizDto): Promise<AxiosResponse<IQuiz>> => API.post("/quizzes", createQuizDto);
-const getProfessorQuizzes = (): Promise<AxiosResponse<IQuiz[]>> => API.get("/quizzes/getByProfessor");
+const getProfessorQuizzes = (subjectId: string): Promise<AxiosResponse<IQuiz[]>> =>
+  API.post("/quizzes/getByProfessor", { subjectId });
 const getCharacterQuizzes = (
   characterId: string,
 ): Promise<AxiosResponse<{ quizDone: IQuizWithoutCorrectAnswer[]; quizToDo: IQuizWithoutCorrectAnswer[] }>> =>

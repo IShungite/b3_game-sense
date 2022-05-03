@@ -53,7 +53,7 @@ export class AnswersService {
     const currentCharacter = await this.characterService.findOne({ _id: answer.characterId.toString() });
     const newAmount = currentCharacter.gold + finalGrade * 25;
 
-    await this.characterService.update(answer.characterId.toString(), { gold: newAmount });
+    return await this.characterService.update(answer.characterId.toString(), { gold: newAmount });
   }
 
   findOne(id: number) {
