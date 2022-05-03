@@ -1,5 +1,6 @@
 import { Box, Grid, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import Character from "components/Character/Character";
+import { useAppSelector } from "hooks";
 import CreateCharacterDto from "models/characters/create-character.dto";
 import { AvailableEquipmentItems } from "models/items/item";
 import React, { useState } from "react";
@@ -13,51 +14,89 @@ export default function CharacterEquipmentForm({
 }) {
   const { getValues, setValue } = useFormContext<{ equipments: CreateCharacterDto["equipments"] }>(); // retrieve all hook methods
 
+  const { currentCharacter } = useAppSelector((state) => state.character);
+
   const categories = [
     {
       name: "Tête",
       items: availableEquipmentItems.head,
-      state: useState(0),
+      state: useState(
+        currentCharacter
+          ? availableEquipmentItems.head.findIndex((item) => item._id === currentCharacter.equipments.headId)
+          : 0,
+      ),
     },
     {
       name: "Visage",
       items: availableEquipmentItems.face,
-      state: useState(0),
+      state: useState(
+        currentCharacter
+          ? availableEquipmentItems.face.findIndex((item) => item._id === currentCharacter.equipments.faceId)
+          : 0,
+      ),
     },
     {
       name: "Corps",
       items: availableEquipmentItems.body,
-      state: useState(0),
+      state: useState(
+        currentCharacter
+          ? availableEquipmentItems.body.findIndex((item) => item._id === currentCharacter.equipments.bodyId)
+          : 0,
+      ),
     },
     {
       name: "Bras gauche",
       items: availableEquipmentItems.leftArm,
-      state: useState(0),
+      state: useState(
+        currentCharacter
+          ? availableEquipmentItems.leftArm.findIndex((item) => item._id === currentCharacter.equipments.leftArmId)
+          : 0,
+      ),
     },
     {
       name: "Main gauche",
       items: availableEquipmentItems.leftHand,
-      state: useState(0),
+      state: useState(
+        currentCharacter
+          ? availableEquipmentItems.leftHand.findIndex((item) => item._id === currentCharacter.equipments.leftHandId)
+          : 0,
+      ),
     },
     {
       name: "Bras droit",
       items: availableEquipmentItems.rightArm,
-      state: useState(0),
+      state: useState(
+        currentCharacter
+          ? availableEquipmentItems.rightArm.findIndex((item) => item._id === currentCharacter.equipments.rightArmId)
+          : 0,
+      ),
     },
     {
       name: "Main droite",
       items: availableEquipmentItems.rightHand,
-      state: useState(0),
+      state: useState(
+        currentCharacter
+          ? availableEquipmentItems.rightHand.findIndex((item) => item._id === currentCharacter.equipments.rightHandId)
+          : 0,
+      ),
     },
     {
       name: "Jambe gauche",
       items: availableEquipmentItems.leftLeg,
-      state: useState(0),
+      state: useState(
+        currentCharacter
+          ? availableEquipmentItems.leftLeg.findIndex((item) => item._id === currentCharacter.equipments.leftLegId)
+          : 0,
+      ),
     },
     {
       name: "Jambe droite",
       items: availableEquipmentItems.rightLeg,
-      state: useState(0),
+      state: useState(
+        currentCharacter
+          ? availableEquipmentItems.rightLeg.findIndex((item) => item._id === currentCharacter.equipments.rightLegId)
+          : 0,
+      ),
     },
   ];
 
