@@ -167,35 +167,43 @@ export default function AppBar() {
           {/* Small Screen screen End */}
 
           {user ? (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={decodedToken ? decodedToken.email : ""} src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={() => handleCloseUserMenu()}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting.name} onClick={() => handleCloseUserMenu(setting.callback)}>
-                    <Typography textAlign="center">{setting.name}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
+            <>
+              {currentCharacter && (
+                <Box display="flex" sx={{ mr: 1.5 }} alignItems="center">
+                  <Typography>{currentCharacter.gold}</Typography>
+                  <img style={{ width: 35, height: 25 }} src="/public/images/gold.png" alt="gold" />
+                </Box>
+              )}
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt={decodedToken ? decodedToken.email : ""} src="/static/images/avatar/2.jpg" />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={() => handleCloseUserMenu()}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem key={setting.name} onClick={() => handleCloseUserMenu(setting.callback)}>
+                      <Typography textAlign="center">{setting.name}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            </>
           ) : (
             <>
               {pagesRight.map((page) => (
