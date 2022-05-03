@@ -10,7 +10,7 @@ import createQuizValidation from "models/quizzes/create-quiz.validation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { clearState, createQuiz } from "reducers/quizSlice";
+import { clearQuizzes, clearState, createQuiz } from "reducers/quizSlice";
 import { getProfessorSubjects, setCurrentSubject } from "reducers/subjectSlice";
 import QuestionsField from "./QuestionsField";
 
@@ -55,10 +55,10 @@ export default function CreateQuiz() {
   // redirect the user to the subject page after the quiz has been created
   useEffect(() => {
     if (createStatus === FetchStatus.Finished) {
-      console.log("finished");
       const currentSubject = subjects.find((subject) => getValues().subjectId === subject._id);
       if (currentSubject) {
         dispatch(setCurrentSubject(currentSubject));
+        dispatch(clearQuizzes());
       }
       dispatch(clearState());
       navigate(RouteUrls.Subject);
