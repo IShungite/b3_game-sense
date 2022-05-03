@@ -5,14 +5,14 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { IProduct } from "models/products/products";
-import React, { useEffect } from "react";
-import { buyProduct, CharacterStatus, clearState } from "reducers/characterSlice";
+import React from "react";
+import { buyProduct } from "reducers/characterSlice";
 import getItemImage from "utils/items";
 
 export default function Product({ product }: { product: IProduct }) {
   const imageSrc = getItemImage(product.itemId);
   const dispatch = useAppDispatch();
-  const { currentCharacter, itemErrorMessage, itemStatus } = useAppSelector((state) => state.character);
+  const { currentCharacter } = useAppSelector((state) => state.character);
 
   const data = {
     characterId: currentCharacter?._id ?? "",
@@ -25,19 +25,6 @@ export default function Product({ product }: { product: IProduct }) {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     dispatch(buyProduct(data));
   }
-
-  useEffect(() => {
-    if (itemStatus === CharacterStatus.Finished) {
-      dispatch(clearState());
-    }
-  }, [dispatch, itemStatus]);
-
-  useEffect(
-    () => () => {
-      dispatch(clearState());
-    },
-    [dispatch],
-  );
 
   return (
     <Card variant="outlined" sx={{ maxWidth: 150 }}>
@@ -64,8 +51,6 @@ export default function Product({ product }: { product: IProduct }) {
           Buy
         </Button>
       </CardActions>
-      <Typography>{itemStatus === CharacterStatus.Finished && "Achat réussi."}</Typography>
-      <Typography>{itemErrorMessage}</Typography>
     </Card>
   );
 }
