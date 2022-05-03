@@ -134,6 +134,7 @@ const characterSlice = createSlice({
       })
       .addCase(updateCharacter.fulfilled, (state, { payload }) => {
         state.updateStatus = CharacterStatus.Finished;
+        state.characters = state.characters.map((character) => (character._id === payload._id ? payload : character));
         state.currentCharacter = payload;
       })
       .addCase(updateCharacter.rejected, (state, { payload }) => {
