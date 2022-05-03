@@ -51,7 +51,7 @@ export default function AppBar() {
       pagesLeft.push({ name: "Accueil", url: RouteUrls.Home });
       pagesLeft.push({ name: "Statistiques", url: RouteUrls.Statistics });
       pagesLeft.push({ name: "Magasins", url: RouteUrls.Shops });
-      pagesLeft.push({ name: "Inventaire", url: RouteUrls.Inventory });
+      // pagesLeft.push({ name: "Inventaire", url: RouteUrls.Inventory });
     }
   } else {
     pagesLeft.push({ name: "Accueil", url: RouteUrls.Index });
