@@ -28,8 +28,10 @@ export default function ShopContent() {
     if (itemStatus === CharacterStatus.Finished) {
       alert("Achat effectué");
       dispatch(clearState());
+    } else if (itemStatus === CharacterStatus.Error) {
+      alert(itemErrorMessage);
     }
-  }, [dispatch, itemStatus]);
+  }, [dispatch, itemErrorMessage, itemStatus]);
 
   useEffect(
     () => () => {
