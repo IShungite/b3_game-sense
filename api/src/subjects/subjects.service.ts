@@ -28,7 +28,6 @@ export class SubjectsService {
   }
 
   getProfessorSubjects(professorId: string) {
-    console.log(professorId);
     return this.subjectModel.find({ professorId });
   }
 

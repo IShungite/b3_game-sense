@@ -10,7 +10,7 @@ export class VerifyOwnedCharacterGuards implements CanActivate {
     const { user, body }: { user: IUserRequest; body: any } = context.switchToHttp().getRequest();
 
     const character = await this.characterService.findOne({
-      _id: body.character_id,
+      _id: body.characterId,
       userId: user.id,
       promotionId: body.promotionId,
     });

@@ -25,6 +25,7 @@ export default function CreateSubjectForm() {
     name: "",
     promotionId: currentPromotion?._id || "",
     professorId: "",
+    semester: 1,
   };
   const {
     register: registerFormField,
@@ -89,6 +90,17 @@ export default function CreateSubjectForm() {
                 value: user._id,
               }))}
               defaultValue=""
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              label="Semestre"
+              variant="outlined"
+              type="number"
+              error={Boolean(errors.semester)}
+              defaultValue={initialFormValues.semester}
+              helperText={errors.semester?.message}
+              {...registerFormField("semester")}
             />
           </Grid>
           <Grid item>

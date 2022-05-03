@@ -38,8 +38,8 @@ export class CharactersService {
     return createdCharacter.save();
   }
 
-  findAll(user: IUserRequest): Promise<Character[]> {
-    return this.characterModel.find({ userId: user.id }).exec();
+  findAll(userId: string): Promise<Character[]> {
+    return this.characterModel.find({ userId }).exec();
   }
 
   async findOne(findOptions?: FilterQuery<Character>): Promise<Character> {

@@ -23,7 +23,7 @@ export class CharactersController {
 
   @Get()
   findAll(@GetUser() user: IUserRequest) {
-    return this.charactersService.findAll(user);
+    return this.charactersService.findAll(user.id);
   }
 
   @Get(":id")

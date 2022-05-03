@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { FilterQuery, Model } from "mongoose";
+import average from "src/utils/average";
 import { CreateGradeDto } from "./dto/create-grade.dto";
 import { UpdateGradeDto } from "./dto/update-grade.dto";
 import { Grade } from "./schemas/grade.schema";
@@ -19,7 +20,7 @@ export class GradesService {
   findAllbyStudentID(id: string) {
     return this.gradeModel
       .find({
-        character_id: id,
+        characterId: id,
       })
       .exec();
   }
@@ -29,6 +30,7 @@ export class GradesService {
 
     return this.gradeModel.find({ ...findOptions }).exec();
   }
+
   findOne(id: number) {
     return `This action returns a #${id} grade`;
   }
@@ -40,20 +42,8 @@ export class GradesService {
   remove(id: number) {
     return `This action removes a #${id} grade`;
   }
-  async average(character_id: string) {
-    const grades = await this.findAll({ character_id: character_id });
-
-    if (grades.length === 0) {
-      return 0;
-    }
-
-    let sum_grades = 0;
-    let res = 0;
-
-    grades.map((grade) => {
-      sum_grades += grade.grade;
-    });
-    res = sum_grades / grades.length;
-    return res;
+  async totalAverage(characterId: string) {
+    const grades = await this.findAll({ characterId: characterId });
+    return average(grades);
   }
 }

@@ -18,6 +18,9 @@ export class Subject {
 
   @Prop({ type: SchemaTypes.ObjectId, ref: "User" })
   professorId: User;
+
+  @Prop({ type: Number, required: true })
+  semester: number;
 }
 
 export const SubjectSchema = SchemaFactory.createForClass(Subject);
