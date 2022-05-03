@@ -1,10 +1,4 @@
 {
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
-  },
-
   "parserOptions": {
     "project": ["tsconfig.json"],
     "ecmaVersion": "latest",
@@ -12,6 +6,29 @@
     "ecmaFeatures": {
       "jsx": true
     }
+  },
+
+  "rules": {
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state", "req"]
+      }
+    ],
+    "react/jsx-props-no-spreading": [
+      "error",
+      {
+        "exceptions": ["TextField", "Button", "FormProvider"]
+      }
+    ],
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ],
+    "no-underscore-dangle": "off"
   },
 
   "plugins": ["@typescript-eslint", "react", "react-hooks"],
