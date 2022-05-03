@@ -10,11 +10,13 @@ interface SchoolState {
   schools: ISchool[];
   errorMessage?: string;
   status: FetchStatus;
+  createStatus: FetchStatus;
   currentSchool?: ISchool;
 }
 
 const initialSchool: SchoolState = {
   status: FetchStatus.None,
+  createStatus: FetchStatus.None,
   schools: [],
 };
 
@@ -51,6 +53,7 @@ const schoolSlice = createSlice({
     clearState: (state) => {
       state.errorMessage = undefined;
       state.status = FetchStatus.None;
+      state.createStatus = FetchStatus.None;
     },
     setCurrentSchool: (state, action: PayloadAction<ISchool>) => {
       state.currentSchool = action.payload;
@@ -76,14 +79,14 @@ const schoolSlice = createSlice({
         state.errorMessage = payload;
       })
       .addCase(createSchool.pending, (state) => {
-        state.status = FetchStatus.Loading;
+        state.createStatus = FetchStatus.Loading;
       })
       .addCase(createSchool.fulfilled, (state, { payload }) => {
-        state.status = FetchStatus.Finished;
+        state.createStatus = FetchStatus.Finished;
         state.schools = [...state.schools, payload];
       })
       .addCase(createSchool.rejected, (state, { payload }) => {
-        state.status = FetchStatus.Error;
+        state.createStatus = FetchStatus.Error;
 
         state.errorMessage = payload;
       });

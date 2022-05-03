@@ -16,7 +16,7 @@ type DirectorType = { label: string; value: string };
 export default function CreateSchool() {
   const dispatch = useAppDispatch();
 
-  const { status, errorMessage } = useAppSelector((state) => state.school);
+  const { createStatus, errorMessage } = useAppSelector((state) => state.school);
 
   const [directors, setDirectors] = useState<IUser[]>([]);
 
@@ -53,12 +53,12 @@ export default function CreateSchool() {
   }, []);
 
   useEffect(() => {
-    if (status === FetchStatus.Finished) {
+    if (createStatus === FetchStatus.Finished) {
       reset();
       dispatch(clearState());
       alert("School created");
     }
-  }, [dispatch, reset, status]);
+  }, [dispatch, reset, createStatus]);
 
   return (
     <>
