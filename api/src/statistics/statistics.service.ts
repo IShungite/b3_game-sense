@@ -69,8 +69,8 @@ export class StatisticsService {
   }
 
   async getComparisonCharacters(characterId: string) {
-    const currentCharacter = await this.charactersService.findOne({ characterId });
-
+    const currentCharacter = await this.charactersService.findOne({ _id: characterId });
+    console.log("currentCharacter", currentCharacter, "characterId", characterId);
     const currentAllCharacters = await this.charactersService.findAll(currentCharacter.userId.toString());
 
     const averageCurrentCharacter = await this.gradesService.totalAverage(currentCharacter._id.toString());
