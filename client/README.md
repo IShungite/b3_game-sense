@@ -44,3 +44,17 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+Accounts:
+
+student1@gmail.com
+student2@gmail.com
+student3@gmail.com
+student4@gmail.com
+
+professor1@gmail.com
+professor2@gmail.com
+professor3@gmail.com
+
+director1@gmail.com
+director2@gmail.com
