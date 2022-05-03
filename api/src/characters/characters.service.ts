@@ -101,8 +101,10 @@ export class CharactersService {
   async buyItem(characterId: string, productId: string) {
     const product = await this.productsService.findOne(productId);
     if (!product) throw new NotFoundException("Product not found.");
+
     const updatedCharacter = await this.updateGold(characterId, product.price);
-    this.inventoriesService.addItem({
+
+    await this.inventoriesService.addItem({
       characterId,
       itemId: product.itemId.toString(),
     });

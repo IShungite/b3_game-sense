@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { clearState, createAnswer } from "reducers/answerSlice";
+import { updateCharacter } from "reducers/characterSlice";
 
 export default function AnswerQuiz() {
   const dispatch = useAppDispatch();
@@ -57,11 +58,16 @@ export default function AnswerQuiz() {
   }, [quizId]);
 
   useEffect(() => {
-    if (status === FetchStatus.Finished) {
+    if (status === FetchStatus.Finished && currentCharacter?._id) {
       dispatch(clearState());
+
+      // Update current character to update gold
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      dispatch(updateCharacter({ characterId: currentCharacter?._id, updateCharacterDto: {} }));
+
       navigate(RouteUrls.Home);
     }
-  }, [dispatch, navigate, status]);
+  }, [currentCharacter?._id, dispatch, navigate, status]);
 
   const onSubmit = (data: CreateAnswerDto) => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
